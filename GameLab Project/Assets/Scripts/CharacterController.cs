@@ -8,9 +8,15 @@ public class CharacterController : MonoBehaviour
 
     public LayerMask layerMask;
 
-    public float moveSpeed = 5;
-
     RayOrigins rayOrigins;
+
+    private List<Vector2> waypoints = new List<Vector2>();
+    private float minDistance = 0.1f;
+
+    [SerializeField]
+    private float movementSpeed = 0.1f;
+
+    private bool startedMoving = false;
 
     void Start()
     {
@@ -19,6 +25,9 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        
+        // Arrow Keys Movement
+        /*
         float velocityX;
         float velocityY;
 
@@ -38,14 +47,32 @@ public class CharacterController : MonoBehaviour
         else
         {
             rigidbody2D.velocity = Vector2.zero;
-        }
+        }*/
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateRayOrigins();
+        if (waypoints.Count > 0)
+        {
+            float distance = Vector2.Distance(transform.position, waypoints[0]);
+            CheckDistance(distance);
+            if (waypoints.Count > 0)
+                transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed);
+        }
+        //UpdateRayOrigins();
     }
+
+    private void CheckDistance(float distance)
+    {
+        if (distance <= minDistance)
+        {
+            waypoints.RemoveAt(0);
+        }
+    }
+
+   
 
     private bool Grounded()
     {
@@ -112,5 +139,13 @@ public class CharacterController : MonoBehaviour
     {
         public Vector2 bottomLeft, bottomRight;
         public Vector2 topLeft, topRight;
+    }
+
+    public void SetPath(List<Node> path)
+    {
+        foreach (Node n in path)
+        {
+            this.waypoints.Add(n.worldPosition);
+        }
     }
 }

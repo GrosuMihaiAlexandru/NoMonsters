@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-
     // The player
     public Transform seeker;
     // The destination
@@ -19,7 +18,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        FindPath(seeker.position, target.position);
+        //FindPath(seeker.position, target.position);
     }
 
     void BreadthFirstSearch()
@@ -58,10 +57,23 @@ public class Pathfinding : MonoBehaviour
             }
         }
 
-        
+        RetracePath(startNode, maxNode);
         Debug.Log(maxNode.worldPosition);
 
+    }
 
+    void RetracePath(Node startNode, Node endNode)
+    {
+        List<Node> path = new List<Node>();
+        Node currentNode = endNode;
+
+        while (currentNode != startNode)
+        {
+            path.Add(currentNode);
+            currentNode = currentNode.parent;
+        }
+        path.Reverse();
+        seeker.GetComponent<CharacterController>().SetPath(path);
     }
 
     // A* pathfinding
@@ -103,21 +115,6 @@ public class Pathfinding : MonoBehaviour
             }
 
         }
-    }
-
-    void RetracePath(Node startNode, Node endNode)
-    {
-        List<Node> path = new List<Node>();
-        Node currentNode = endNode;
-
-        while (currentNode != startNode)
-        {
-            path.Add(currentNode);
-            currentNode = currentNode.parent;
-        }
-        path.Reverse();
-
-        grid.path = path;
     }
 
     // Calculating Manhattan Distance (Heuristic for A*)
