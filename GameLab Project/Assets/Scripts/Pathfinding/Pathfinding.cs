@@ -18,6 +18,8 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
+        if (Vector2.Distance(transform.position, seeker.position) >= 15)
+            transform.position += new Vector3(transform.position.x, transform.position.y + 15, transform.position.z);
         //FindPath(seeker.position, target.position);
     }
 

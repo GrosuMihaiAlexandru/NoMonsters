@@ -18,16 +18,18 @@ public class CharacterController : MonoBehaviour
 
     private bool startedMoving = false;
 
+    float totalYDistanceTravelled = 0;
+
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    /*void FixedUpdate()
     {
         
         // Arrow Keys Movement
-        /*
+        
         float velocityX;
         float velocityY;
 
@@ -47,13 +49,14 @@ public class CharacterController : MonoBehaviour
         else
         {
             rigidbody2D.velocity = Vector2.zero;
-        }*/
+        }
 
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
     {
+
         if (waypoints.Count > 0)
         {
             float distance = Vector2.Distance(transform.position, waypoints[0]);
