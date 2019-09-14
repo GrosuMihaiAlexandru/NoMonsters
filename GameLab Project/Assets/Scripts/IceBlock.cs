@@ -20,9 +20,21 @@ public class IceBlock : MonoBehaviour
 
     private List<GameObject> holograms;
 
+    // For pathfinding
     private GameObject astar;
 
     private bool canCallAstar = false;
+
+    // For melting
+    [SerializeField]
+    private int maxHealth = 100;
+    [SerializeField]
+    private int currentHealth;
+
+    private bool playerOnTop;
+
+    // The interval in seconds when the iceblock takes damage
+    private float dps = 1f;
 
     void Start()
     {
@@ -30,6 +42,8 @@ public class IceBlock : MonoBehaviour
         hologramMax = transform.childCount;
 
         astar = GameObject.Find("A*");
+
+        currentHealth = maxHealth;
 
         holograms = new List<GameObject>();
 
@@ -155,7 +169,28 @@ public class IceBlock : MonoBehaviour
         }
 
     }
+
+    public void StartDamage()
+    {
+        StartCoroutine(DamageOverTimeCoroutine(dps));
+    }
+
+    public void StopDamage()
+    {
+        StopCoroutine(DamageOverTimeCoroutine(dps));
+    }
        
+    // Damages the block when the player is sitting on it
+    IEnumerator DamageOverTimeCoroutine(float duration)
+    {
+        while(true)
+        {
+            currentHealth -= 20;
+            Debug.Log(currentHealth);
+            yield return new WaitForSeconds(duration);
+        }
+            
+    }
 
     // Update is called once per frame
     void FixedUpdate()
