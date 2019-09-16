@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
 
     public LayerMask layerMask;
 
-    RayOrigins rayOrigins;
+    //RayOrigins rayOrigins;
 
     private List<Vector2> waypoints = new List<Vector2>();
     private float minDistance = 0.1f;
@@ -19,6 +19,9 @@ public class CharacterController : MonoBehaviour
     private bool startedMoving = false;
 
     float totalYDistanceTravelled = 0;
+
+    // The block the player is currently sitting on
+    GameObject iceTile;
 
     void Start()
     {
@@ -57,6 +60,7 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
 
+        // Moving from waypoint to waypoint
         if (waypoints.Count > 0)
         {
             float distance = Vector2.Distance(transform.position, waypoints[0]);
@@ -64,9 +68,11 @@ public class CharacterController : MonoBehaviour
             if (waypoints.Count > 0)
                 transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed);
         }
-        //UpdateRayOrigins();
+
+        DamageIceTile();
     }
 
+    // If the distance from waypoint is less than minDistance then the character has reached that waypoint
     private void CheckDistance(float distance)
     {
         if (distance <= minDistance)
@@ -75,8 +81,27 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-   
+    // Damage the ice tile the player is currently sitting on
+    private void DamageIceTile()
+    {
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero);
+
+        if (hit)
+        {
+            if (hit.collider.gameObject.transform.parent.gameObject.tag == "IceBlock")
+            {
+                iceTile = hit.collider.gameObject.transform.parent.gameObject;
+                iceTile.SendMessage("StartDamage");
+            }
+        }
+        else
+        {
+            iceTile.SendMessage("StopDamage");
+        }
+    }
+   
+    /*
     private bool Grounded()
     {
         RaycastHit2D hitBottomLeft = Physics2D.Raycast(rayOrigins.bottomLeft, Vector2.zero);
@@ -143,7 +168,7 @@ public class CharacterController : MonoBehaviour
         public Vector2 bottomLeft, bottomRight;
         public Vector2 topLeft, topRight;
     }
-
+    */
     public void SetPath(List<Node> path)
     {
         foreach (Node n in path)
