@@ -74,7 +74,7 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (targetToFollow.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+         
             transform.position = Vector3.Lerp(transform.position, new Vector3 (transform.position.x, targetToFollow.position.y, transform.position.z) + cameraOffset, cameraSmooth);
     }
     

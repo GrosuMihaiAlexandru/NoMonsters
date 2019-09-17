@@ -5,17 +5,16 @@ using System.Linq;
 
 public class IceBlock : MonoBehaviour
 {
+    public LayerMask defaultLayer;
+
     private Rigidbody2D rigidBody2D;
 
     public GameObject hologram;
 
     private int hologramMax;
-            
-    private float startPosX;
-    private float startPosY;
+
     private bool isBeingHeld = false;
 
-    private bool isFixed = false;
     private bool canSnap = true;
 
     private List<GameObject> holograms;
@@ -24,6 +23,11 @@ public class IceBlock : MonoBehaviour
 
     private bool canCallAstar = false;
 
+    public bool allowRotation = true;
+    public bool limitRotation = false;
+
+    private const int gridWidth = 6;
+
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
@@ -31,8 +35,8 @@ public class IceBlock : MonoBehaviour
 
         astar = GameObject.Find("A*");
 
+        // Creating the holograms for each ice Tile
         holograms = new List<GameObject>();
-
         for (int i = 0; i < hologramMax; i++)
         {
             holograms.Add(Instantiate(hologram));
@@ -42,111 +46,106 @@ public class IceBlock : MonoBehaviour
     void Update()
     {
         // Displaying the Holograms (
-        for (int i = 0; i < transform.childCount; i++)
+        if (holograms.Count > 0)
         {
-            Transform block = transform.GetChild(i);
-            // Holograms always at round numbers
-            Vector3 blockPosition = new Vector3(Mathf.Round(block.position.x), Mathf.Round(block.position.y), 0);
-            holograms[i].transform.position = blockPosition;
-        }
-
-        if (isBeingHeld)
-        {
-            // Rotation
-            if (Input.GetKeyDown(KeyCode.R))
+            for (int i = 0; i < transform.childCount; i++)
             {
-                transform.Rotate(Vector3.forward, 90);
+                Transform block = transform.GetChild(i);
+                // Holograms always at round numbers
+                Vector3 blockPosition = new Vector3(Mathf.Round(block.position.x), Mathf.Round(block.position.y), 0);
+                holograms[i].transform.position = blockPosition;
             }
 
-            // Activating holograms
-            foreach (GameObject hologram in holograms)
+            if (isBeingHeld)
             {
-                hologram.SetActive(true);
 
-                Vector2 position = new Vector2(hologram.transform.position.x, hologram.transform.position.y);
 
-                RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero);
-                RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero);
-                RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero);
-                RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero);
-
-                if (hitUp)
+                foreach (GameObject hologram in holograms)
                 {
-                    if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
+                    hologram.SetActive(true);
+
+                    Vector2 position = new Vector2(hologram.transform.position.x, hologram.transform.position.y);
+
+                    RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero);
+                    RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero);
+                    RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero);
+                    RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero);
+
+                    // Checking if the object can snap
+                    if (hitUp)
                     {
-                        //Debug.Log("Object can snap up");
-                        if (Input.GetMouseButtonUp(0))
+                        if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
                         {
-                            if (canSnap)
+                            //Debug.Log("Object can snap up");
+                            if (Input.GetMouseButtonUp(0))
                             {
-                                canSnap = false;
-                                isFixed = true;
-                                SnapBlock();
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                        }
+                    }
+                    if (hitDown)
+                    {
+                        if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
+                        {
+                            //Debug.Log("Object can snap down");
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                        }
+                    }
+                    if (hitLeft)
+                    {
+                        if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
+                        {
+                            //Debug.Log("Object can snap left");
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                        }
+                    }
+                    if (hitRight)
+                    {
+                        if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player")
+                        {
+                            //Debug.Log("Object can snap right");
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
                             }
                         }
                     }
                 }
-                if (hitDown)
-                {
-                    if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
-                    {
-                        //Debug.Log("Object can snap down");
-                        if (Input.GetMouseButtonUp(0))
-                        {
-                            if (canSnap)
-                            {
-                                canSnap = false;
-                                isFixed = true;
-                                SnapBlock();
-                            }
-                        }   
-                    }
-                }
-                if (hitLeft)
-                {
-                    if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
-                    {
-                        //Debug.Log("Object can snap left");
-                        if (Input.GetMouseButtonUp(0))
-                        {
-                            if (canSnap)
-                            {
-                                canSnap = false;
-                                isFixed = true;
-                                SnapBlock();
-                            }
-                        }
-                    }
-                }
-                if (hitRight)
-                {
-                    if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Players")
-                    {
-                        //Debug.Log("Object can snap right");
-                        if (Input.GetMouseButtonUp(0))
-                        {
-                            if (canSnap)
-                            {
-                                canSnap = false;
-                                isFixed = true;
-                                SnapBlock();
-                            }
-                        }
-                    }
-                }
-            }
 
-        }
-        else
-        {
-            // Disactivating holograms
-            foreach (GameObject hologram in holograms)
+            }
+            else
             {
-                hologram.SetActive(false);
+                // Disactivating holograms
+                foreach (GameObject hologram in holograms)
+                {
+                    hologram.SetActive(false);
+                }
+
             }
-
         }
-
+        // Calling the pathfinding method
         if (canCallAstar)
         {
             canCallAstar = false;
@@ -155,22 +154,65 @@ public class IceBlock : MonoBehaviour
         }
 
     }
-       
 
-    // Update is called once per frame
-    void FixedUpdate()
+    // Rotation
+    public void Rotation()
     {
-        if (isBeingHeld && !isFixed)
+        if (allowRotation)
         {
-           //DisplayPreview();
+            if (limitRotation)
+            {
+                if (transform.rotation.eulerAngles.z >= 90)
+                {
+                    transform.Rotate(0, 0, -90);
+                }
+                else
+                {
+                    transform.Rotate(0, 0, 90);
+                }
+            }
+            else
+            {
+                transform.Rotate(0, 0, 90);
+            }
 
-            Vector3 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            // gameObject.transform.localPosition = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0);
-            rigidBody2D.MovePosition(new Vector2(mousePos.x - startPosX, mousePos.y - startPosY));
+            if (CheckIsValidPosition())
+            {
+
+            }
+            else
+            {
+                if (limitRotation)
+                {
+                    if (transform.rotation.eulerAngles.z >= 90)
+                    {
+                        transform.Rotate(0, 0, -90);
+                    }
+                    else
+                    {
+                        transform.Rotate(0, 0, 90);
+                    }
+                }
+                else
+                {
+                    transform.Rotate(0, 0, -90);
+                }
+            }
+
+            foreach(Transform t in transform)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, defaultLayer);
+                if (hit)
+                {
+                    if (hit.collider.tag == "FixedBlock")
+                        transform.Rotate(0, 0, -90);
+                }
+            }
+
         }
     }
 
+    // Snaps the blocks in place and they become fixed after that
     private void SnapBlock()
     {
         // Destroy the rigidbody so that it won't move after it snapped
@@ -178,18 +220,55 @@ public class IceBlock : MonoBehaviour
         
         for (int i = 0; i < transform.childCount; i++)
         {
+            //Debug.Log(holograms[i].transform.position);
             Transform block = transform.GetChild(i);
             // Place each block in it's coresponding hologram position
-            block.position = holograms[i].transform.position;
+            //block.position = holograms[i].transform.position;
             // Change the tag of each block to "FixedBlock"
             block.tag = "FixedBlock";
             block.GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f);
         }
-        // Update walkable Grid
+        // Destroy all the holograms
+        foreach (GameObject o in holograms)
+        {
+            Destroy(o);
+        }
+        holograms.Clear();
+        // Center the object
+        transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), transform.position.z);
+        allowRotation = false;
     }
 
-    private void DetectClick()
+    // The player has started moving the block
+    private void HoldStarted()
     {
+        Debug.Log("hold started");
+        isBeingHeld = true;
+        // Making the collider smaller during dragging to make them easier to move
+        foreach (Transform block in transform)
+        {
+            block.GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 0.7f);
+        }
+    }
+
+    // The player stopped moving the block
+    private void HoldEnded()
+    {
+        isBeingHeld = false;
+        if (canSnap == false)
+        {
+            transform.tag = "FixedBlock";
+            canCallAstar = true;
+        }
+
+        // Returning the collider size to it's initial value
+        foreach (Transform block in transform)
+        {
+            block.GetComponent<BoxCollider2D>().size = new Vector2(1.1f, 1.1f);
+        }
+    }
+        // Mouse Controlls
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -205,38 +284,36 @@ public class IceBlock : MonoBehaviour
             if (canSnap == false)
                 canCallAstar = true;
 
-        }
-    }
-    /*
-    private void DisplayPreview()
+        }*/
+
+        // Touch Controlls
+
+
+    bool CheckIsInsideGrid (Vector2 pos)
     {
-            for (int i = 0; i < transform.childCount; i++)
+    return ((int)pos.x >= 1 && (int)pos.x <= gridWidth);
+    }
+
+    public Vector2 Round(Vector2 pos)
+    {
+        return new Vector2(Mathf.Round(pos.x), Mathf.Round(pos.y));
+    }
+
+    bool CheckIsValidPosition()
+    {
+        foreach (Transform child in transform)
+        {
+            Vector2 pos = Round(child.position);
+
+            if (CheckIsInsideGrid(pos) == false)
             {
-            Transform block = transform.GetChild(i);
-            Debug.Log(i);
-            Vector3 blockPosition = new Vector3(Mathf.Round(block.position.x), Mathf.Round(block.position.y), 0);
-            if (hologramCount < hologramMax)
-            {
-                hologramCount++;
-                Instantiate(hologram);
-                hologram.transform.position = blockPosition;
+                return false;
             }
+
         }
-    }*/
-    /*
-    private bool HologramAtPosition(Vector3 pos)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(pos.x, pos.y), Vector2.zero, 0, hologramMask);
-        if (hit)
-        {
-            Debug.Log("Obj in place");
-            return true;
-        }
-        else
-        {
-            Debug.Log("No obj in place");
-            return false;
-        }
+        return true;
     }
-    */
+
+
 }
+

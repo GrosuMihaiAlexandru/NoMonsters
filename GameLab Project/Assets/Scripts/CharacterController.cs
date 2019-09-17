@@ -16,10 +16,6 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 0.1f;
 
-    private bool startedMoving = false;
-
-    float totalYDistanceTravelled = 0;
-
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -64,8 +60,24 @@ public class CharacterController : MonoBehaviour
             if (waypoints.Count > 0)
                 transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed);
         }
-        //UpdateRayOrigins();
-    }
+
+        // Detecting what the player is on
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 0, layerMask);
+        if (hit)
+        {
+            // Notify the object the player is on
+            if (hit.collider.gameObject.transform.parent.gameObject.layer == 8)
+            {
+                GameObject obj = hit.collider.gameObject.transform.parent.gameObject;
+                //Debug.Log(obj.transform.position);
+                obj.SendMessage("PlayerOnTop", GetComponent<Rigidbody2D>().velocity);
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }   
 
     private void CheckDistance(float distance)
     {
@@ -74,8 +86,6 @@ public class CharacterController : MonoBehaviour
             waypoints.RemoveAt(0);
         }
     }
-
-   
 
     private bool Grounded()
     {
