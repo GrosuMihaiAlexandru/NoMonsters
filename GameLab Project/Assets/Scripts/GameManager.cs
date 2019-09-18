@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-  
+
+    CharacterController player;
+
     // Game is paused if true
     public bool gamePaused;
 
@@ -22,10 +24,13 @@ public class GameManager : MonoBehaviour
     // The last time the globalTemperature was updated
     private float lastUpdateTime;
 
+    private int score = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<CharacterController>();
         globalTemperature = initialTemperature;
         lastUpdateTime = Time.time;
     }
@@ -36,6 +41,8 @@ public class GameManager : MonoBehaviour
         if (!gamePaused)
         {
             float time = Time.time;
+
+            score = (int) player.transform.position.y * 100;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
             if (time - lastUpdateTime >= temperatureUpdateTime)
@@ -64,4 +71,6 @@ public class GameManager : MonoBehaviour
             globalTemperature = value;
         }
     }
+
+    public int Score { get; set; }
 }
