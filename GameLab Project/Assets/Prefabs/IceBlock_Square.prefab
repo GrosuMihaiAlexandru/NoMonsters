@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3331291496069424216}
   - component: {fileID: 1448236176080791473}
   - component: {fileID: 7192357501718636925}
+  - component: {fileID: 7991412867211785466}
   m_Layer: 8
   m_Name: IceBlock_Square
   m_TagString: IceBlock
@@ -69,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73bfd01a5cef0742917a43cd2d58092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 100
 --- !u!50 &1448236176080791473
 Rigidbody2D:
   serializedVersion: 4
@@ -138,6 +140,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!95 &7991412867211785466
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217673299567424993}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e92b87304615df34cbf389e0624f276e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &262204370362278601
 PrefabInstance:
   m_ObjectHideFlags: 0

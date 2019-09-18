@@ -6,13 +6,16 @@ using UnityEngine;
 /// Manages the Iceblock health and damages them based on the amount of time the player has stayed on them and on the globalTemperature
 /// As the global temperature increases the player damages the ice faster
 /// Walking on the ice can't damage it, only standing still on it
+/// This script also handles the animation of IceBlocks based on their health
 /// </summary>
 public class IceBlockLife : MonoBehaviour
 {
 
-    GameManager game;
+    private GameManager game;
+    private Animator animator;
 
     private int maxHealth = 100;
+    [SerializeField]
     private int currentHealth;
 
     // The ice can't be damaged if true
@@ -43,6 +46,8 @@ public class IceBlockLife : MonoBehaviour
     {
         currentHealth = maxHealth;
         game = GameObject.Find("GameManager").GetComponent<GameManager>();
+        animator = GetComponent<Animator>();
+        animator.SetInteger("Health", currentHealth);
     }
 
     private void Update()
@@ -65,6 +70,11 @@ public class IceBlockLife : MonoBehaviour
                         StartCoroutine(DamageIce());
                 }
                 
+            }
+            else
+            {
+                StopCoroutine(DamageIce());
+                coroutineStarted = false;
             }
             if (currentHealth < 0)
             {
@@ -121,7 +131,8 @@ public class IceBlockLife : MonoBehaviour
         {
             int damage = (int)(baseDamage * damageMultiplier);
             currentHealth -= damage;
-            Debug.Log("Health: " + currentHealth + " DamageAmount: " + damage + "Temperature: " + game.GlobalTemperature);
+            animator.SetInteger("Health", currentHealth);
+            Debug.Log("Health: " + currentHealth + " DamageAmount: " + damage + "Temperature: " + game.GlobalTemperature + " Score: " + game.Score);
             if (currentHealth <= 0)
                 break;
             yield return new WaitForSeconds(1f);
