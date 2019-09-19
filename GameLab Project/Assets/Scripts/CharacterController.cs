@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
 
     public LayerMask layerMask;
 
-    RayOrigins rayOrigins;
+    private Animator animator;
 
     private List<Vector2> waypoints = new List<Vector2>();
     private float minDistance = 0.1f;
@@ -19,6 +19,8 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        animator.enabled = false;
     }
 
     /*void FixedUpdate()
@@ -52,13 +54,20 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (waypoints.Count > 0)
         {
             float distance = Vector2.Distance(transform.position, waypoints[0]);
             CheckDistance(distance);
             if (waypoints.Count > 0)
-                transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed);
+            {
+                animator.enabled = true;
+                //Rotate(waypoints[0]);
+                transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            animator.enabled = false;
         }
 
         // Detecting what the player is on
@@ -79,6 +88,30 @@ public class CharacterController : MonoBehaviour
         }
     }   
 
+    private void Rotate(Vector2 targetPos)
+    {
+        // Face forward
+        transform.rotation = Quaternion.identity;
+        Vector2 currentPos = transform.position; 
+        // Turn right
+        if (currentPos.x < targetPos.x)
+        {
+            transform.Rotate(0, 0, -90);
+            return;
+        }
+        // Turn left
+        if (currentPos.x > targetPos.x)
+        {
+            transform.Rotate(0, 0, 90);
+            return;
+        }
+        // Turn back
+        if (currentPos.y > targetPos.y)
+        {
+            transform.Rotate(0, 0, 180);
+        }
+    }
+
     private void CheckDistance(float distance)
     {
         if (distance <= minDistance)
@@ -87,6 +120,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    /*
     private bool Grounded()
     {
         RaycastHit2D hitBottomLeft = Physics2D.Raycast(rayOrigins.bottomLeft, Vector2.zero);
@@ -101,6 +135,7 @@ public class CharacterController : MonoBehaviour
     }
 
     // X axis
+    
     private void HorizontalGround(ref Vector2 velocity)
     {
         float directionX = Mathf.Sign(velocity.x);
@@ -137,6 +172,7 @@ public class CharacterController : MonoBehaviour
             velocity -= new Vector2(velocity.x, velocity.y + offset);
         }
     }
+    
 
     private void UpdateRayOrigins()
     {
@@ -153,7 +189,7 @@ public class CharacterController : MonoBehaviour
         public Vector2 bottomLeft, bottomRight;
         public Vector2 topLeft, topRight;
     }
-
+    */
     public void SetPath(List<Node> path)
     {
         foreach (Node n in path)

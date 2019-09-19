@@ -40,7 +40,7 @@ public class ClickManager : MonoBehaviour
                             for (int i = 0; i < iceBlock.transform.childCount; i++)
                             {
                                 Transform t = iceBlock.transform.GetChild(i);
-                                Debug.Log(t.position);
+                                //Debug.Log(t.position);
                                 //t.GetComponent<BoxCollider2D>().size = new Vector2(0.8f, 0.8f);
                             }
                             // get the offset between position you touches
@@ -76,7 +76,6 @@ public class ClickManager : MonoBehaviour
                     // when touch is ended
                     moveAllowed = false;
                     // Tell the object that holding has ended
-                    iceBlock.SendMessage("HoldEnded");
                     break;
             }
 

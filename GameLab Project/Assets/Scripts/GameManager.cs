@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    CharacterController player;
+    public CharacterController player;
 
     // Game is paused if true
     public bool gamePaused;

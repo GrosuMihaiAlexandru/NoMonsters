@@ -58,8 +58,10 @@ public class IceBlock : MonoBehaviour
 
             if (isBeingHeld)
             {
+                Touch touch = Input.GetTouch(0);
 
-
+                if (touch.phase == TouchPhase.Ended)
+                    HoldEnded();
                 foreach (GameObject hologram in holograms)
                 {
                     hologram.SetActive(true);
@@ -76,9 +78,10 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
                         {
-                            //Debug.Log("Object can snap up");
-                            if (Input.GetMouseButtonUp(0))
+                            Debug.Log("Object can snap up");
+                            if (touch.phase == TouchPhase.Ended)
                             {
+                                Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
@@ -91,9 +94,10 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
                         {
-                            //Debug.Log("Object can snap down");
-                            if (Input.GetMouseButtonUp(0))
+                            Debug.Log("Object can snap down");
+                            if (touch.phase == TouchPhase.Ended)
                             {
+                                Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
@@ -106,9 +110,10 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
                         {
-                            //Debug.Log("Object can snap left");
-                            if (Input.GetMouseButtonUp(0))
+                            Debug.Log("Object can snap left");
+                            if (touch.phase == TouchPhase.Ended)
                             {
+                                Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
@@ -121,9 +126,10 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player")
                         {
-                            //Debug.Log("Object can snap right");
-                            if (Input.GetMouseButtonUp(0))
+                            Debug.Log("Object can snap right");
+                            if (touch.phase == TouchPhase.Ended)
                             {
+                                Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
@@ -198,7 +204,7 @@ public class IceBlock : MonoBehaviour
                     transform.Rotate(0, 0, -90);
                 }
             }
-
+            /*
             foreach(Transform t in transform)
             {
                 RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, defaultLayer);
@@ -208,7 +214,7 @@ public class IceBlock : MonoBehaviour
                         transform.Rotate(0, 0, -90);
                 }
             }
-
+            */
         }
     }
 
@@ -217,7 +223,7 @@ public class IceBlock : MonoBehaviour
     {
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
-        
+        Debug.Log("Object Snapped");
         for (int i = 0; i < transform.childCount; i++)
         {
             //Debug.Log(holograms[i].transform.position);
@@ -237,12 +243,13 @@ public class IceBlock : MonoBehaviour
         // Center the object
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), transform.position.z);
         allowRotation = false;
+        HoldEnded();
     }
 
     // The player has started moving the block
-    private void HoldStarted()
+    public void HoldStarted()
     {
-        Debug.Log("hold started");
+        //Debug.Log("hold started");
         isBeingHeld = true;
         // Making the collider smaller during dragging to make them easier to move
         foreach (Transform block in transform)
@@ -252,7 +259,7 @@ public class IceBlock : MonoBehaviour
     }
 
     // The player stopped moving the block
-    private void HoldEnded()
+    public void HoldEnded()
     {
         isBeingHeld = false;
         if (canSnap == false)

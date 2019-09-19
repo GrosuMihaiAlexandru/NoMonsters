@@ -132,7 +132,7 @@ public class IceBlockLife : MonoBehaviour
             int damage = (int)(baseDamage * damageMultiplier);
             currentHealth -= damage;
             animator.SetInteger("Health", currentHealth);
-            Debug.Log("Health: " + currentHealth + " DamageAmount: " + damage + "Temperature: " + game.GlobalTemperature + " Score: " + game.Score);
+            //Debug.Log("Health: " + currentHealth + " DamageAmount: " + damage + "Temperature: " + game.GlobalTemperature + " Score: " + game.Score);
             if (currentHealth <= 0)
                 break;
             yield return new WaitForSeconds(1f);
