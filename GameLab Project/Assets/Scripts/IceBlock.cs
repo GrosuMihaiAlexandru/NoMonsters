@@ -58,9 +58,13 @@ public class IceBlock : MonoBehaviour
 
             if (isBeingHeld)
             {
+#if UNITY_ANDROID
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Ended)
+                    HoldEnded();
+#endif
+                if (Input.GetMouseButtonUp(0))
                     HoldEnded();
                 foreach (GameObject hologram in holograms)
                 {
@@ -78,64 +82,116 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
                         {
-                            Debug.Log("Object can snap up");
+                            //Debug.Log("Object can snap up");
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
-                                Debug.Log(canSnap);
+                               // Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
                                     SnapBlock();
                                 }
                             }
+#endif
+#if UNITY_IOS
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                // Debug.Log(canSnap);
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+#endif
                         }
                     }
                     if (hitDown)
                     {
                         if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
                         {
-                            Debug.Log("Object can snap down");
+                            //Debug.Log("Object can snap down");
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
-                                Debug.Log(canSnap);
+                                //Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
                                     SnapBlock();
                                 }
                             }
+#endif
+#if UNITY_IOS
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                // Debug.Log(canSnap);
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                            #endif
                         }
                     }
                     if (hitLeft)
                     {
                         if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
                         {
-                            Debug.Log("Object can snap left");
+                            //Debug.Log("Object can snap left");
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
-                                Debug.Log(canSnap);
+                               // Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
                                     SnapBlock();
                                 }
                             }
+#endif
+#if UNITY_IOS
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                // Debug.Log(canSnap);
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+#endif
                         }
                     }
                     if (hitRight)
                     {
                         if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player")
                         {
-                            Debug.Log("Object can snap right");
+                            //Debug.Log("Object can snap right");
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
-                                Debug.Log(canSnap);
+                                //Debug.Log(canSnap);
                                 if (canSnap)
                                 {
                                     canSnap = false;
                                     SnapBlock();
                                 }
                             }
+#endif
+#if UNITY_IOS
+                            if (Input.GetMouseButtonUp(0))
+                            {
+                                // Debug.Log(canSnap);
+                                if (canSnap)
+                                {
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+#endif
                         }
                     }
                 }

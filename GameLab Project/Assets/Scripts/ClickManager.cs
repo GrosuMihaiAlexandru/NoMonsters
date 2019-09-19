@@ -16,6 +16,8 @@ public class ClickManager : MonoBehaviour
     // object movement not allowed if you touches not the ball at the first time
     bool moveAllowed = false;
 
+    bool isBeingHeld = false;
+
      void Update()
      {
         if (Input.touchCount > 0)
@@ -24,6 +26,7 @@ public class ClickManager : MonoBehaviour
             // get touch to take a deal with
             Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
             RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
+
 
             switch (touch.phase)
             {
@@ -86,8 +89,44 @@ public class ClickManager : MonoBehaviour
                     iceBlock.SendMessage("Rotation");
             }
         }
+#if UNITY_IOS
+        
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButtonDown(0))
+        {
+            // get touch to take a deal with
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+
+            if (hit && !isBeingHeld)
+            {
+                //Debug.Log("BeganHit");
+                if (hit.collider.gameObject.transform.parent.gameObject.tag == "IceBlock")
+                {
+                    iceBlock = hit.collider.gameObject.transform.parent.gameObject;
+                    isBeingHeld = true;
+                    deltaX = pos.x - iceBlock.transform.position.x;
+                    deltaY = pos.y - iceBlock.transform.position.y;
+                    iceBlock.SendMessage("HoldStarted");
+                }
+            }
+
+            
+        }
+        if (isBeingHeld)
+        {
+            iceBlock.GetComponent<Rigidbody2D>().MovePosition(new Vector2(pos.x - deltaX, pos.y - deltaY));
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            isBeingHeld = false;            
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+
+            iceBlock.SendMessage("Rotation");
+        }
+        
+#endif
     }
 
-    // Update is called once per frame
-    
 }
