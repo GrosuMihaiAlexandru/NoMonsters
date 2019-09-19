@@ -85,6 +85,8 @@ public class CharacterController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            // Set playerAlive to false
+            GameObject.Find("GameManager").GetComponent<GameManager>().playerAlive = false;
         }
     }   
 

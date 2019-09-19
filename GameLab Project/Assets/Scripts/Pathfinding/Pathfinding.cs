@@ -12,19 +12,26 @@ public class Pathfinding : MonoBehaviour
 
     Grid grid;
 
+    GameManager game;
+
     private void Awake()
     {
         grid = GetComponent<Grid>();
+        game = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
     {
-        if (Vector2.Distance(transform.position, seeker.position) >= 15)
+        if (game.playerAlive)
         {
-            //Debug.Log(transform.position.y + 15f);
-            transform.position = new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z);
+            // Move the grid every 15 blocks along with the player
+            if (Vector2.Distance(transform.position, seeker.position) >= 15)
+            {
+                //Debug.Log(transform.position.y + 15f);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z);
+            }
+            //FindPath(seeker.position, target.position);
         }
-        //FindPath(seeker.position, target.position);
     }
 
     void BreadthFirstSearch()

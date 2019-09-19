@@ -42,26 +42,27 @@ public class LevelSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if the player reached the end of the current level
-        if (game.player.transform.position.y - endOfCurrentLevel >= -0.1f)
+        // Update Levels only while player is still alive
+        if (game.playerAlive)
         {
-            endOfLevelReached = true;
+            // Check if the player reached the end of the current level
+            if (game.player.transform.position.y - endOfCurrentLevel >= -0.1f)
+            {
+                endOfLevelReached = true;
+            }
 
-            
+            // If end of level is reached then update the current level to next level and instantiate the next level
+            if (endOfLevelReached)
+            {
+                Debug.Log("End of Level Reached");
+                endOfLevelReached = false;
+                currentPosition = nextPosition;
+                nextPosition = currentPosition + new Vector2(0, levelLength);
+                Debug.Log(nextPosition);
+                endOfCurrentLevel = (int)(currentPosition.y + levelLength);
+                Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
+            }
         }
-
-        // If end of level is reached then update the current level to next level and instantiate the next level
-        if (endOfLevelReached)
-        {
-            Debug.Log("End of Level Reached");
-            endOfLevelReached = false;
-            currentPosition = nextPosition;
-            nextPosition = currentPosition + new Vector2(0, levelLength);
-            Debug.Log(nextPosition);
-            endOfCurrentLevel = (int)(currentPosition.y + levelLength);
-            Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
-        }
-
     }
 
     public int SelectLevel(int maxLevel)

@@ -52,35 +52,34 @@ public class IceBlockLife : MonoBehaviour
 
     private void Update()
     {
-        if (!game.gamePaused)
-        {
-            CalculateMultiplier(game.GlobalTemperature);
-            if (playerOnTop && playerStandingStill)
-            {
-                // Begin the countdown to detect that the player is standing still for minimumStandingTime
-                if (countdownCanStart)
-                {
-                    countdownCanStart = false;
-                    beganStandingTime = Time.time;
-                }
 
-                if (Time.time - beganStandingTime >= minimumStandingTime)
-                {
-                    if (!coroutineStarted)
-                        StartCoroutine(DamageIce());
-                }
+        CalculateMultiplier(game.GlobalTemperature);
+        if (playerOnTop && playerStandingStill)
+        {
+            // Begin the countdown to detect that the player is standing still for minimumStandingTime
+            if (countdownCanStart)
+            {
+                countdownCanStart = false;
+                beganStandingTime = Time.time;
+            }
+
+            if (Time.time - beganStandingTime >= minimumStandingTime)
+            {
+                if (!coroutineStarted)
+                    StartCoroutine(DamageIce());
+            }
                 
-            }
-            else
-            {
-                StopCoroutine(DamageIce());
-                coroutineStarted = false;
-            }
-            if (currentHealth < 0)
-            {
-                DestroyBlock();
-            }
         }
+        else
+        {
+            StopCoroutine(DamageIce());
+            coroutineStarted = false;
+        }
+        if (currentHealth < 0)
+        {
+            DestroyBlock();
+        }
+        
     }
 
     private void CalculateMultiplier(int temperature)

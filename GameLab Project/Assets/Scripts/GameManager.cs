@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 
     public CharacterController player;
 
-    // Game is paused if true
-    public bool gamePaused;
+    // Game over if false
+    public bool playerAlive = true;
 
     // The globalTemperature starting point
     private int initialTemperature = -41;
@@ -33,16 +33,17 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<CharacterController>();
         globalTemperature = initialTemperature;
         lastUpdateTime = Time.time;
+        playerAlive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gamePaused)
+        if (playerAlive)
         {
             float time = Time.time;
 
-            score = (int) player.transform.position.y * 100;
+            score = (int)player.transform.position.y * 100;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
             if (time - lastUpdateTime >= temperatureUpdateTime)
