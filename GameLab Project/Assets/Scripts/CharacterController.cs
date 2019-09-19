@@ -61,7 +61,8 @@ public class CharacterController : MonoBehaviour
             if (waypoints.Count > 0)
             {
                 animator.enabled = true;
-                //Rotate(waypoints[0]);
+                Vector2 direction = new Vector2(waypoints[0].x - transform.position.x, waypoints[0].y - transform.position.y);
+                transform.up = direction    ;
                 transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
             }
         }
@@ -89,29 +90,10 @@ public class CharacterController : MonoBehaviour
             GameObject.Find("GameManager").GetComponent<GameManager>().playerAlive = false;
         }
     }   
-
+    
     private void Rotate(Vector2 targetPos)
     {
-        // Face forward
-        transform.rotation = Quaternion.identity;
-        Vector2 currentPos = transform.position; 
-        // Turn right
-        if (currentPos.x < targetPos.x)
-        {
-            transform.Rotate(0, 0, -90);
-            return;
-        }
-        // Turn left
-        if (currentPos.x > targetPos.x)
-        {
-            transform.Rotate(0, 0, 90);
-            return;
-        }
-        // Turn back
-        if (currentPos.y > targetPos.y)
-        {
-            transform.Rotate(0, 0, 180);
-        }
+        
     }
 
     private void CheckDistance(float distance)
