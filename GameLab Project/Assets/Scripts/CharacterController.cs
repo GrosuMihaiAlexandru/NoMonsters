@@ -13,6 +13,8 @@ public class CharacterController : MonoBehaviour
     private List<Vector2> waypoints = new List<Vector2>();
     private float minDistance = 0.1f;
 
+    public GameObject gameOverScreen;
+
     [SerializeField]
     private float movementSpeed = 0.1f;
 
@@ -88,6 +90,7 @@ public class CharacterController : MonoBehaviour
             Destroy(gameObject);
             // Set playerAlive to false
             GameObject.Find("GameManager").GetComponent<GameManager>().playerAlive = false;
+            gameOverScreen.SetActive(true);
         }
     }   
     
