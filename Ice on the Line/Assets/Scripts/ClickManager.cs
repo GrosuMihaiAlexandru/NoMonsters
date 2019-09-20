@@ -20,7 +20,7 @@ public class ClickManager : MonoBehaviour
 
      void Update()
      {
-        /*
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -89,8 +89,8 @@ public class ClickManager : MonoBehaviour
                 if (t2.phase == TouchPhase.Began)
                     iceBlock.SendMessage("Rotation");
             }
-        }*/
-#if UNITY_ANDROID
+        }
+#if UNITY_IOS
         
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
