@@ -9,9 +9,11 @@ public class IceBlock : MonoBehaviour
 
     private Rigidbody2D rigidBody2D;
 
+    // Reference to prefabs to be instantiated
     public GameObject hologram;
     public GameObject hologram2;
 
+    // Maximum number of holograms depending on block size
     private int hologramMax;
 
     private bool isBeingHeld = false;
@@ -73,8 +75,12 @@ public class IceBlock : MonoBehaviour
 #endif
                 if (Input.GetMouseButtonUp(0))
                     HoldEnded();
+
+                bool changeColor = false;
+
                 foreach (GameObject hologram in holograms)
                 {
+
                     hologram.SetActive(true);
 
                     Vector2 position = new Vector2(hologram.transform.position.x, hologram.transform.position.y);
@@ -89,6 +95,7 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
                         {
+                            changeColor = true;
                             //Debug.Log("Object can snap up");
 #if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
@@ -118,6 +125,7 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
                         {
+                            changeColor = true;
                             //Debug.Log("Object can snap down");
 #if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
@@ -147,6 +155,7 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
                         {
+                            changeColor = true;
                             //Debug.Log("Object can snap left");
 #if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
@@ -176,6 +185,7 @@ public class IceBlock : MonoBehaviour
                     {
                         if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player")
                         {
+                            changeColor = true;
                             //Debug.Log("Object can snap right");
 #if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
@@ -201,6 +211,11 @@ public class IceBlock : MonoBehaviour
 #endif
                         }
                     }
+
+                    if (changeColor)
+                        setColorToGreen();
+                    else
+                        setColorToWhite();
                 }
 
             }
@@ -222,6 +237,22 @@ public class IceBlock : MonoBehaviour
             astar.SendMessage("BreadthFirstSearch");
         }
 
+    }
+
+    private void setColorToGreen()
+    {
+        foreach (var t in holograms)
+        {
+            t.GetComponent<SpriteRenderer>().color = new Color32(77, 229, 84, 255);
+        }
+    }
+
+    private void setColorToWhite()
+    {
+        foreach (var t in holograms)
+        {
+            t.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 
     // Rotation
