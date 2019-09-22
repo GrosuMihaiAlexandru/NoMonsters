@@ -274,7 +274,9 @@ public class IceBlock : MonoBehaviour
             {
                 GameObject temporaryHologram = Instantiate(hologram2);
                 temporaryHologram.transform.position = new Vector3(Mathf.Round(t.position.x), Mathf.Round(t.position.y), 0);
-                Destroy(temporaryHologram, 0.5f);
+                temporaryHologram.SetActive(false);
+                temporaryHolograms.Add(temporaryHologram);
+                Destroy(temporaryHologram, 0.3f);
 
                 RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, defaultLayer);
                 if (hit)
@@ -312,9 +314,15 @@ public class IceBlock : MonoBehaviour
                     }
                 }
             }
-            
+
             if (rotateBack)
+            {
+                foreach(var t in temporaryHolograms)
+                {
+                    t.SetActive(true);
+                }
                 transform.Rotate(0, 0, -90);
+            }
         }
     }
 
