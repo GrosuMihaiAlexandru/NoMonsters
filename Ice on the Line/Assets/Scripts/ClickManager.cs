@@ -20,7 +20,7 @@ public class ClickManager : MonoBehaviour
 
      void Update()
      {
-#if UNITY_IOS
+#if UNITY_ANDROID
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -91,7 +91,7 @@ public class ClickManager : MonoBehaviour
             }
         }
 #endif
-#if UNITY_ANDROID
+#if UNITY_IOS
 
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))

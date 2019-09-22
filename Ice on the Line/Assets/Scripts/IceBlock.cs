@@ -67,7 +67,7 @@ public class IceBlock : MonoBehaviour
 
             if (isBeingHeld)
             {
-#if UNITY_IOS
+#if UNITY_ANDROID
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Ended)
@@ -97,7 +97,7 @@ public class IceBlock : MonoBehaviour
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap up");
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
                                // Debug.Log(canSnap);
@@ -108,7 +108,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -127,7 +127,7 @@ public class IceBlock : MonoBehaviour
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap down");
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 //Debug.Log(canSnap);
@@ -138,7 +138,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -157,7 +157,7 @@ public class IceBlock : MonoBehaviour
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap left");
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
                                // Debug.Log(canSnap);
@@ -168,7 +168,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -187,7 +187,7 @@ public class IceBlock : MonoBehaviour
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap right");
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 //Debug.Log(canSnap);
@@ -198,7 +198,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
