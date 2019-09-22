@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class IceBlockLife : MonoBehaviour
 {
-
+    private BoxCollider2D playerCollider;
     private GameManager game;
     private Animator animator;
 
@@ -26,7 +26,6 @@ public class IceBlockLife : MonoBehaviour
 
     // Check to see if the player is on top of the iceblock
     private bool playerOnTop = false; 
-    private bool playerStandingStill = false;
 
     // The time when the player began standing still
     private float beganStandingTime;
@@ -46,6 +45,9 @@ public class IceBlockLife : MonoBehaviour
     {
         currentHealth = maxHealth;
         game = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        playerCollider = GameObject.Find("Player").GetComponent<BoxCollider2D>();
+
         animator = GetComponent<Animator>();
         animator.SetInteger("Health", currentHealth);
     }
@@ -54,7 +56,7 @@ public class IceBlockLife : MonoBehaviour
     {
 
         CalculateMultiplier(game.GlobalTemperature);
-        if (playerOnTop && playerStandingStill)
+        if (playerOnTop)
         {
             // Begin the countdown to detect that the player is standing still for minimumStandingTime
             if (countdownCanStart)
@@ -68,13 +70,8 @@ public class IceBlockLife : MonoBehaviour
                 if (!coroutineStarted)
                     StartCoroutine(DamageIce());
             }
-                
         }
-        else
-        {
-            StopCoroutine(DamageIce());
-            coroutineStarted = false;
-        }
+
         if (currentHealth <= 0)
         {
             DestroyBlock();
@@ -107,26 +104,16 @@ public class IceBlockLife : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void PlayerOnTop(Vector2 velocity)
+    private void PlayerOnTop()
     {
         playerOnTop = true;
-
-        if (velocity == Vector2.zero)
-        {
-            playerStandingStill = true;
-        }
-        else
-        {
-            playerStandingStill = false;
-            countdownCanStart = true;
-        }
     }
 
     IEnumerator DamageIce()
     {
         coroutineStarted = true;
 
-        while (playerStandingStill)
+        while (playerOnTop)
         {
             int damage = (int)(baseDamage * damageMultiplier);
             currentHealth -= damage;

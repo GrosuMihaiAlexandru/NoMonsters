@@ -11,7 +11,7 @@ public class LevelSelector : MonoBehaviour
 
     GameManager game;
 
-    private int currentLevel;
+    private int currentLevel = -1;
 
     // The positions where the levels will have to be instanciated
     private Vector2 oldPosition;
@@ -81,6 +81,11 @@ public class LevelSelector : MonoBehaviour
     public int SelectLevel(int maxLevel)
     {
         int r = Random.Range(0, maxLevel);
+        while (r == currentLevel)
+        {
+            r = Random.Range(0, maxLevel);
+        }
+        currentLevel = r;
         return r;
     }
  

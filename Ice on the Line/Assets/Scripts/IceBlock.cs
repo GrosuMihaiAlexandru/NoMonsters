@@ -10,6 +10,7 @@ public class IceBlock : MonoBehaviour
     private Rigidbody2D rigidBody2D;
 
     public GameObject hologram;
+    public GameObject hologram2;
 
     private int hologramMax;
 
@@ -64,7 +65,7 @@ public class IceBlock : MonoBehaviour
 
             if (isBeingHeld)
             {
-#if UNITY_ANDROID
+#if UNITY_IOS
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Ended)
@@ -89,7 +90,7 @@ public class IceBlock : MonoBehaviour
                         if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
                         {
                             //Debug.Log("Object can snap up");
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
                             {
                                // Debug.Log(canSnap);
@@ -100,7 +101,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -118,7 +119,7 @@ public class IceBlock : MonoBehaviour
                         if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
                         {
                             //Debug.Log("Object can snap down");
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 //Debug.Log(canSnap);
@@ -129,7 +130,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -147,7 +148,7 @@ public class IceBlock : MonoBehaviour
                         if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
                         {
                             //Debug.Log("Object can snap left");
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
                             {
                                // Debug.Log(canSnap);
@@ -158,7 +159,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -176,7 +177,7 @@ public class IceBlock : MonoBehaviour
                         if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player")
                         {
                             //Debug.Log("Object can snap right");
-#if UNITY_ANDROID
+#if UNITY_IOS
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 //Debug.Log(canSnap);
@@ -187,7 +188,7 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
-#if UNITY_IOS
+#if UNITY_ANDROID
                             if (Input.GetMouseButtonUp(0))
                             {
                                 // Debug.Log(canSnap);
@@ -266,17 +267,54 @@ public class IceBlock : MonoBehaviour
                     transform.Rotate(0, 0, -90);
                 }
             }
-            /*
+
+            bool rotateBack = false;
+            List<GameObject> temporaryHolograms = new List<GameObject>();
             foreach(Transform t in transform)
             {
+                GameObject temporaryHologram = Instantiate(hologram2);
+                temporaryHologram.transform.position = new Vector3(Mathf.Round(t.position.x), Mathf.Round(t.position.y), 0);
+                Destroy(temporaryHologram, 0.5f);
+
                 RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, defaultLayer);
                 if (hit)
                 {
                     if (hit.collider.tag == "FixedBlock")
-                        transform.Rotate(0, 0, -90);
+                    {
+                        rotateBack = true;
+                        
+                        /*
+                        RaycastHit2D up = Physics2D.Raycast(new Vector2(t.position.x, t.position.y + 1), Vector2.zero, 0, defaultLayer);
+                        if (!up)
+                        {
+                            transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+                            break;
+                        }
+                        RaycastHit2D down = Physics2D.Raycast(new Vector2(t.position.x, t.position.y - 1), Vector2.zero, 0, defaultLayer);
+                        if (!down)
+                        {
+                            transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+                            break;
+                        }
+                        RaycastHit2D left = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y), Vector2.zero, 0, defaultLayer);
+                        if (!left)
+                        {
+                            transform.position = new Vector2(transform.position.x - 1, transform.position.y);
+                            break;
+                        }
+                        RaycastHit2D right = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y), Vector2.zero, 0, defaultLayer);
+                        if (!right)
+                        {
+                            transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+                            break;
+                        }
+                        */
+                    }
                 }
             }
-            */
+            
+            if (rotateBack)
+                transform.Rotate(0, 0, -90);
         }
     }
 
@@ -301,10 +339,10 @@ public class IceBlock : MonoBehaviour
         {
             Destroy(o);
         }
-        holograms.Clear();
         // Center the object
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), transform.position.z);
         allowRotation = false;
+        holograms.Clear();
         HoldEnded();
     }
 

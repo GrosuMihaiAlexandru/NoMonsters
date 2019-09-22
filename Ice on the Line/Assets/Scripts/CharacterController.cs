@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    new Rigidbody2D rigidbody2D;
-
     public GameObject gameOverScreen;
 
     public LayerMask layerMask;
@@ -16,11 +14,13 @@ public class CharacterController : MonoBehaviour
     private float minDistance = 0.1f;
 
     [SerializeField]
+    private Vector2 velocity;
+
+    [SerializeField]
     private float movementSpeed = 0.1f;
 
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animator.enabled = false;
     }
@@ -65,7 +65,8 @@ public class CharacterController : MonoBehaviour
                 animator.enabled = true;
                 Vector2 direction = new Vector2(waypoints[0].x - transform.position.x, waypoints[0].y - transform.position.y);
                 transform.up = direction    ;
-                transform.position = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
+                velocity = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
+                transform.position = velocity;
             }
         }
         else
@@ -82,7 +83,7 @@ public class CharacterController : MonoBehaviour
             {
                 GameObject obj = hit.collider.gameObject.transform.parent.gameObject;
                 //Debug.Log(obj.transform.position);
-                obj.SendMessage("PlayerOnTop", GetComponent<Rigidbody2D>().velocity);
+                obj.SendMessage("PlayerOnTop");
             }
         }
         else
