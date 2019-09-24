@@ -79,6 +79,7 @@ public class IceBlockLife : MonoBehaviour
         
     }
 
+    // Calculates the rate at which the ice melts based on the temperature
     private void CalculateMultiplier(int temperature)
     {
         if (temperature < -40)

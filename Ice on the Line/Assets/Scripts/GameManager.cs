@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public CharacterController player;
-
+        
     // Game over if false
     public bool playerAlive = true;
 
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         {
             float time = Time.time;
 
+            // calculate score
             score = (int)player.transform.position.y * 100;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
