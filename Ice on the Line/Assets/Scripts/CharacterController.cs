@@ -181,6 +181,9 @@ public class CharacterController : MonoBehaviour
     */
     public void SetPath(List<Node> path)
     {
+        // Clear the old path
+        waypoints.Clear();
+        // Add the new path to waypoints
         foreach (Node n in path)
         {
             this.waypoints.Add(n.worldPosition);
