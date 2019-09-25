@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    GameManager game;
     // Advanced camera
     /*
     public Rigidbody2D player;
@@ -70,13 +69,12 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         cameraOffset = new Vector3(0, transform.position.y - targetToFollow.position.y, 0);
-        game = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (game.playerAlive)
+        if (GameManager.playerAlive)
             transform.position = Vector3.Lerp(transform.position, new Vector3 (transform.position.x, targetToFollow.position.y, transform.position.z) + cameraOffset, cameraSmooth);
     }
     

@@ -90,9 +90,10 @@ public class CharacterController : MonoBehaviour
         {
             Destroy(gameObject);
             // Set playerAlive to false
-            GameObject.Find("GameManager").GetComponent<GameManager>().playerAlive = false;
+            GameManager.playerAlive = false;
             gameOverScreen.SetActive(true);
             Time.timeScale = 0;
+            GameObject.Find("GameManager").GetComponent<GameManager>().SaveProgress();
         }
     }   
     

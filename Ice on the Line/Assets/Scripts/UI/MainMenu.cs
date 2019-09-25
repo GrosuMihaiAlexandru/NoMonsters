@@ -19,6 +19,10 @@ public class MainMenu : MonoBehaviour
     public void Retry()
     {
         SceneManager.LoadScene(1);
+
+        // Set player to alive and unpause the game
+        GameManager.playerAlive = true;
+        GameManager.gamePaused = true;
         Time.timeScale = 1;
     }
 }

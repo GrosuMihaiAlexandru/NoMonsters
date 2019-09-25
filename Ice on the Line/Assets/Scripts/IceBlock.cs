@@ -362,7 +362,7 @@ public class IceBlock : MonoBehaviour
     {
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
-        Debug.Log("Object Snapped");
+        //Debug.Log("Object Snapped");
         for (int i = 0; i < transform.childCount; i++)
         {
             //Debug.Log(holograms[i].transform.position);
