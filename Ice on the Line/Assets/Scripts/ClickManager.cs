@@ -18,78 +18,80 @@ public class ClickManager : MonoBehaviour
 
     bool isBeingHeld = false;
 
-     void Update()
-     {
-#if UNITY_ANDROID
-        if (Input.touchCount > 0)
+    void Update()
+    {
+        if (GameManager.playerAlive && !GameManager.gamePaused)
         {
-            Touch touch = Input.GetTouch(0);
-            // get touch to take a deal with
-            Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-            RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
-
-
-            switch (touch.phase)
+#if UNITY_ANDROID
+            if (Input.touchCount > 0)
             {
-                // if you touch the screen
-                case TouchPhase.Began:
-                    //Debug.Log("Touch Began");
-                    // if you touch the IceBlock
-                    if (hit)
-                    {
-                        //Debug.Log("BeganHit");
-                        if (hit.collider.gameObject.transform.parent.gameObject.tag == "IceBlock")
+                Touch touch = Input.GetTouch(0);
+                // get touch to take a deal with
+                Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+                RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
+
+
+                switch (touch.phase)
+                {
+                    // if you touch the screen
+                    case TouchPhase.Began:
+                        //Debug.Log("Touch Began");
+                        // if you touch the IceBlock
+                        if (hit)
                         {
-                            iceBlock = hit.collider.gameObject.transform.parent.gameObject;
-                            for (int i = 0; i < iceBlock.transform.childCount; i++)
+                            //Debug.Log("BeganHit");
+                            if (hit.collider.gameObject.transform.parent.gameObject.tag == "IceBlock")
                             {
-                                Transform t = iceBlock.transform.GetChild(i);
-                                //Debug.Log(t.position);
-                                //t.GetComponent<BoxCollider2D>().size = new Vector2(0.8f, 0.8f);
+                                iceBlock = hit.collider.gameObject.transform.parent.gameObject;
+                                for (int i = 0; i < iceBlock.transform.childCount; i++)
+                                {
+                                    Transform t = iceBlock.transform.GetChild(i);
+                                    //Debug.Log(t.position);
+                                    //t.GetComponent<BoxCollider2D>().size = new Vector2(0.8f, 0.8f);
+                                }
+                                // get the offset between position you touches
+                                // and the center of the game object
+                                deltaX = touchPos.x - iceBlock.transform.position.x;
+                                deltaY = touchPos.y - iceBlock.transform.position.y;
+                                // if touch begins within the ball collider
+                                // then it is allowed to move
+                                moveAllowed = true;
+                                // restrict some rigidbody properties so it moves
+                                // more  smoothly and correctly
+                                iceBlock.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                                // Tell the object that holding has started
+                                iceBlock.SendMessage("HoldStarted");
                             }
-                            // get the offset between position you touches
-                            // and the center of the game object
-                            deltaX = touchPos.x - iceBlock.transform.position.x;
-                            deltaY = touchPos.y - iceBlock.transform.position.y;
-                            // if touch begins within the ball collider
-                            // then it is allowed to move
-                            moveAllowed = true;
-                            // restrict some rigidbody properties so it moves
-                            // more  smoothly and correctly
-                            iceBlock.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                            // Tell the object that holding has started
-                            iceBlock.SendMessage("HoldStarted");
                         }
-                    }
-                    break;
+                        break;
 
-                // you move your finger
-                case TouchPhase.Moved:
-                    // if you touches the ball and movement is allowed then move
-                    if (moveAllowed)
-                        iceBlock.GetComponent<Rigidbody2D>().MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
+                    // you move your finger
+                    case TouchPhase.Moved:
+                        // if you touches the ball and movement is allowed then move
+                        if (moveAllowed)
+                            iceBlock.GetComponent<Rigidbody2D>().MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
 
-                    break;
+                        break;
 
 
-                // you release your finger
-                case TouchPhase.Ended:
-                    
-                    //Debug.Log("Touch Ended");
-                    // restore initial parameters
-                    // when touch is ended
-                    moveAllowed = false;
-                    // Tell the object that holding has ended
-                    break;
+                    // you release your finger
+                    case TouchPhase.Ended:
+
+                        //Debug.Log("Touch Ended");
+                        // restore initial parameters
+                        // when touch is ended
+                        moveAllowed = false;
+                        // Tell the object that holding has ended
+                        break;
+                }
+
+                if (Input.touchCount > 1)
+                {
+                    Touch t2 = Input.GetTouch(1);
+                    if (t2.phase == TouchPhase.Began)
+                        iceBlock.SendMessage("Rotation");
+                }
             }
-
-            if (Input.touchCount > 1)
-            {
-                Touch t2 = Input.GetTouch(1);
-                if (t2.phase == TouchPhase.Began)
-                    iceBlock.SendMessage("Rotation");
-            }
-        }
 #endif
 #if UNITY_IOS
 
@@ -129,6 +131,7 @@ public class ClickManager : MonoBehaviour
         }
         
 #endif
+        }
     }
 
 }

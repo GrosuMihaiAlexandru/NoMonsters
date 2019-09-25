@@ -11,7 +11,7 @@ using UnityEngine;
 public class IceBlockLife : MonoBehaviour
 {
     private BoxCollider2D playerCollider;
-    private GameManager game;
+    private Temperature temperature;
     private Animator animator;
 
     private int maxHealth = 100;
@@ -44,7 +44,7 @@ public class IceBlockLife : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        game = GameObject.Find("GameManager").GetComponent<GameManager>();
+        temperature = GameObject.Find("GameManager").GetComponent<Temperature>();
 
         playerCollider = GameObject.Find("Player").GetComponent<BoxCollider2D>();
 
@@ -55,7 +55,7 @@ public class IceBlockLife : MonoBehaviour
     private void Update()
     {
 
-        CalculateMultiplier(game.GlobalTemperature);
+        CalculateMultiplier(temperature.GlobalTemperature);
         if (playerOnTop)
         {
             // Begin the countdown to detect that the player is standing still for minimumStandingTime

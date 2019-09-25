@@ -48,7 +48,7 @@ public class LevelSelector : MonoBehaviour
     void Update()
     {
         // Update Levels only while player is still alive
-        if (game.playerAlive)
+        if (GameManager.playerAlive)
         {
             // Check if the player reached the end of the current level
             if (game.player.transform.position.y - endOfCurrentLevel >= -0.1f)
@@ -80,10 +80,10 @@ public class LevelSelector : MonoBehaviour
 
     public int SelectLevel(int maxLevel)
     {
-        int r = Random.Range(0, maxLevel);
+        int r = Random.Range(0, maxLevel + 1);
         while (r == currentLevel)
         {
-            r = Random.Range(0, maxLevel);
+            r = Random.Range(0, maxLevel + 1);
         }
         currentLevel = r;
         return r;

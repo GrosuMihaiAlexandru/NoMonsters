@@ -11,18 +11,15 @@ public class Pathfinding : MonoBehaviour
     public Transform target;
 
     Grid grid;
-
-    GameManager game;
-
+    
     private void Awake()
     {
         grid = GetComponent<Grid>();
-        game = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
     {
-        if (game.playerAlive)
+        if (GameManager.playerAlive)
         {
             // Move the grid every 15 blocks along with the player
             if (Vector2.Distance(transform.position, seeker.position) >= 15)

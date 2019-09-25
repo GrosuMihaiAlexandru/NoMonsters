@@ -5,74 +5,70 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
+    // The currencies of the game
+    [SerializeField]
+    private int fish;
+    [SerializeField]
+    private int Gfish;
+
+    // player reference to calculate the score based on the distance of the player
     public CharacterController player;
         
     // Game over if false
-    public bool playerAlive = true;
+    public static bool playerAlive;
+    public static bool gamePaused;
 
-    // The globalTemperature starting point
-    private int initialTemperature = -41;
-
-    // The temperature indicates how fast the ice melts in the game
-    [SerializeField]
-    private int globalTemperature;
-
-    // The time between temperature rising update
-    [SerializeField]
-    private float temperatureUpdateTime = 5f;
-
-    // The last time the globalTemperature was updated
-    private float lastUpdateTime;
-
+    // The score of of the game
     [SerializeField]
     private int score = 0;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<CharacterController>();
-        globalTemperature = initialTemperature;
-        lastUpdateTime = Time.time;
         playerAlive = true;
+        PlayerData data = SaveSystem.LoadData();
+        fish = data.fish;
+        Gfish = data.Gfish;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (playerAlive)
         {
-            float time = Time.time;
-
             // calculate score
             score = (int)player.transform.position.y * 100;
-
-            // Temperature rises by 1 degree everytime temperatureUpdateTime
-            if (time - lastUpdateTime >= temperatureUpdateTime)
-            {
-                globalTemperature++;
-                // Update the last time the temperature increased
-                lastUpdateTime = Time.time;
-            }
         }
     }
 
-    // Activated by collecting lowering temperature powerups
-    public void LowerTemperature(int amount)
+    public void AddFish(int amount)
     {
-        globalTemperature -= amount;
+        fish += amount;
     }
 
-    public int GlobalTemperature
+    public void RemoveFish(int amount)
     {
-        get
-        {
-            return globalTemperature;
-        }
-        set
-        {
-            globalTemperature = value;
-        }
+        if (fish >= amount)
+            fish -= amount;
+        else
+            Debug.Log("Insuficient fish");
+    }
+
+    public void AddGfish(int amount)
+    {
+        Gfish += amount;
+    }
+
+    public void RemoveGfish(int amount)
+    {
+        if (Gfish >= amount)
+            Gfish -= amount;
+        else
+            Debug.Log("Insuficient Gfish");
+    }
+
+    public void SaveProgress()
+    {
+        SaveSystem.SaveData(fish, Gfish);
     }
 
     public int Score { get { return score; } set { score = value; } }
