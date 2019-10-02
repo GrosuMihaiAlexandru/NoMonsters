@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Snowflake : MonoBehaviour
 {
+    [SerializeField]
     private static int temperatureAmount = 10;
 
     Temperature temperature;
@@ -11,7 +12,7 @@ public class Snowflake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        temperature = GameObject.Find("GameManager").GetComponent<Temperature>();    
+        temperature = GameObject.Find("InGame").GetComponent<Temperature>();    
     }
 
     // Lower the temperature 

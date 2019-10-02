@@ -20,7 +20,7 @@ public class ClickManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.playerAlive && !GameManager.gamePaused)
+        if (InGame.playerAlive && !InGame.gamePaused)
         {
 #if UNITY_ANDROID
             if (Input.touchCount > 0)

@@ -29,7 +29,7 @@ public class Temperature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.playerAlive)
+        if (InGame.playerAlive)
         {
             float time = Time.time;
 

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (GameManager))]
+[RequireComponent (typeof (InGame))]
 public class LevelSelector : MonoBehaviour
 {
+    private InGame game;
 
     // The list of the random levels to be selected
     public List<GameObject> levels;
-
-    GameManager game;
 
     private int currentLevel = -1;
 
@@ -34,21 +33,25 @@ public class LevelSelector : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        game = GetComponent<GameManager>();
         currentPosition = new Vector2(1, 0);
         nextPosition = currentPosition + new Vector2(0, levelLength);
         thisLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], currentPosition, Quaternion.identity);
         nextLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
         endOfCurrentLevel = (int)(currentPosition.y + levelLength);
 
-        //Debug.Log(currentPosition + " " + nextPosition);
+      
+    }
+
+    void Start()
+    {
+        game = GetComponent<InGame>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Update Levels only while player is still alive
-        if (GameManager.playerAlive)
+        if (InGame.playerAlive)
         {
             // Check if the player reached the end of the current level
             if (game.player.transform.position.y - endOfCurrentLevel >= -0.1f)
@@ -62,15 +65,15 @@ public class LevelSelector : MonoBehaviour
                 oldLevel = thisLevel;
                 oldPosition = currentPosition;
                 thisLevel = nextLevel;
-                Debug.Log("End of Level Reached");
+                //Debug.Log("End of Level Reached");
                 endOfLevelReached = false;
                 currentPosition = nextPosition;
                 nextPosition = currentPosition + new Vector2(0, levelLength);
-                Debug.Log(nextPosition);
+                //Debug.Log(nextPosition);
                 endOfCurrentLevel = (int)(currentPosition.y + levelLength);
                 nextLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
             }
-            if (game.player.transform.position.y - oldPosition.y >= 5f)
+            if (game.player.transform.position.y - oldPosition.y >= -5f)
             {
                 Destroy(oldLevel);
             }
