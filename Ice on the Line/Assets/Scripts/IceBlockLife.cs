@@ -44,7 +44,7 @@ public class IceBlockLife : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        temperature = GameObject.Find("GameManager").GetComponent<Temperature>();
+        temperature = GameObject.Find("InGame").GetComponent<Temperature>();
 
         playerCollider = GameObject.Find("Player").GetComponent<BoxCollider2D>();
 

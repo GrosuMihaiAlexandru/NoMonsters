@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
 
     // The currencies of the game
     [SerializeField]
@@ -11,33 +12,58 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int Gfish;
 
-    // player reference to calculate the score based on the distance of the player
-    public CharacterController player;
-        
-    // Game over if false
-    public static bool playerAlive;
-    public static bool gamePaused;
+    // Check to display tutorial or not
+    [SerializeField]
+    public bool tutorialDone;
 
     // The score of of the game
     [SerializeField]
     private int score = 0;
 
-    void Start()
+    // Global upgrade levels
+    [SerializeField]
+    private int scoreMultiplierLevel;
+    [SerializeField]
+    private int temperatureSpeedLevel;
+    [SerializeField]
+    private int snowflakeLevel;
+
+    // Powerup levels
+    [SerializeField]
+    private int extraBlockLevel;
+
+    void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<CharacterController>();
-        playerAlive = true;
-        PlayerData data = SaveSystem.LoadData();
-        fish = data.fish;
-        Gfish = data.Gfish;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Update()
+    void Start()
     {
-        if (playerAlive)
-        {
-            // calculate score
-            score = (int)player.transform.position.y * 100;
-        }
+        PlayerData data = SaveSystem.LoadData();
+        tutorialDone = data.finishedTutorial;
+        fish = data.fish;
+        Gfish = data.Gfish;
+
+        scoreMultiplierLevel = data.upgradesLevels[0];
+        temperatureSpeedLevel = data.upgradesLevels[1];
+        snowflakeLevel = data.upgradesLevels[2];
+        extraBlockLevel = data.upgradesLevels[3];
+    }
+
+    public void ReloadData()
+    {
+        PlayerData data = SaveSystem.LoadData();
+        tutorialDone = data.finishedTutorial;
+        fish = data.fish;
+        Gfish = data.Gfish;
     }
 
     public void AddFish(int amount)
@@ -68,9 +94,26 @@ public class GameManager : MonoBehaviour
 
     public void SaveProgress()
     {
-        SaveSystem.SaveData(fish, Gfish);
+        List<int> upgrades = new List<int> { scoreMultiplierLevel, temperatureSpeedLevel, snowflakeLevel, extraBlockLevel };
+        SaveSystem.SaveData(fish, Gfish, upgrades.ToArray());
+    }
+
+    public void SaveTutorial()
+    {
+        List<int> upgrades = new List<int> { scoreMultiplierLevel, temperatureSpeedLevel, snowflakeLevel, extraBlockLevel };
+        SaveSystem.SaveData(fish, Gfish, upgrades.ToArray(),true);
     }
 
     public int Score { get { return score; } set { score = value; } }
     
+    public int Fish { get { return fish; } private set { fish = value; } }
+
+    public int ScoreMultiplierLevel { get { return scoreMultiplierLevel; } set { scoreMultiplierLevel = value; } }
+
+    public int TemperatureSpeedLevel { get { return temperatureSpeedLevel; } set { temperatureSpeedLevel = value; } }
+
+    public int SnowflakeLevel {  get { return snowflakeLevel; } set { snowflakeLevel = value; } }
+
+    public int ExtraBlockLevel { get { return extraBlockLevel; } set { extraBlockLevel = value; } }
+
 }

@@ -19,7 +19,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.playerAlive)
+        if (InGame.playerAlive)
         {
             // Move the grid every 15 blocks along with the player
             if (Vector2.Distance(transform.position, seeker.position) >= 15)

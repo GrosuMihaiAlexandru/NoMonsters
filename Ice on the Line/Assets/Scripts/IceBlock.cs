@@ -18,7 +18,11 @@ public class IceBlock : MonoBehaviour
 
     private bool isBeingHeld = false;
 
+    // Makes sure that the blocks can snap only once
     private bool canSnap = true;
+
+    // Check if there is any invisible barrier underneath
+    public bool barrierUnderneath = false;
 
     private List<GameObject> holograms;
 
@@ -90,6 +94,8 @@ public class IceBlock : MonoBehaviour
                     RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero);
                     RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero);
 
+
+
                     // Checking if the object can snap
                     if (hitUp)
                     {
@@ -100,11 +106,14 @@ public class IceBlock : MonoBehaviour
 #if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
-                               // Debug.Log(canSnap);
-                                if (canSnap)
+                                // Debug.Log(canSnap);
+                                if (!barrierUnderneath)
                                 {
-                                    canSnap = false;
-                                    SnapBlock();
+                                    if (canSnap && !barrierUnderneath)
+                                    {
+                                        canSnap = false;
+                                        SnapBlock();
+                                    }
                                 }
                             }
 #endif
@@ -131,10 +140,13 @@ public class IceBlock : MonoBehaviour
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 //Debug.Log(canSnap);
-                                if (canSnap)
+                                if (!barrierUnderneath)
                                 {
-                                    canSnap = false;
-                                    SnapBlock();
+                                    if (canSnap)
+                                    {
+                                        canSnap = false;
+                                        SnapBlock();
+                                    }
                                 }
                             }
 #endif
@@ -160,11 +172,14 @@ public class IceBlock : MonoBehaviour
 #if UNITY_ANDROID
                             if (touch.phase == TouchPhase.Ended)
                             {
-                               // Debug.Log(canSnap);
-                                if (canSnap)
+                                // Debug.Log(canSnap);
+                                if (!barrierUnderneath)
                                 {
-                                    canSnap = false;
-                                    SnapBlock();
+                                    if (canSnap && !barrierUnderneath)
+                                    {
+                                        canSnap = false;
+                                        SnapBlock();
+                                    }
                                 }
                             }
 #endif
@@ -191,10 +206,13 @@ public class IceBlock : MonoBehaviour
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 //Debug.Log(canSnap);
-                                if (canSnap)
+                                if (!barrierUnderneath)
                                 {
-                                    canSnap = false;
-                                    SnapBlock();
+                                    if (canSnap && !barrierUnderneath)
+                                    {
+                                        canSnap = false;
+                                        SnapBlock();
+                                    }
                                 }
                             }
 #endif
@@ -459,6 +477,8 @@ public class IceBlock : MonoBehaviour
         }
         return true;
     }
+
+    public bool CanSnap { get { return canSnap; } private set { canSnap = value; } }
 
 
 }
