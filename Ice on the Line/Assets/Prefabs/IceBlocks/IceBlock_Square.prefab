@@ -58,6 +58,7 @@ MonoBehaviour:
     type: 3}
   hologram2: {fileID: 7936135580943922644, guid: b9252a1067f4a04489dd5b57a9d4689a,
     type: 3}
+  barrierUnderneath: 0
   allowRotation: 0
   limitRotation: 0
 --- !u!114 &3331291496069424216
@@ -86,7 +87,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 6
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

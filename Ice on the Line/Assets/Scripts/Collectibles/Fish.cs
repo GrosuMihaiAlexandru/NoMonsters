@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
-    GameManager game;
-
     [SerializeField]
     private int value;
 
@@ -18,7 +16,6 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        game = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -26,7 +23,7 @@ public class Fish : MonoBehaviour
         if (other.tag == "Player")
         {
             Destroy(gameObject);
-            game.AddFish(value);
+            GameManager.instance.AddFish(value);
         }
     }
 }

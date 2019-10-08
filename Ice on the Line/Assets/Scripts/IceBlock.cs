@@ -89,17 +89,17 @@ public class IceBlock : MonoBehaviour
 
                     Vector2 position = new Vector2(hologram.transform.position.x, hologram.transform.position.y);
 
-                    RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero);
-                    RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero);
-                    RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero);
-                    RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero);
+                    RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero, 0, defaultLayer);
+                    RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero, 0, defaultLayer);
+                    RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0 , defaultLayer);
+                    RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero, 0, defaultLayer);
 
 
 
                     // Checking if the object can snap
                     if (hitUp)
                     {
-                        if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player")
+                        if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap up");
@@ -132,7 +132,7 @@ public class IceBlock : MonoBehaviour
                     }
                     if (hitDown)
                     {
-                        if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player")
+                        if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap down");
@@ -165,7 +165,7 @@ public class IceBlock : MonoBehaviour
                     }
                     if (hitLeft)
                     {
-                        if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player")
+                        if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap left");
@@ -198,7 +198,7 @@ public class IceBlock : MonoBehaviour
                     }
                     if (hitRight)
                     {
-                        if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player")
+                        if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap right");
