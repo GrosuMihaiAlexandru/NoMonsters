@@ -45,7 +45,7 @@ public class Grid : MonoBehaviour
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(worldPoint.x, worldPoint.y), Vector2.zero, 0, walkableMask);
                 // Only walkable if it has the tag FixedBlock or Player
-                bool walkable = hit ? (hit.transform.tag == "Hologram" || hit.transform.tag == "FixedBlock" || hit.transform.tag == "Player" || hit.transform.tag == "Collectible" ? true : false) : false;
+                bool walkable = hit ? (hit.transform.tag == "WalkableBlock" || hit.transform.tag == "Hologram" || hit.transform.tag == "FixedBlock" || hit.transform.tag == "Player" || hit.transform.tag == "Collectible" ? true : false) : false;
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
     }
@@ -60,7 +60,7 @@ public class Grid : MonoBehaviour
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(worldPoint.x, worldPoint.y), Vector2.zero, 0, walkableMask);
-                bool walkable = hit ? (hit.transform.tag == "Hologram" || hit.transform.tag == "FixedBlock" || hit.transform.tag == "Player" || hit.transform.tag == "Collectible" ? true : false) : false;
+                bool walkable = hit ? (hit.transform.tag == "WalkableBlock" || hit.transform.tag == "Hologram" || hit.transform.tag == "FixedBlock" || hit.transform.tag == "Player" || hit.transform.tag == "Collectible" ? true : false) : false;
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
     }

@@ -54,6 +54,9 @@ public class IceBlock : MonoBehaviour
         {
             holograms.Add(Instantiate(hologram));
         }
+
+        astar.SendMessage("UpdateGrid");
+        astar.SendMessage("BreadthFirstSearch");
     }
 
     void Update()
@@ -99,7 +102,7 @@ public class IceBlock : MonoBehaviour
                     // Checking if the object can snap
                     if (hitUp)
                     {
-                        if (hitUp.collider.tag == "FixedBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
+                        if (hitUp.collider.tag == "WalkableBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap up");
@@ -132,7 +135,7 @@ public class IceBlock : MonoBehaviour
                     }
                     if (hitDown)
                     {
-                        if (hitDown.collider.tag == "FixedBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
+                        if (hitDown.collider.tag == "WalkableBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap down");
@@ -165,7 +168,7 @@ public class IceBlock : MonoBehaviour
                     }
                     if (hitLeft)
                     {
-                        if (hitLeft.collider.tag == "FixedBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
+                        if (hitLeft.collider.tag == "WalkableBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap left");
@@ -198,7 +201,7 @@ public class IceBlock : MonoBehaviour
                     }
                     if (hitRight)
                     {
-                        if (hitRight.collider.tag == "FixedBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
+                        if (hitRight.collider.tag == "WalkableBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
                         {
                             changeColor = true;
                             //Debug.Log("Object can snap right");
