@@ -18,6 +18,11 @@ public class ClickManager : MonoBehaviour
 
     bool isBeingHeld = false;
 
+    float timer = 0;
+
+    [SerializeField]
+    private float holdTime = 0.08f;
+
     void Update()
     {
         if (InGame.playerAlive && !InGame.gamePaused)
@@ -29,8 +34,7 @@ public class ClickManager : MonoBehaviour
                 // get touch to take a deal with
                 Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
                 RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
-
-
+                timer += Time.deltaTime;
                 switch (touch.phase)
                 {
                     // if you touch the screen
@@ -43,6 +47,7 @@ public class ClickManager : MonoBehaviour
                             if (hit.collider.gameObject.transform.parent.gameObject.tag == "IceBlock")
                             {
                                 iceBlock = hit.collider.gameObject.transform.parent.gameObject;
+
                                 for (int i = 0; i < iceBlock.transform.childCount; i++)
                                 {
                                     Transform t = iceBlock.transform.GetChild(i);
@@ -60,7 +65,7 @@ public class ClickManager : MonoBehaviour
                                 // more  smoothly and correctly
                                 iceBlock.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                                 // Tell the object that holding has started
-                                iceBlock.SendMessage("HoldStarted");
+                                
                             }
                         }
                         break;
@@ -68,28 +73,41 @@ public class ClickManager : MonoBehaviour
                     // you move your finger
                     case TouchPhase.Moved:
                         // if you touches the ball and movement is allowed then move
-                        if (moveAllowed)
-                            iceBlock.GetComponent<Rigidbody2D>().MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
+                        if (timer > holdTime)
+                        {
+                            if (moveAllowed)
+                            {
+                                iceBlock.SendMessage("HoldStarted");
 
+                                iceBlock.GetComponent<Rigidbody2D>().MovePosition(new Vector2(touchPos.x - deltaX, touchPos.y - deltaY));
+                            }
+                        }
                         break;
 
 
                     // you release your finger
                     case TouchPhase.Ended:
-
+                        if (timer <= 0.2f)
+                        {
+                            iceBlock.SendMessage("Rotation");
+                            timer = 0;
+                            break;
+                        }
                         //Debug.Log("Touch Ended");
                         // restore initial parameters
                         // when touch is ended
                         moveAllowed = false;
                         // Tell the object that holding has ended
+                        timer = 0;
                         break;
                 }
-
+                
                 if (Input.touchCount > 1)
                 {
                     Touch t2 = Input.GetTouch(1);
                     if (t2.phase == TouchPhase.Began)
                         iceBlock.SendMessage("Rotation");
+
                 }
             }
 #endif
