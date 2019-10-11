@@ -55,6 +55,13 @@ public class Pathfinding : MonoBehaviour
                 if (!neighbour.walkable || closedSet.Contains(neighbour))
                     continue;
 
+                RaycastHit2D hit = Physics2D.Raycast(neighbour.worldPosition, Vector2.zero);
+                if (hit)
+                {
+                    if (hit.transform.tag == "FixedBlock")
+                        hit.transform.tag = "WalkableBlock";
+                }
+
                 if (neighbour.gridY > maxYDistance)
                 {
                     maxYDistance = neighbour.gridY;
