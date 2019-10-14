@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent (typeof (Grid))]
 public class Pathfinding : MonoBehaviour
 {
+    //layermask for updating the block tags
+    public LayerMask layerMask;
+
     // The player
     public Transform seeker;
     // The destination
@@ -17,6 +20,10 @@ public class Pathfinding : MonoBehaviour
         grid = GetComponent<Grid>();
     }
 
+    private void Start()
+    {
+        Invoke("initializeMap", 1f);
+    }
     private void Update()
     {
         if (InGame.playerAlive)
@@ -28,6 +35,53 @@ public class Pathfinding : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z);
             }
             //FindPath(seeker.position, target.position);
+        }
+    }
+
+    void initializeMap()
+    {
+        Node startNode = grid.NodeFromWorldPoint(seeker.position);
+        startNode.yDistance = 0;
+        // set of nodes to be evaluated
+        Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
+        // set of nodes already evaluated
+        HashSet<Node> closedSet = new HashSet<Node>();
+        openSet.Add(startNode);
+
+        Node maxNode = startNode;
+
+        // Checking all the walkable nodes
+        while (openSet.Count > 0)
+        {
+            Node currentNode = openSet.RemoveFirst();
+            closedSet.Add(currentNode);
+
+            // Update the currentNode start block to walkable
+            RaycastHit2D initialHit = Physics2D.Raycast(currentNode.worldPosition, Vector2.zero, 0, layerMask);
+            if (initialHit)
+            {
+
+                if (initialHit.transform.tag == "FixedBlock")
+                    initialHit.transform.tag = "WalkableBlock";
+            }
+
+            foreach (Node neighbour in grid.GetNeighbours(currentNode))
+            {
+                if (!neighbour.walkable || closedSet.Contains(neighbour))
+                    continue;
+
+                // Updating every fixed block to walkableBlock to allow snapping to them
+                RaycastHit2D hit = Physics2D.Raycast(neighbour.worldPosition, Vector2.zero, 0, layerMask);
+                if (hit)
+                {
+                    if (hit.transform.tag == "FixedBlock")
+                        hit.transform.tag = "WalkableBlock";
+                }
+
+                neighbour.parent = currentNode;
+                if (!openSet.Contains(neighbour))
+                    openSet.Add(neighbour);
+            }
         }
     }
 
@@ -44,18 +98,30 @@ public class Pathfinding : MonoBehaviour
         int maxYDistance = 0;
         Node maxNode = startNode;
 
+        
+
         // Checking all the walkable nodes
         while (openSet.Count > 0)
         {
             Node currentNode = openSet.RemoveFirst();
             closedSet.Add(currentNode);
 
+            // Update the currentNode start block to walkable
+            RaycastHit2D initialHit = Physics2D.Raycast(currentNode.worldPosition, Vector2.zero, 0, layerMask);
+            if (initialHit)
+            {
+                
+                if (initialHit.transform.tag == "FixedBlock")
+                    initialHit.transform.tag = "WalkableBlock";
+            }
+
             foreach (Node neighbour in grid.GetNeighbours(currentNode))
             {
                 if (!neighbour.walkable || closedSet.Contains(neighbour))
                     continue;
 
-                RaycastHit2D hit = Physics2D.Raycast(neighbour.worldPosition, Vector2.zero);
+                // Updating every fixed block to walkableBlock to allow snapping to them
+                RaycastHit2D hit = Physics2D.Raycast(neighbour.worldPosition, Vector2.zero, 0, layerMask);
                 if (hit)
                 {
                     if (hit.transform.tag == "FixedBlock")
