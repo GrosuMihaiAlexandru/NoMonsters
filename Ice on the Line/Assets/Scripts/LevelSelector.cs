@@ -92,4 +92,5 @@ public class LevelSelector : MonoBehaviour
         return r;
     }
  
+    public GameObject ThisLevel { get { return thisLevel; } set { thisLevel = value; } }
 }
