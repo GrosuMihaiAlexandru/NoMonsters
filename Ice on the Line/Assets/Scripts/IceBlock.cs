@@ -55,8 +55,6 @@ public class IceBlock : MonoBehaviour
             holograms.Add(Instantiate(hologram));
         }
 
-        astar.SendMessage("UpdateGrid");
-        astar.SendMessage("BreadthFirstSearch");
     }
 
     void Update()
@@ -307,7 +305,7 @@ public class IceBlock : MonoBehaviour
                 {
                     if (transform.rotation.eulerAngles.z >= 90)
                     {
-                        transform.Rotate(0, 0, -90);
+                        transform.Rotate(0, 0,-90);
                     }
                     else
                     {
@@ -333,7 +331,7 @@ public class IceBlock : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, defaultLayer);
                 if (hit)
                 {
-                    if (hit.collider.tag == "FixedBlock")
+                    if (hit.collider.tag == "FixedBlock" || hit.collider.tag == "WalkableBlock" || hit.collider.tag == "Player")
                     {
                         rotateBack = true;
                         
@@ -373,7 +371,21 @@ public class IceBlock : MonoBehaviour
                 {
                     t.SetActive(true);
                 }
-                transform.Rotate(0, 0, -90);
+                if (limitRotation)
+                {
+                    if (transform.rotation.eulerAngles.z >= 90)
+                    {
+                        transform.Rotate(0, 0, -90);
+                    }
+                    else
+                    {
+                        transform.Rotate(0, 0, 90);
+                    }
+                }
+                else
+                {
+                    transform.Rotate(0, 0, -90);
+                }
             }
         }
     }
@@ -384,6 +396,8 @@ public class IceBlock : MonoBehaviour
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         //Debug.Log("Object Snapped");
+        // Mark that hold has ended
+        HoldEnded();
         for (int i = 0; i < transform.childCount; i++)
         {
             //Debug.Log(holograms[i].transform.position);
@@ -399,11 +413,13 @@ public class IceBlock : MonoBehaviour
         {
             Destroy(o);
         }
+
+        // Activate the breaking of ice
+        GetComponent<IceBlockLife>().PlayerOnTop();
         // Center the object
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), transform.position.z);
         allowRotation = false;
         holograms.Clear();
-        HoldEnded();
     }
 
     // The player has started moving the block
@@ -431,7 +447,7 @@ public class IceBlock : MonoBehaviour
         // Returning the collider size to it's initial value
         foreach (Transform block in transform)
         {
-            block.GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f);
+            block.GetComponent<BoxCollider2D>().size = new Vector2(0.9f, 0.9f);
         }
     }
         // Mouse Controlls
@@ -458,7 +474,7 @@ public class IceBlock : MonoBehaviour
 
     bool CheckIsInsideGrid (Vector2 pos)
     {
-    return ((int)pos.x >= 1 && (int)pos.x <= gridWidth);
+    return ((int)pos.x >= 0 && (int)pos.x <= gridWidth + 1);
     }
 
     public Vector2 Round(Vector2 pos)
