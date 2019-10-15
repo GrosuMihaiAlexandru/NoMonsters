@@ -31,6 +31,7 @@ public class ExtraBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (usedPowerup)
         {
             if (Input.touchCount > 0)
