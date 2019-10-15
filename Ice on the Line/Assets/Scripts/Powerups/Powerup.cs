@@ -20,12 +20,14 @@ public class Powerup : MonoBehaviour
     public void AddPowerup(int value)
     {
         count += value;
+        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
         GameManager.instance.SaveProgress();
     }
 
     public void UsePowerup()
     {
-        count--; 
+        count--;
+        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
         GameManager.instance.SaveProgress();
         UpdateText();
     }
