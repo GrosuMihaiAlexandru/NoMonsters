@@ -11,7 +11,7 @@ public class PlayerData
     public bool finishedTutorial;
 
     /// <summary>
-    /// Levels for each upgrade in the game
+    /// Levels for each Upgrade in the game
     /// 0 - scoreMultiplierLevel
     /// 1 - temperatureSpeedLevel
     /// 2 - snowflakeLevel
@@ -19,11 +19,20 @@ public class PlayerData
     /// </summary>
     public int[] upgradesLevels = new int[4];
 
-    public PlayerData(int fish, int Gfish, int[] upgrades, bool tutorial = true)
+    /// <summary>
+    /// Uses left for each Powerup
+    /// 0 - extraBlock
+    /// 1 - jetpack
+    /// 2 - freeze
+    /// </summary>
+    public int[] powerupUses = new int[3];
+
+    public PlayerData(int fish, int Gfish, int[] upgrades, int[] uses, bool tutorial = true)
     {
         this.fish = fish;
         this.Gfish = Gfish;
         finishedTutorial = tutorial;
         upgradesLevels = upgrades;
+        powerupUses = uses;
     }
 }

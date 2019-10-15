@@ -33,6 +33,8 @@ public class IceBlock : MonoBehaviour
     public bool allowRotation = true;
     public bool limitRotation = false;
 
+    public bool isExtraBlock;
+
     private const int gridWidth = 6;
 
     void OnDestroy()
@@ -43,7 +45,8 @@ public class IceBlock : MonoBehaviour
 
     void Start()
     {
-        rigidBody2D = GetComponent<Rigidbody2D>();
+        if (!isExtraBlock)
+            rigidBody2D = GetComponent<Rigidbody2D>();
         hologramMax = transform.childCount;
 
         astar = GameObject.Find("A*");
@@ -95,28 +98,37 @@ public class IceBlock : MonoBehaviour
                     RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0 , defaultLayer);
                     RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero, 0, defaultLayer);
 
-
-
+                    if (isExtraBlock)
+                    {
+                        changeColor = true;
+                        if (touch.phase == TouchPhase.Ended)
+                        {
+                            canSnap = false;
+                            SnapBlock();
+                        }
+                    }
                     // Checking if the object can snap
-                    if (hitUp)
+                    else
                     {
-                        if (hitUp.collider.tag == "WalkableBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
+                        if (hitUp)
                         {
-                            changeColor = true;
-                            //Debug.Log("Object can snap up");
-#if UNITY_ANDROID
-                            if (touch.phase == TouchPhase.Ended)
+                            if (hitUp.collider.tag == "WalkableBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
                             {
-                                // Debug.Log(canSnap);
-                                if (!barrierUnderneath)
+                                changeColor = true;
+                                //Debug.Log("Object can snap up");
+#if UNITY_ANDROID
+                                if (touch.phase == TouchPhase.Ended)
                                 {
-                                    if (canSnap && !barrierUnderneath)
+                                    // Debug.Log(canSnap);
+                                    if (!barrierUnderneath)
                                     {
-                                        canSnap = false;
-                                        SnapBlock();
+                                        if (canSnap && !barrierUnderneath)
+                                        {
+                                            canSnap = false;
+                                            SnapBlock();
+                                        }
                                     }
                                 }
-                            }
 #endif
 #if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
@@ -129,27 +141,27 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
+                            }
                         }
-                    }
-                    if (hitDown)
-                    {
-                        if (hitDown.collider.tag == "WalkableBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
+                        if (hitDown)
                         {
-                            changeColor = true;
-                            //Debug.Log("Object can snap down");
-#if UNITY_ANDROID
-                            if (touch.phase == TouchPhase.Ended)
+                            if (hitDown.collider.tag == "WalkableBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
                             {
-                                //Debug.Log(canSnap);
-                                if (!barrierUnderneath)
+                                changeColor = true;
+                                //Debug.Log("Object can snap down");
+#if UNITY_ANDROID
+                                if (touch.phase == TouchPhase.Ended)
                                 {
-                                    if (canSnap)
+                                    //Debug.Log(canSnap);
+                                    if (!barrierUnderneath)
                                     {
-                                        canSnap = false;
-                                        SnapBlock();
+                                        if (canSnap)
+                                        {
+                                            canSnap = false;
+                                            SnapBlock();
+                                        }
                                     }
                                 }
-                            }
 #endif
 #if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
@@ -162,27 +174,27 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
+                            }
                         }
-                    }
-                    if (hitLeft)
-                    {
-                        if (hitLeft.collider.tag == "WalkableBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
+                        if (hitLeft)
                         {
-                            changeColor = true;
-                            //Debug.Log("Object can snap left");
-#if UNITY_ANDROID
-                            if (touch.phase == TouchPhase.Ended)
+                            if (hitLeft.collider.tag == "WalkableBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
                             {
-                                // Debug.Log(canSnap);
-                                if (!barrierUnderneath)
+                                changeColor = true;
+                                //Debug.Log("Object can snap left");
+#if UNITY_ANDROID
+                                if (touch.phase == TouchPhase.Ended)
                                 {
-                                    if (canSnap && !barrierUnderneath)
+                                    // Debug.Log(canSnap);
+                                    if (!barrierUnderneath)
                                     {
-                                        canSnap = false;
-                                        SnapBlock();
+                                        if (canSnap && !barrierUnderneath)
+                                        {
+                                            canSnap = false;
+                                            SnapBlock();
+                                        }
                                     }
                                 }
-                            }
 #endif
 #if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
@@ -195,27 +207,27 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
+                            }
                         }
-                    }
-                    if (hitRight)
-                    {
-                        if (hitRight.collider.tag == "WalkableBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
+                        if (hitRight)
                         {
-                            changeColor = true;
-                            //Debug.Log("Object can snap right");
-#if UNITY_ANDROID
-                            if (touch.phase == TouchPhase.Ended)
+                            if (hitRight.collider.tag == "WalkableBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
                             {
-                                //Debug.Log(canSnap);
-                                if (!barrierUnderneath)
+                                changeColor = true;
+                                //Debug.Log("Object can snap right");
+#if UNITY_ANDROID
+                                if (touch.phase == TouchPhase.Ended)
                                 {
-                                    if (canSnap && !barrierUnderneath)
+                                    //Debug.Log(canSnap);
+                                    if (!barrierUnderneath)
                                     {
-                                        canSnap = false;
-                                        SnapBlock();
+                                        if (canSnap && !barrierUnderneath)
+                                        {
+                                            canSnap = false;
+                                            SnapBlock();
+                                        }
                                     }
                                 }
-                            }
 #endif
 #if UNITY_IOS
                             if (Input.GetMouseButtonUp(0))
@@ -228,9 +240,9 @@ public class IceBlock : MonoBehaviour
                                 }
                             }
 #endif
+                            }
                         }
                     }
-
                     if (changeColor)
                         setColorToGreen();
                     else
@@ -391,17 +403,19 @@ public class IceBlock : MonoBehaviour
     }
 
     // Snaps the blocks in place and they become fixed after that
-    private void SnapBlock()
+    public void SnapBlock()
     {
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         //Debug.Log("Object Snapped");
         // Mark that hold has ended
         HoldEnded();
+        Debug.Log("SnappedBlock");
         for (int i = 0; i < transform.childCount; i++)
         {
             //Debug.Log(holograms[i].transform.position);
             Transform block = transform.GetChild(i);
+           // Debug.Log(block);
             // Place each block in it's coresponding hologram position
             //block.position = holograms[i].transform.position;
             // Change the tag of each block to "FixedBlock"
@@ -415,11 +429,13 @@ public class IceBlock : MonoBehaviour
         }
 
         // Activate the breaking of ice
-        GetComponent<IceBlockLife>().PlayerOnTop();
+        if (!isExtraBlock)
+            GetComponent<IceBlockLife>().PlayerOnTop();
         // Center the object
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), transform.position.z);
         allowRotation = false;
         holograms.Clear();
+
     }
 
     // The player has started moving the block

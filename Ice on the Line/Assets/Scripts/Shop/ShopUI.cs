@@ -19,7 +19,6 @@ public class ShopUI : MonoBehaviour
     public Sprite powerupsTab;
     public Sprite fishTab;
 
-
     // The UI background of the shop
     public Image UIImage;
 
