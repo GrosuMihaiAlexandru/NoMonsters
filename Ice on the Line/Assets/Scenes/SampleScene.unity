@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 5488809}
   - component: {fileID: 5488808}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Uses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 75.2, y: -78}
+  m_SizeDelta: {x: -150.4, y: -156.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5488808
 MonoBehaviour:
@@ -177,11 +177,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 78
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 86
+    m_MinSize: 5
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1311,6 +1311,7 @@ GameObject:
   - component: {fileID: 900103728}
   - component: {fileID: 900103727}
   - component: {fileID: 900103730}
+  - component: {fileID: 900103732}
   - component: {fileID: 900103731}
   m_Layer: 5
   m_Name: ExtraBlockButton
@@ -1475,6 +1476,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &900103732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900103725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db83d6ba15bf13045b651bd1a8b837ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  count: 0
+  text: {fileID: 5488808}
 --- !u!1 &1110865884
 GameObject:
   m_ObjectHideFlags: 0
