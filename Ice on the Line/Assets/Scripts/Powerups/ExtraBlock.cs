@@ -67,7 +67,6 @@ public class ExtraBlock : MonoBehaviour
         if (powerup.Count > 0)
         {
             powerup.UsePowerup();
-            GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, powerup.Count);
             usedPowerup = true;
             Debug.Log("ClickedButton");
         }
