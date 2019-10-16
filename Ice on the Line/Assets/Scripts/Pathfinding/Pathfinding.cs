@@ -17,6 +17,11 @@ public class Pathfinding : MonoBehaviour
         grid = GetComponent<Grid>();
     }
 
+    private void Start()
+    {
+        Invoke("initializeMap", 1f);
+    }
+
     private void Update()
     {
         if (InGame.playerAlive)

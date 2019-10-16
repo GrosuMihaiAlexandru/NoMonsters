@@ -1,6 +1,7 @@
 ﻿using EasyMobile;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AdsManagerScript : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class AdsManagerScript : MonoBehaviour
     [SerializeField]
     private List<RectTransform> thingsToMoveUpWhenBannerAdIsShowing = new List<RectTransform>();
 
+    private bool alreadyMoved = false;
+
     private void Awake()
     {
         if (!RuntimeManager.IsInitialized())
@@ -16,53 +19,65 @@ public class AdsManagerScript : MonoBehaviour
             RuntimeManager.Init();
             Advertising.GrantDataPrivacyConsent();
         }
-        adMobClient = Advertising.AdMobClient;
-        adMobClient.OnBannerAdOpening += AdMobClient_OnBannerAdOpening;
-        // adMobClient.OnBannerAdClosed += AdMobClient_OnBannerAdClosed;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        ShowBannerAd();
+        adMobClient = Advertising.AdMobClient;
+
+        adMobClient.OnBannerAdLoaded += AdMobClient_OnBannerAdLoaded;
+
+        adMobClient.ShowBannerAd(BannerAdPosition.Bottom, BannerAdSize.SmartBanner);
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnDestroy()
     {
-        Advertising.DestroyBannerAd();
+        adMobClient.DestroyBannerAd();
     }
 
-    public void ShowBannerAd()
+    private void AdMobClient_OnBannerAdLoaded(object sender, System.EventArgs e)
     {
-        Advertising.ShowBannerAd(BannerAdPosition.Bottom);
-    }
+        if (alreadyMoved)
+            return;
 
-    private void AdMobClient_OnBannerAdOpening(object sender, System.EventArgs e)
-    {
-        for(int i = 0; i < thingsToMoveUpWhenBannerAdIsShowing.Count; i++)
-        {
-            thingsToMoveUpWhenBannerAdIsShowing[i].anchoredPosition += new Vector2(0, GetBannerHeight());
-        }
-    }
-
-    /*
-    private void AdMobClient_OnBannerAdClosed(object sender, System.EventArgs e)
-    {
         for (int i = 0; i < thingsToMoveUpWhenBannerAdIsShowing.Count; i++)
         {
-            thingsToMoveUpWhenBannerAdIsShowing[i].anchoredPosition -= new Vector2(0, GetBannerHeight());
+            thingsToMoveUpWhenBannerAdIsShowing[i].anchoredPosition += new Vector2(0, adHeightPixels());
         }
+        alreadyMoved = true;
     }
-    */
 
-    public float GetBannerHeight()
+    public float adHeightPixels() // workaround until BannerAdSize.SmartBanner.Height starts working (have to write them a bug report)
     {
-        return Mathf.RoundToInt(50 * Screen.dpi / 160);
+        int screenHeightPixels = Screen.height;
+        float screenHeightDP = 160 * screenHeightPixels / Screen.dpi;
+
+        int adHeightDP;
+        if (screenHeightDP > 720)
+        {
+            // Ad height: 90dp
+            adHeightDP = 90;
+        }
+        else if (screenHeightDP > 400)
+        {
+            // Ad height: 50dp
+            adHeightDP = 50;
+        }
+        else
+        {
+            // Ad height: 32dp
+            adHeightDP = 32;
+        }
+
+        float adHeightPixels = adHeightDP * Screen.dpi / 160;
+        return adHeightPixels + 20; // to account for ads sometimes being a bit bigger than expected on Ville's phone :)
     }
 }
