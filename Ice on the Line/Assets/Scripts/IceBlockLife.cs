@@ -105,7 +105,7 @@ public class IceBlockLife : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void PlayerOnTop()
+    public void PlayerOnTop()
     {
         playerOnTop = true;
     }

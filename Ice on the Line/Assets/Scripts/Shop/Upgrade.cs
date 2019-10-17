@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Info about each upgrade  
+// Info about each Upgrade  
 public class Upgrade : MonoBehaviour
 {
     [SerializeField]
@@ -23,13 +23,13 @@ public class Upgrade : MonoBehaviour
         switch (upgradeNumber)
         {
             case 0:
-                level = GameManager.instance.ScoreMultiplierLevel;
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier);
                 break;
             case 1:
-                level = GameManager.instance.TemperatureSpeedLevel;
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed);
                 break;
             case 2:
-                level = GameManager.instance.SnowflakeLevel;
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake);
                 break;
             default:
                 break;
@@ -37,6 +37,7 @@ public class Upgrade : MonoBehaviour
         CalculateCost();
     }
 
+    // Upgrade and update level in GameManager
     public void LevelUpgrade(int fishAmount)
     {
         if (fishAmount >= cost)
@@ -47,13 +48,13 @@ public class Upgrade : MonoBehaviour
             switch (upgradeNumber)
             {
                 case 0:
-                    GameManager.instance.ScoreMultiplierLevel = level;
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.scoreMultiplier, level);
                     break;
                 case 1:
-                    GameManager.instance.TemperatureSpeedLevel = level;
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.temperatureSpeed, level);
                     break;
                 case 2:
-                    GameManager.instance.SnowflakeLevel = level;
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.snowflake, level);
                     break;
                 default:
                     break;
@@ -62,7 +63,7 @@ public class Upgrade : MonoBehaviour
         }
     }
     
-    // Calculate the cost for the next upgrade
+    // Calculate the cost for the next Upgrade
     private void CalculateCost()
     {
         cost = (int) (100 * Mathf.Pow(2, level));

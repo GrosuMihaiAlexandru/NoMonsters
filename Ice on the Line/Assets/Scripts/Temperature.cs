@@ -34,7 +34,7 @@ public class Temperature : MonoBehaviour
             float time = Time.time;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
-            if (time - lastUpdateTime >= temperatureUpdateTime + GameManager.instance.TemperatureSpeedLevel * 1)
+            if (time - lastUpdateTime >= temperatureUpdateTime + GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed) * 1)
             {
                 globalTemperature++;
                 // Update the last time the temperature increased

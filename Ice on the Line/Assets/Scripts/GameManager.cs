@@ -20,20 +20,19 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int score = 0;
 
-    // Global upgrade levels
+    public enum Upgrade { scoreMultiplier, temperatureSpeed, snowflake, extrablock}
+    public enum Powerup { extrablock, jetpack, freeze}
+    // Global Upgrade levels
     [SerializeField]
-    private int scoreMultiplierLevel;
-    [SerializeField]
-    private int temperatureSpeedLevel;
-    [SerializeField]
-    private int snowflakeLevel;
+    private int[] upgradeLevels = new int[4];
 
-    // Powerup levels
+    // Powerups uses
     [SerializeField]
-    private int extraBlockLevel;
+    private int[] powerupUses = new int[3];
 
     void Awake()
     {
+       
         if (instance == null)
         {
             instance = this;
@@ -52,10 +51,10 @@ public class GameManager : MonoBehaviour
         fish = data.fish;
         Gfish = data.Gfish;
 
-        scoreMultiplierLevel = data.upgradesLevels[0];
-        temperatureSpeedLevel = data.upgradesLevels[1];
-        snowflakeLevel = data.upgradesLevels[2];
-        extraBlockLevel = data.upgradesLevels[3];
+        // reading Upgrade levels
+        upgradeLevels = data.upgradesLevels;
+        // reading Powerup uses
+        powerupUses = data.powerupUses;
     }
 
     public void ReloadData()
@@ -94,26 +93,35 @@ public class GameManager : MonoBehaviour
 
     public void SaveProgress()
     {
-        List<int> upgrades = new List<int> { scoreMultiplierLevel, temperatureSpeedLevel, snowflakeLevel, extraBlockLevel };
-        SaveSystem.SaveData(fish, Gfish, upgrades.ToArray());
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses);
     }
 
     public void SaveTutorial()
     {
-        List<int> upgrades = new List<int> { scoreMultiplierLevel, temperatureSpeedLevel, snowflakeLevel, extraBlockLevel };
-        SaveSystem.SaveData(fish, Gfish, upgrades.ToArray(),true);
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, true);
     }
 
+    public int GetUpgradeLevels(Upgrade upgrade)
+    {
+        return upgradeLevels[(int)upgrade];
+    }
+
+    public void SetUpgradeLevels(Upgrade upgrade, int value)
+    {
+        upgradeLevels[(int)upgrade] = value;
+    }
+
+    public int GetPowerupUses(Powerup powerup)
+    {
+        return powerupUses[(int)powerup];
+    }
+
+    public void SetPowerupUses(Powerup powerup, int value)
+    {
+        powerupUses[(int)powerup] = value;
+    }
     public int Score { get { return score; } set { score = value; } }
     
     public int Fish { get { return fish; } private set { fish = value; } }
-
-    public int ScoreMultiplierLevel { get { return scoreMultiplierLevel; } set { scoreMultiplierLevel = value; } }
-
-    public int TemperatureSpeedLevel { get { return temperatureSpeedLevel; } set { temperatureSpeedLevel = value; } }
-
-    public int SnowflakeLevel {  get { return snowflakeLevel; } set { snowflakeLevel = value; } }
-
-    public int ExtraBlockLevel { get { return extraBlockLevel; } set { extraBlockLevel = value; } }
 
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 // Manages the controlls of the game
 public class ClickManager : MonoBehaviour
 {
+    public LayerMask layerMask;
+
     // The gameObject that is pressed on
     private GameObject iceBlock;
     private Rigidbody2D rb;
@@ -21,7 +23,9 @@ public class ClickManager : MonoBehaviour
     float timer = 0;
 
     [SerializeField]
-    private float holdTime = 0.08f;
+    private float holdTime = 0.1f;
+
+    Vector3 initialPos;
 
     void Update()
     {
@@ -33,7 +37,7 @@ public class ClickManager : MonoBehaviour
                 Touch touch = Input.GetTouch(0);
                 // get touch to take a deal with
                 Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-                RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero, 0, layerMask);
                 timer += Time.deltaTime;
                 switch (touch.phase)
                 {
@@ -64,8 +68,8 @@ public class ClickManager : MonoBehaviour
                                 // restrict some rigidbody properties so it moves
                                 // more  smoothly and correctly
                                 iceBlock.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                                // Tell the object that holding has started
-                                
+
+                                initialPos = iceBlock.transform.position;
                             }
                         }
                         break;
@@ -87,11 +91,16 @@ public class ClickManager : MonoBehaviour
 
                     // you release your finger
                     case TouchPhase.Ended:
-                        if (timer <= 0.2f)
+                        // if it's only a short tap the block rotates 
+                        if (timer <= 0.2)
                         {
-                            iceBlock.SendMessage("Rotation");
-                            timer = 0;
-                            break;
+                            if ((iceBlock.transform.position - initialPos).magnitude < 0.1)
+                            {
+                                iceBlock.SendMessage("Rotation");
+                                moveAllowed = false;
+                                timer = 0;
+                                break;
+                            }
                         }
                         //Debug.Log("Touch Ended");
                         // restore initial parameters
@@ -104,10 +113,14 @@ public class ClickManager : MonoBehaviour
                 
                 if (Input.touchCount > 1)
                 {
-                    Touch t2 = Input.GetTouch(1);
-                    if (t2.phase == TouchPhase.Began)
-                        iceBlock.SendMessage("Rotation");
-
+                    if (iceBlock)
+                    {
+                        Touch t2 = Input.GetTouch(1);
+                        if (t2.phase == TouchPhase.Began)
+                        {
+                            iceBlock.SendMessage("Rotation");
+                        }
+                    }
                 }
             }
 #endif
@@ -152,4 +165,7 @@ public class ClickManager : MonoBehaviour
         }
     }
 
+    private void unlockMovement()
+    {
+    }
 }

@@ -21,7 +21,7 @@ public class Snowflake : MonoBehaviour
         if (other.tag == "Player")
         {
             Destroy(gameObject);
-            temperature.LowerTemperature(temperatureAmount + 1 * GameManager.instance.SnowflakeLevel);
+            temperature.LowerTemperature(temperatureAmount + 1 * GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake));
         }
     }
 }
