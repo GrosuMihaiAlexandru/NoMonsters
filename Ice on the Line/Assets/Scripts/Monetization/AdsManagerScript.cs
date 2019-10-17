@@ -31,16 +31,10 @@ public class AdsManagerScript : MonoBehaviour
         adMobClient.ShowBannerAd(BannerAdPosition.Bottom, BannerAdSize.SmartBanner);
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnDestroy()
     {
         adMobClient.DestroyBannerAd();
+        adMobClient.OnBannerAdClosed -= AdMobClient_OnBannerAdLoaded;
     }
 
     private void AdMobClient_OnBannerAdLoaded(object sender, System.EventArgs e)
