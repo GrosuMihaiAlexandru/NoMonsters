@@ -113,10 +113,13 @@ public class ClickManager : MonoBehaviour
                 
                 if (Input.touchCount > 1)
                 {
-                    Touch t2 = Input.GetTouch(1);
-                    if (t2.phase == TouchPhase.Began)
+                    if (iceBlock)
                     {
-                        iceBlock.SendMessage("Rotation");
+                        Touch t2 = Input.GetTouch(1);
+                        if (t2.phase == TouchPhase.Began)
+                        {
+                            iceBlock.SendMessage("Rotation");
+                        }
                     }
                 }
             }
