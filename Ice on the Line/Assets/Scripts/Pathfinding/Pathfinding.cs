@@ -41,7 +41,9 @@ public class Pathfinding : MonoBehaviour
     void initializeMap()
     {
         Node startNode = grid.NodeFromWorldPoint(seeker.position);
-        startNode.yDistance = 0;
+        // Debug.Log(seeker.position);
+        startNode.yDistance = (int)seeker.position.y;
+        // Debug.Log(startNode.worldPosition);
         // set of nodes to be evaluated
         Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
         // set of nodes already evaluated
@@ -55,7 +57,6 @@ public class Pathfinding : MonoBehaviour
         {
             Node currentNode = openSet.RemoveFirst();
             closedSet.Add(currentNode);
-
             // Update the currentNode start block to walkable
             RaycastHit2D initialHit = Physics2D.Raycast(currentNode.worldPosition, Vector2.zero, 0, layerMask);
             if (initialHit)

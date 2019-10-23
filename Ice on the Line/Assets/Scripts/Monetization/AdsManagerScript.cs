@@ -1,8 +1,17 @@
 ﻿using EasyMobile;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AdsManagerScript : MonoBehaviour
 {
+    private AdMobClientImpl adMobClient;
+
+    [SerializeField]
+    private List<RectTransform> thingsToMoveUpWhenBannerAdIsShowing = new List<RectTransform>();
+
+    private bool alreadyMoved = false;
+
     private void Awake()
     {
         if (!RuntimeManager.IsInitialized())
@@ -15,29 +24,56 @@ public class AdsManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        alreadyMoved = false; 
+
+        adMobClient = Advertising.AdMobClient;
+
+        adMobClient.OnBannerAdLoaded += AdMobClient_OnBannerAdLoaded;
+
+        adMobClient.ShowBannerAd(BannerAdPosition.Bottom, BannerAdSize.SmartBanner);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        // Advertising.ShowBannerAd(BannerAdPosition.Bottom);
-        if (Advertising.IsRewardedAdReady())
+        adMobClient.DestroyBannerAd();
+        adMobClient.OnBannerAdClosed -= AdMobClient_OnBannerAdLoaded;
+    }
+
+    private void AdMobClient_OnBannerAdLoaded(object sender, System.EventArgs e)
+    {
+        if (alreadyMoved)
+            return;
+
+        for (int i = 0; i < thingsToMoveUpWhenBannerAdIsShowing.Count; i++)
         {
-            print("rewarded ad ready");
+            thingsToMoveUpWhenBannerAdIsShowing[i].anchoredPosition += new Vector2(0, adHeightPixels());
         }
+        alreadyMoved = true;
     }
 
-    public void ShowBannerAd()
+    public float adHeightPixels() // workaround until BannerAdSize.SmartBanner.Height starts working (have to write them a bug report)
     {
-        Advertising.ShowBannerAd(BannerAdPosition.Bottom);
-    }
+        int screenHeightPixels = Screen.height;
+        float screenHeightDP = 160 * screenHeightPixels / Screen.dpi;
 
-    public void ShowRewardedAd()
-    {
-        if (Advertising.IsRewardedAdReady())
+        int adHeightDP;
+        if (screenHeightDP > 720)
         {
-            Advertising.ShowRewardedAd();
+            // Ad height: 90dp
+            adHeightDP = 90;
         }
+        else if (screenHeightDP > 400)
+        {
+            // Ad height: 50dp
+            adHeightDP = 50;
+        }
+        else
+        {
+            // Ad height: 32dp
+            adHeightDP = 32;
+        }
+
+        float adHeightPixels = adHeightDP * Screen.dpi / 160;
+        return adHeightPixels + 20; // to account for ads sometimes being a bit bigger than expected on Ville's phone :)
     }
 }

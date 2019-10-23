@@ -40,6 +40,7 @@ public class InGame : MonoBehaviour
         }
         //Debug.Log(GetComponent<LevelSelector>().ThisLevel);
         //Debug.Log(movesLeft);
+        
         if (playerAlive)
         {
             if (!movesLeft)

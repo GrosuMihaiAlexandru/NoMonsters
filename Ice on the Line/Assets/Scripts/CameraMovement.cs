@@ -65,17 +65,25 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 cameraOffset;
 
+    [SerializeField]
+    private Renderer levelWidth = null;
 
     private void Start()
     {
         cameraOffset = new Vector3(0, transform.position.y - targetToFollow.position.y, 0);
+        setCameraSizeToMatchHorizontally(levelWidth.bounds.size.x);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (InGame.playerAlive)
-            transform.position = Vector3.Lerp(transform.position, new Vector3 (transform.position.x, targetToFollow.position.y, transform.position.z) + cameraOffset, cameraSmooth);
+        // if (InGame.playerAlive)
+        transform.position = Vector3.Lerp(transform.position, new Vector3 (transform.position.x, targetToFollow.position.y, transform.position.z) + cameraOffset, cameraSmooth);
     }
-    
+
+    // Reference: https://www.youtube.com/watch?v=3xXlnSetHPM
+    private void setCameraSizeToMatchHorizontally(float sizeX)
+    {
+        Camera.main.orthographicSize = sizeX * Screen.height / Screen.width * 0.5f;
+    }
 }
