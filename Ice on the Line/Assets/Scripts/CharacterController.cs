@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class CharacterController : MonoBehaviour
+public class CharacterController : MonoBehaviour, IPlayer
 {
     public bool isTutorial;
 
@@ -21,6 +21,9 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField]
     private float movementSpeed = 0.1f;
+
+    // properties from the interface
+    public int MaxDistance { get; set; }
 
     void Start()
     {
@@ -98,14 +101,7 @@ public class CharacterController : MonoBehaviour
             }
             else
             {
-
-                Destroy(gameObject);
-                // Set playerAlive to false
-                InGame.playerAlive = false;
-
-                gameOverScreen.SetActive(true);
-                Time.timeScale = 0;
-                GameManager.instance.SaveProgress();
+                Die();
             }
         }
     }   
@@ -127,5 +123,20 @@ public class CharacterController : MonoBehaviour
         {
             this.waypoints.Add(n.worldPosition);
         }
+    }
+
+    public void Die()
+    {
+        // Set the max travel distance on death
+        MaxDistance = (int) gameObject.transform.position.y;
+        InGameEvents.GameOver(this);
+        Destroy(gameObject);
+        // Set playerAlive to false
+        InGame.playerAlive = false;
+
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
+        GameManager.instance.SaveProgress();
+        QuestManager.instance.UpdateQuests();
     }
 }

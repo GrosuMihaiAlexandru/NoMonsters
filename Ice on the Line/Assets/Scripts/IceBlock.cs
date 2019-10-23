@@ -405,12 +405,13 @@ public class IceBlock : MonoBehaviour
     // Snaps the blocks in place and they become fixed after that
     public void SnapBlock()
     {
+        InGameEvents.IceBlockSnapped();
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         //Debug.Log("Object Snapped");
         // Mark that hold has ended
         HoldEnded();
-        Debug.Log("SnappedBlock");
+        //Debug.Log("SnappedBlock");
         for (int i = 0; i < transform.childCount; i++)
         {
             //Debug.Log(holograms[i].transform.position);

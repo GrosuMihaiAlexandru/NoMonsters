@@ -3,34 +3,23 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class Powerup : MonoBehaviour
+public abstract class Powerup : MonoBehaviour
 {
-    [SerializeField]
-    private int level;
-    [SerializeField]
-    private int count;
+    
+    public int ID { get; set; }
 
     [SerializeField]
-    private Text text;
+    protected int level;
+    [SerializeField]
+    protected int count;
 
-    void Start()
-    {
-    }
+    // The text which displays powerup uses
+    [SerializeField]
+    protected Text text;
 
-    public void AddPowerup(int value)
-    {
-        count += value;
-        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
-        GameManager.instance.SaveProgress();
-    }
-
-    public void UsePowerup()
-    {
-        count--;
-        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
-        GameManager.instance.SaveProgress();
-        UpdateText();
-    }
+    public abstract void AddPowerup(int value);
+   
+    public abstract void UsePowerup();
 
     public void UpdateText()
     {
@@ -39,8 +28,5 @@ public class Powerup : MonoBehaviour
         else
             text.text = "x99";
     }
-   
-    public int Count { get { return count; } set { count = value; } }
-    public int Level { get { return level; } set { level = value; } }
 
 }
