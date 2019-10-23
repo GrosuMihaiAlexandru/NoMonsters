@@ -1,14 +1,21 @@
-﻿using System.Collections;
+﻿using EasyMobile;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
     public bool isTutorial;
 
+    public bool respawnedOnce = false;
+
+    public GameObject youDiedScreen;
+    public Image timerCircle;
     public GameObject gameOverScreen;
+
     public LayerMask layerMask;
 
     private Animator animator;
@@ -22,10 +29,77 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 0.1f;
 
+    private int levelHeight = 40;
+
+    private GameObject pathfinding;
+
+    private bool isPlayerInvincible = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         animator.enabled = false;
+        Advertising.RewardedAdCompleted += Advertising_RewardedAdCompleted;
+        Advertising.RewardedAdSkipped += Advertising_RewardedAdSkipped;
+
+        pathfinding = GameObject.Find("A*");
+    }
+
+    private void Advertising_RewardedAdSkipped(RewardedAdNetwork arg1, AdPlacement arg2)
+    {
+        Time.timeScale = 1;
+        Die();
+    }
+
+    private void Advertising_RewardedAdCompleted(RewardedAdNetwork arg1, AdPlacement arg2)
+    {
+        RewardedAdCompleted();
+    }
+
+    private void RewardedAdCompleted()
+    {
+        waypoints.Clear();
+        Time.timeScale = 1;
+
+        youDiedScreen.SetActive(false);
+        StopCoroutine("TimerTick");
+
+        // Debug.Log("Should respawn at: " + CalculateRespawnPosition().ToString());
+
+        // transform.position = CalculateRespawnPosition();
+
+        transform.position = CalculateRespawnPosition();
+
+        movementSpeed = 20;
+        
+
+        pathfinding.transform.position = new Vector3(pathfinding.transform.position.x, transform.position.y + 1, pathfinding.transform.position.z);
+        Invoke("MakePlayerAliveAfterDelay", 1f);
+    }
+
+    private Vector2 CalculateRespawnPosition()
+    {
+        float dyingYPosition = transform.position.y;
+        int levelWhereYouDied = Mathf.FloorToInt(dyingYPosition / levelHeight);
+
+        return new Vector2(transform.position.x, (levelWhereYouDied + 1) * 40);
+    }
+
+    private void MakePlayerAliveAfterDelay()
+    {
+        // Debug.Log("ASDSADASDASDASD");
+        
+        pathfinding.SendMessage("UpdateGrid");
+        pathfinding.SendMessage("initializeMap");
+        isPlayerInvincible = false;
+        InGame.playerAlive = true;
+        movementSpeed = 5;
+    }
+
+    public void WatchAdToRespawn()
+    {
+        Time.timeScale = 0;
+        Advertising.ShowRewardedAd();
     }
 
     /*void FixedUpdate()
@@ -55,6 +129,7 @@ public class CharacterController : MonoBehaviour
         }
 
     }*/
+
 
     // Update is called once per frame
     void Update()
@@ -99,16 +174,71 @@ public class CharacterController : MonoBehaviour
             else
             {
 
-                Destroy(gameObject);
                 // Set playerAlive to false
                 InGame.playerAlive = false;
 
-                gameOverScreen.SetActive(true);
-                Time.timeScale = 0;
-                GameManager.instance.SaveProgress();
+                if (!respawnedOnce)
+                {
+                    isPlayerInvincible = true;
+                    // RewardedAdCompleted();
+                    respawnedOnce = true;
+                    
+                    if (Advertising.IsRewardedAdReady())
+                    {
+                        youDiedScreen.SetActive(true);
+                        StartCoroutine("TimerTick");
+                        respawnedOnce = true;
+                    }
+                    else
+                    {
+                        Die();
+                    }
+                }
+                else
+                {
+                    if (!isPlayerInvincible)
+                        Die();
+                }
+                
             }
         }
-    }   
+    }
+
+    
+
+    
+    
+    public void Die()
+    {
+        Debug.Log("Died at: " + transform.position.ToString());
+        youDiedScreen.SetActive(false);
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
+        GameManager.instance.SaveProgress();
+        Destroy(gameObject);
+    }
+    
+    private void OnDestroy()
+    {
+        Advertising.RewardedAdCompleted -= Advertising_RewardedAdCompleted;
+        Advertising.RewardedAdSkipped -= Advertising_RewardedAdSkipped;
+    }
+
+    private IEnumerator TimerTick()
+    {
+        for (float i = 0; i < 3; i += 0.01f)
+        {
+            timerCircle.fillAmount = ReMap(i, 0, 3, 0, 1);
+            yield return new WaitForSeconds(.01f);
+        }
+
+        Die();
+    }
+
+    private float ReMap(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
 
     private void CheckDistance(float distance)
     {

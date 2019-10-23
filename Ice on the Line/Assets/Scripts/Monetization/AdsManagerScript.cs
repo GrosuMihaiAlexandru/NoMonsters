@@ -24,6 +24,8 @@ public class AdsManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        alreadyMoved = false; 
+
         adMobClient = Advertising.AdMobClient;
 
         adMobClient.OnBannerAdLoaded += AdMobClient_OnBannerAdLoaded;

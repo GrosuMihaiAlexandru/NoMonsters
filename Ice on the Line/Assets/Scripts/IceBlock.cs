@@ -410,7 +410,7 @@ public class IceBlock : MonoBehaviour
         //Debug.Log("Object Snapped");
         // Mark that hold has ended
         HoldEnded();
-        Debug.Log("SnappedBlock");
+        // Debug.Log("SnappedBlock");
         for (int i = 0; i < transform.childCount; i++)
         {
             //Debug.Log(holograms[i].transform.position);
