@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         upgradeLevels = data.upgradesLevels;
         // reading Powerup uses
         powerupUses = data.powerupUses;
+
     }
 
     public void ReloadData()
@@ -93,12 +94,15 @@ public class GameManager : MonoBehaviour
 
     public void SaveProgress()
     {
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses);
+        // making an array of quests from the quest list
+        QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests);
     }
 
     public void SaveTutorial()
     {
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, true);
+        QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, true);
     }
 
     public int GetUpgradeLevels(Upgrade upgrade)

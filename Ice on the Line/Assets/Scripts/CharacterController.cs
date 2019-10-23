@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CharacterController : MonoBehaviour
+
+public class CharacterController : MonoBehaviour, IPlayer
 {
     public bool isTutorial;
 
@@ -34,6 +35,9 @@ public class CharacterController : MonoBehaviour
     private GameObject pathfinding;
 
     private bool isPlayerInvincible = false;
+
+    // properties from the interface
+    public int MaxDistance { get; set; }
 
     void Start()
     {
@@ -257,5 +261,20 @@ public class CharacterController : MonoBehaviour
         {
             this.waypoints.Add(n.worldPosition);
         }
+    }
+
+    public void Die()
+    {
+        // Set the max travel distance on death
+        MaxDistance = (int) gameObject.transform.position.y;
+        InGameEvents.GameOver(this);
+        Destroy(gameObject);
+        // Set playerAlive to false
+        InGame.playerAlive = false;
+
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
+        GameManager.instance.SaveProgress();
+        QuestManager.instance.UpdateQuests();
     }
 }

@@ -405,6 +405,7 @@ public class IceBlock : MonoBehaviour
     // Snaps the blocks in place and they become fixed after that
     public void SnapBlock()
     {
+        InGameEvents.IceBlockSnapped();
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         //Debug.Log("Object Snapped");

@@ -17,7 +17,6 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        // Debug.Log(player.transform.position);
     }
 
     // Update is called once per frame

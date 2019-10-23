@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(Powerup))]
-public class ExtraBlock : MonoBehaviour
+public class ExtraBlock : Powerup
 {
     public List<GameObject> extraBlocks;
 
@@ -17,18 +16,16 @@ public class ExtraBlock : MonoBehaviour
     bool moveAllowed = false;
     bool clicked = false;
 
-    private Powerup powerup;
-
     // Start is called before the first frame update
     void Start()
     {
-        powerup = GetComponent<Powerup>();
-        powerup.Level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.extrablock);
-        powerup.Count = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock);
-        powerup.UpdateText();
+        ID = 0;
+        level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.extrablock);
+        count = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock);
+        UpdateText();
     }
 
-    // Update is called once per frame
+    // The Implementation of the powerup mechanics
     void Update()
     {
 
@@ -62,16 +59,18 @@ public class ExtraBlock : MonoBehaviour
         }
     }
 
+    // Event triggered on PowerupClick
     public void OnClick()
     {
-        if (powerup.Count > 0)
+        if (count > 0)
         {
-            powerup.UsePowerup();
+            UsePowerup();
             usedPowerup = true;
             Debug.Log("ClickedButton");
         }
     }
 
+    // Event triggerd on PowerupRelease
     public void OnRelease()
     {
         if (extraBlock)
@@ -81,4 +80,21 @@ public class ExtraBlock : MonoBehaviour
             Debug.Log("ReleasedButton");
         }
     }
+
+    public override void UsePowerup()
+    {
+        InGameEvents.PowerupUsed(this);
+        count--;
+        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
+        GameManager.instance.SaveProgress();
+        UpdateText();
+    }
+
+    public override void AddPowerup(int value)
+    {
+        count += value;
+        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
+        GameManager.instance.SaveProgress();
+    }
+
 }
