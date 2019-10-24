@@ -429,6 +429,10 @@ public class IceBlock : MonoBehaviour
             Destroy(o);
         }
 
+        // Set animator to active
+        if (!isExtraBlock)
+            GetComponent<Animator>().enabled = true;
+
         // Activate the breaking of ice
         if (!isExtraBlock)
             GetComponent<IceBlockLife>().PlayerOnTop();

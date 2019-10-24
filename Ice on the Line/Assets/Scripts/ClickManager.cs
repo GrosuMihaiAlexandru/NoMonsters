@@ -23,7 +23,7 @@ public class ClickManager : MonoBehaviour
     float timer = 0;
 
     [SerializeField]
-    private float holdTime = 0.1f;
+    private float holdTime = 0.07f;
 
     Vector3 initialPos;
 
