@@ -99,13 +99,15 @@ public class GameManager : MonoBehaviour
     {
         // making an array of quests from the quest list
         QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests);
+        ulong questTime = QuestManager.instance.QuestsAssignedTime;
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, questTime);
     }
 
     public void SaveTutorial()
     {
         QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, true);
+        ulong questTime = QuestManager.instance.QuestsAssignedTime;
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, questTime, true);
     }
 
     public int GetUpgradeLevels(Upgrade upgrade)

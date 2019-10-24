@@ -30,7 +30,9 @@ public class PlayerData
     // the current active quests with their progress
     public QuestSaving[] activeQuests = new QuestSaving[3];
 
-    public PlayerData(int fish, int Gfish, int[] upgrades, int[] uses, QuestSaving[] quests,bool tutorial = true)
+    public ulong questsAssignedTime;
+
+    public PlayerData(int fish, int Gfish, int[] upgrades, int[] uses, QuestSaving[] quests, ulong questTime, bool tutorial = true)
     {
         this.fish = fish;
         this.Gfish = Gfish;
@@ -38,5 +40,6 @@ public class PlayerData
         upgradesLevels = upgrades;
         powerupUses = uses;
         activeQuests = quests;
+        questsAssignedTime = questTime;
     }
 }

@@ -50,6 +50,7 @@ public class IceBlockLife : MonoBehaviour
 
         animator = GetComponent<Animator>();
         animator.SetInteger("Health", currentHealth);
+        animator.enabled = false;
     }
 
     private void Update()
@@ -113,7 +114,6 @@ public class IceBlockLife : MonoBehaviour
     IEnumerator DamageIce()
     {
         coroutineStarted = true;
-
         while (playerOnTop)
         {
             int damage = (int)(baseDamage * damageMultiplier);

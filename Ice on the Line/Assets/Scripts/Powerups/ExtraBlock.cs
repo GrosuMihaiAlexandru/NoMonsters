@@ -35,7 +35,7 @@ public class ExtraBlock : Powerup
             {
                 Touch touch = Input.GetTouch(0);
                 Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-                Debug.Log("Being held");
+                //Debug.Log("Being held");
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:

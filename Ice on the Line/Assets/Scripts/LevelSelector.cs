@@ -83,8 +83,9 @@ public class LevelSelector : MonoBehaviour
 
     public int SelectLevel(int maxLevel)
     {
+        Random.InitState(System.DateTime.Now.Millisecond);
         int r = Random.Range(0, maxLevel + 1);
-        while (r == currentLevel)
+        while (r == currentLevel)       
         {
             r = Random.Range(0, maxLevel + 1);
         }

@@ -5,14 +5,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class SaveSystem
 {
 
-    public static void SaveData(int fish, int score, int[] upgrades, int[] uses, QuestSaving[] quests, bool tutorial = true)
+    public static void SaveData(int fish, int score, int[] upgrades, int[] uses, QuestSaving[] quests, ulong questTime, bool tutorial = true)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/playerData.iotl";
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(fish, score, upgrades, uses, quests, tutorial);
+        PlayerData data = new PlayerData(fish, score, upgrades, uses, quests, questTime, tutorial);
 
         formatter.Serialize(stream, data);
         stream.Close();
