@@ -31,7 +31,7 @@ public class Goal
 
     public void Complete()
     {
-        Completed = true;
-        Debug.Log("Goal completed");
+        this.Completed = true;
+        //Debug.Log("Goal completed");
     }
 }

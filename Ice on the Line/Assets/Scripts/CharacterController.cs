@@ -52,6 +52,7 @@ public class CharacterController : MonoBehaviour, IPlayer
     private void Advertising_RewardedAdSkipped(RewardedAdNetwork arg1, AdPlacement arg2)
     {
         Time.timeScale = 1;
+        InGame.playerAlive = false;
         Die();
     }
 
@@ -103,7 +104,8 @@ public class CharacterController : MonoBehaviour, IPlayer
     public void WatchAdToRespawn()
     {
         Time.timeScale = 0;
-        Advertising.ShowRewardedAd();
+        //Advertising.ShowRewardedAd();
+        RewardedAdCompleted();
     }
 
     /*void FixedUpdate()
@@ -187,7 +189,7 @@ public class CharacterController : MonoBehaviour, IPlayer
                     // RewardedAdCompleted();
                     respawnedOnce = true;
                     
-                    if (Advertising.IsRewardedAdReady())
+                    if (true)//Advertising.IsRewardedAdReady())
                     {
                         youDiedScreen.SetActive(true);
                         StartCoroutine("TimerTick");
@@ -195,33 +197,22 @@ public class CharacterController : MonoBehaviour, IPlayer
                     }
                     else
                     {
+                        
                         Die();
                     }
                 }
                 else
                 {
                     if (!isPlayerInvincible)
+                    {
                         Die();
+                    }
                 }
                 
             }
         }
     }
 
-    
-
-    
-    
-    public void Die()
-    {
-        Debug.Log("Died at: " + transform.position.ToString());
-        youDiedScreen.SetActive(false);
-        gameOverScreen.SetActive(true);
-        Time.timeScale = 0;
-        GameManager.instance.SaveProgress();
-        Destroy(gameObject);
-    }
-    
     private void OnDestroy()
     {
         Advertising.RewardedAdCompleted -= Advertising_RewardedAdCompleted;
@@ -265,16 +256,19 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public void Die()
     {
+        Time.timeScale = 0;
+        InGame.playerAlive = false;
         // Set the max travel distance on death
         MaxDistance = (int) gameObject.transform.position.y;
         InGameEvents.GameOver(this);
-        Destroy(gameObject);
         // Set playerAlive to false
-        InGame.playerAlive = false;
 
+        youDiedScreen.SetActive(false);
         gameOverScreen.SetActive(true);
-        Time.timeScale = 0;
+
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();
+        Destroy(gameObject);
     }
+
 }

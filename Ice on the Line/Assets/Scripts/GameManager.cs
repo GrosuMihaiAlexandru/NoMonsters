@@ -42,10 +42,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    void Start()
-    {
+        // Reading saved data
         PlayerData data = SaveSystem.LoadData();
         tutorialDone = data.finishedTutorial;
         fish = data.fish;
@@ -56,6 +54,11 @@ public class GameManager : MonoBehaviour
         // reading Powerup uses
         powerupUses = data.powerupUses;
 
+    }
+
+    void Start()
+    {
+        
     }
 
     public void ReloadData()

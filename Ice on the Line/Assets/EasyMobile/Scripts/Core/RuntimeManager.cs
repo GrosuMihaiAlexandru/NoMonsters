@@ -47,7 +47,7 @@ namespace EasyMobile
                 // Done init.
                 mIsInitialized = true;
 
-                Debug.Log("Easy Mobile runtime has been initialized.");
+                //Debug.Log("Easy Mobile runtime has been initialized.");
             }
         }
 

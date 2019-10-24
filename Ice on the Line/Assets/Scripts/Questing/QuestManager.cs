@@ -72,7 +72,7 @@ public class QuestManager : MonoBehaviour
         CheckQuest();
 
         // If there are less then 3 quests assigned then assign new quests
-        Debug.Log("assigning new quests");
+        //Debug.Log("assigning new quests");
         while (questsAssigned < maxQuests)
         {
             questType = PickRandomQuests(questsBacklog.Count);
@@ -113,10 +113,11 @@ public class QuestManager : MonoBehaviour
         List<Quest> removedQuests = new List<Quest>();
         foreach(Quest q in Quests)
         {
-            Debug.Log(q.QuestName);
+            //Debug.Log(q.QuestName);
             q.CheckGoals();
             if (q.Completed)
             {
+                Debug.Log(q.QuestName + " completed");
                 q.GiveReward();
                 questsAssigned--;
                 removedQuests.Add(q);

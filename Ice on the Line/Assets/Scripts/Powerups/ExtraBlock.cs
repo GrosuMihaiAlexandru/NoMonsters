@@ -23,8 +23,8 @@ public class ExtraBlock : Powerup
         level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.extrablock);
         count = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock);
         UpdateText();
-    }
-
+    }   
+   
     // The Implementation of the powerup mechanics
     void Update()
     {
