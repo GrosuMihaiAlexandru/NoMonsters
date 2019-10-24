@@ -5,13 +5,6 @@ using UnityEngine.UI;
 
 public class AdsManagerScript : MonoBehaviour
 {
-    private AdMobClientImpl adMobClient;
-
-    [SerializeField]
-    private List<RectTransform> thingsToMoveUpWhenBannerAdIsShowing = new List<RectTransform>();
-
-    private bool alreadyMoved = false;
-
     private void Awake()
     {
         if (!RuntimeManager.IsInitialized())
@@ -24,33 +17,16 @@ public class AdsManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        alreadyMoved = false; 
-
-        adMobClient = Advertising.AdMobClient;
-
-        adMobClient.OnBannerAdLoaded += AdMobClient_OnBannerAdLoaded;
-
-        adMobClient.ShowBannerAd(BannerAdPosition.Bottom, BannerAdSize.SmartBanner);
+        Advertising.ShowBannerAd(BannerAdPosition.Top);
     }
 
     private void OnDestroy()
     {
-        adMobClient.DestroyBannerAd();
-        adMobClient.OnBannerAdClosed -= AdMobClient_OnBannerAdLoaded;
+        Advertising.DestroyBannerAd();
     }
 
-    private void AdMobClient_OnBannerAdLoaded(object sender, System.EventArgs e)
-    {
-        if (alreadyMoved)
-            return;
 
-        for (int i = 0; i < thingsToMoveUpWhenBannerAdIsShowing.Count; i++)
-        {
-            thingsToMoveUpWhenBannerAdIsShowing[i].anchoredPosition += new Vector2(0, adHeightPixels());
-        }
-        alreadyMoved = true;
-    }
-
+    /*
     public float adHeightPixels() // workaround until BannerAdSize.SmartBanner.Height starts working (have to write them a bug report)
     {
         int screenHeightPixels = Screen.height;
@@ -76,4 +52,5 @@ public class AdsManagerScript : MonoBehaviour
         float adHeightPixels = adHeightDP * Screen.dpi / 160;
         return adHeightPixels + 20; // to account for ads sometimes being a bit bigger than expected on Ville's phone :)
     }
+    */
 }
