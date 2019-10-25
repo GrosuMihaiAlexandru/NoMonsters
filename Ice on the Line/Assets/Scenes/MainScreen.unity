@@ -322,6 +322,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 208082138}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8928357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,12 +1215,12 @@ GameObject:
   - component: {fileID: 638402781}
   - component: {fileID: 638402780}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TimerQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &638402779
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2012,7 +2023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1147252981
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2032,9 +2043,9 @@ RectTransform:
   m_Father: {fileID: 7516132501050623897}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 469.7, y: -116.6}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 939.4, y: 233.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1147252982
@@ -2504,6 +2515,17 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 8928354}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 208082138}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -3035,7 +3057,7 @@ GameObject:
   - component: {fileID: 1520855390}
   - component: {fileID: 1520855389}
   m_Layer: 5
-  m_Name: Text
+  m_Name: DailyMissions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3424,7 +3446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1932348593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3444,9 +3466,9 @@ RectTransform:
   m_Father: {fileID: 7516132501050623897}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 469.7, y: -116.6}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 939.4, y: 233.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1932348594
@@ -3784,9 +3806,9 @@ RectTransform:
   m_Father: {fileID: 7516132501050623897}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 469.7, y: -116.6}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 939.4, y: 233.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1263311194867106103
@@ -3805,7 +3827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1263311194867106104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4220,6 +4242,7 @@ MonoBehaviour:
   quests: []
   checkBox: {fileID: 21300000, guid: 2cae652b225035845b875be81c60e6cc, type: 3}
   checkBoxTicked: {fileID: 21300000, guid: 66d8895e17c5058408dfac197506c7d6, type: 3}
+  updateQuestsTimer: {fileID: 638402780}
 --- !u!114 &7516132501050623909
 MonoBehaviour:
   m_ObjectHideFlags: 0
