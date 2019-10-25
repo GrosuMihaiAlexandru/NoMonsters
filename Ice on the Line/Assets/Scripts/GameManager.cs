@@ -105,8 +105,8 @@ public class GameManager : MonoBehaviour
 
     public void SaveTutorial()
     {
-        QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
-        ulong questTime = QuestManager.instance.QuestsAssignedTime;
+        QuestSaving[] quests = new QuestSaving[3];
+        ulong questTime = 0;
         SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, questTime, true);
     }
 

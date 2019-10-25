@@ -16,6 +16,8 @@ public class InGame : MonoBehaviour
 
     public GameObject gameOverScreen;
 
+    public bool isTutorial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,28 +30,32 @@ public class InGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        iceblocks = GetComponent<LevelSelector>().ThisLevel.GetComponentsInChildren<IceBlock>().ToList();
-        movesLeft = false;
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
-        for (int i = 0; i < iceblocks.Count; i++)
+        // Losing condition shouldn't work during the tutorial
+        if (!isTutorial)
         {
-            if (GeometryUtility.TestPlanesAABB(planes, iceblocks[i].transform.GetComponent<Renderer>().bounds))
+            iceblocks = GetComponent<LevelSelector>().ThisLevel.GetComponentsInChildren<IceBlock>().ToList();
+            movesLeft = false;
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+            for (int i = 0; i < iceblocks.Count; i++)
             {
-                movesLeft = true;
+                if (GeometryUtility.TestPlanesAABB(planes, iceblocks[i].transform.GetComponent<Renderer>().bounds))
+                {
+                    movesLeft = true;
+                }
             }
-        }
-        //Debug.Log(GetComponent<LevelSelector>().ThisLevel);
-        //Debug.Log(movesLeft);
-        
-        if (playerAlive)
-        {
-            if (!movesLeft)
+            //Debug.Log(GetComponent<LevelSelector>().ThisLevel);
+            //Debug.Log(movesLeft);
+
+            if (playerAlive)
             {
-                Destroy(player.gameObject);
-                playerAlive = false;
-                gameOverScreen.SetActive(true);
-                Time.timeScale = 0;
-                GameManager.instance.SaveProgress();
+                if (!movesLeft)
+                {
+                    Destroy(player.gameObject);
+                    playerAlive = false;
+                    gameOverScreen.SetActive(true);
+                    Time.timeScale = 0;
+                    GameManager.instance.SaveProgress();
+                }
             }
         }
     }

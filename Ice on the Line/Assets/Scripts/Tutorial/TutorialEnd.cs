@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class TutorialEnd : MonoBehaviour
 {
-    private GameManager game;
     public GameObject player;
     public GameObject popupDisplay;
     float time;
     void Start()
     {
-        game = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
         time = Time.time;
     }
@@ -28,8 +26,8 @@ public class TutorialEnd : MonoBehaviour
 
     private void DoStuff()
     {
-        game.SaveTutorial();
-        game.ReloadData();
-        SceneManager.LoadScene(1);
+        GameManager.instance.SaveTutorial();
+        GameManager.instance.ReloadData();
+        SceneManager.LoadScene("MainScreen");
     }
 }

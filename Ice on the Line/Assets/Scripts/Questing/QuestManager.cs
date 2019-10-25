@@ -101,7 +101,7 @@ public class QuestManager : MonoBehaviour
         // Quests.Clear();
     }
 
-    public Text text;
+    //public Text text;
 
     // Returns the time left until assigning new quests as a string
     public string TimeLeftUntilNewQuests()
@@ -133,7 +133,7 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        text.text = TimeLeftUntilNewQuests();
+       // text.text = TimeLeftUntilNewQuests();
     }
 
     public void UpdateQuests()
