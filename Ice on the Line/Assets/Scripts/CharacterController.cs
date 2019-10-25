@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -66,6 +67,7 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     private void RewardedAdCompleted()
     {
+        Analytics.CustomEvent("FinishedRewardedAd");
         waypoints.Clear();
         Time.timeScale = 1;
 
@@ -108,6 +110,7 @@ public class CharacterController : MonoBehaviour, IPlayer
     {
         Time.timeScale = 0;
         Advertising.ShowRewardedAd();
+        Analytics.CustomEvent("StartedRewardedAd");
     }
 
     /*void FixedUpdate()
@@ -260,6 +263,11 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public void Die()
     {
+        Analytics.CustomEvent("Died at level ", new Dictionary<string, object>
+        {
+            { "level", (int)(transform.position.y / levelHeight) + 1 }
+        });
+
         Time.timeScale = 0;
         InGame.playerAlive = false;
         // Set the max travel distance on death
