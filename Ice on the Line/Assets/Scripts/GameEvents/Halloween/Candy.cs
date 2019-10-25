@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class Candy : MonoBehaviour, ICollectible
 {
-    public int ID { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int ID { get; set; }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        ID = 1000;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Collect();
+        }
+    }
 
     public void Collect()
     {
@@ -12,15 +26,4 @@ public class Candy : MonoBehaviour, ICollectible
         Destroy(gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
