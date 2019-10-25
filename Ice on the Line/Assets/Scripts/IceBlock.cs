@@ -37,6 +37,8 @@ public class IceBlock : MonoBehaviour
 
     private const int gridWidth = 6;
 
+    
+
     void OnDestroy()
     {
         foreach (GameObject obj in holograms)
@@ -291,6 +293,7 @@ public class IceBlock : MonoBehaviour
     {
         if (allowRotation)
         {
+            SoundManager.instance.PlayRotateIceBlockSoundClip();
             if (limitRotation)
             {
                 if (transform.rotation.eulerAngles.z >= 90)
@@ -405,6 +408,8 @@ public class IceBlock : MonoBehaviour
     // Snaps the blocks in place and they become fixed after that
     public void SnapBlock()
     {
+        SoundManager.instance.PlaySnapIceBlockSoundClip();
+
         InGameEvents.IceBlockSnapped();
         // Destroy the rigidbody so that it won't move after it snapped
         Destroy(gameObject.GetComponent<Rigidbody2D>());
@@ -443,9 +448,18 @@ public class IceBlock : MonoBehaviour
 
     }
 
+    bool startedHold = false;
+
     // The player has started moving the block
     public void HoldStarted()
     {
+        // SoundManager.instance.PlayStartDragIceBlockSoundClip();
+        if (!startedHold)
+        {
+            SoundManager.instance.PlayStartDragIceBlockSoundClip();
+            startedHold = true;
+        }
+
         //Debug.Log("hold started");
         isBeingHeld = true;
         // Making the collider smaller during dragging to make them easier to move
@@ -458,11 +472,16 @@ public class IceBlock : MonoBehaviour
     // The player stopped moving the block
     public void HoldEnded()
     {
+        startedHold = false;
         isBeingHeld = false;
         if (canSnap == false)
         {
             transform.tag = "FixedBlock";
             canCallAstar = true;
+        }
+        else // not snapping
+        {
+            SoundManager.instance.PlayStopDragWithoutSnapIceBlockSoundClip();
         }
 
         // Returning the collider size to it's initial value

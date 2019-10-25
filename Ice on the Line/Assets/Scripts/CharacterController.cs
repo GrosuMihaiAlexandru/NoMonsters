@@ -36,6 +36,9 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     private bool isPlayerInvincible = false;
 
+    [SerializeField]
+    private AudioClip walkingSoundClip = null;
+
     // properties from the interface
     public int MaxDistance { get; set; }
 
@@ -104,8 +107,7 @@ public class CharacterController : MonoBehaviour, IPlayer
     public void WatchAdToRespawn()
     {
         Time.timeScale = 0;
-        //Advertising.ShowRewardedAd();
-        RewardedAdCompleted();
+        Advertising.ShowRewardedAd();
     }
 
     /*void FixedUpdate()
@@ -151,6 +153,9 @@ public class CharacterController : MonoBehaviour, IPlayer
                 transform.up = direction    ;
                 velocity = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
                 transform.position = velocity;
+
+                if (!SoundManager.instance.efxSource.isPlaying)
+                    SoundManager.instance.PlaySingle(walkingSoundClip);
             }
         }
         else
@@ -189,7 +194,7 @@ public class CharacterController : MonoBehaviour, IPlayer
                     // RewardedAdCompleted();
                     respawnedOnce = true;
                     
-                    if (true)//Advertising.IsRewardedAdReady())
+                    if (Advertising.IsRewardedAdReady())
                     {
                         youDiedScreen.SetActive(true);
                         StartCoroutine("TimerTick");
@@ -197,7 +202,6 @@ public class CharacterController : MonoBehaviour, IPlayer
                     }
                     else
                     {
-                        
                         Die();
                     }
                 }

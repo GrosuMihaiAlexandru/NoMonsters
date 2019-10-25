@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField]
-    private AudioSource efxSource;
+    public AudioSource efxSource;
 
-    [SerializeField]
-    private AudioSource musicSource;
+    public AudioSource musicSource;
 
     public static SoundManager instance = null;
 
@@ -18,9 +16,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private float highPitchRange = 1.05f;
 
+    public AudioClip startDragIceBlockSoundClip = null;
+    public AudioClip stopDragWithoutSnapIceBlockSoundClip = null;
+    public AudioClip snapIceBlockSoundClip = null;
+    public AudioClip rotateIceBlockSoundClip = null;
+
     private void Awake()
     {
-        if (instance = null)
+        if (instance == null)
             instance = this;
         else if (instance != this)
             Destroy(gameObject);
@@ -34,6 +37,23 @@ public class SoundManager : MonoBehaviour
         efxSource.Play();
     }
 
+    public void PlayStartDragIceBlockSoundClip()
+    {
+        PlaySingle(startDragIceBlockSoundClip);
+    }
+
+    public void PlayStopDragWithoutSnapIceBlockSoundClip()
+    {
+        PlaySingle(stopDragWithoutSnapIceBlockSoundClip);
+    }
+    public void PlaySnapIceBlockSoundClip()
+    {
+        PlaySingle(snapIceBlockSoundClip);
+    }
+    public void PlayRotateIceBlockSoundClip()
+    {
+        PlaySingle(rotateIceBlockSoundClip);
+    }
     public void RandomizeSfx (params AudioClip[] clips)
     {
         int randomIndex = Random.Range(0, clips.Length);

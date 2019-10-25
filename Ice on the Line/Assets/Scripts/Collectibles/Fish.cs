@@ -7,6 +7,9 @@ public class Fish : MonoBehaviour, ICollectible
     [SerializeField]
     private int value;
 
+    [SerializeField]
+    private AudioClip collectClip;
+
     public int ID { get; set; }
 
     // Start is called before the first frame update
@@ -30,6 +33,7 @@ public class Fish : MonoBehaviour, ICollectible
 
     public void Collect()
     {
+        SoundManager.instance.PlaySingle(collectClip);
         InGameEvents.ItemCollected(this);
         Destroy(gameObject);
         GameManager.instance.AddFish(value);

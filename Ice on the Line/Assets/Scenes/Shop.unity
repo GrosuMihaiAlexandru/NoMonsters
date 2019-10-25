@@ -446,6 +446,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84621072}
   m_CullTransparentMesh: 0
+--- !u!1001 &102471525
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8586537906719216279, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_Name
+      value: LocalUISoundHelper
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 144.49107
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 294.8835
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3840.9846
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586537906719216233, guid: c67c62c375307a74a9e763610ad03cb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c67c62c375307a74a9e763610ad03cb5, type: 3}
+--- !u!114 &102471526 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8586537906719216278, guid: c67c62c375307a74a9e763610ad03cb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 102471525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c71a863489c5664385b16f0a8bd93d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &123734265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,6 +1435,7 @@ GameObject:
   - component: {fileID: 527707674}
   - component: {fileID: 527707673}
   - component: {fileID: 527707672}
+  - component: {fileID: 527707675}
   m_Layer: 5
   m_Name: UpgradesTab
   m_TagString: Untagged
@@ -1504,6 +1586,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527707670}
   m_CullTransparentMesh: 0
+--- !u!114 &527707675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527707670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &545375665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +1869,7 @@ GameObject:
   - component: {fileID: 671582763}
   - component: {fileID: 671582762}
   - component: {fileID: 671582761}
+  - component: {fileID: 671582764}
   m_Layer: 5
   m_Name: ScoreBoosterUpgrade
   m_TagString: Untagged
@@ -1875,6 +1987,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671582759}
   m_CullTransparentMesh: 0
+--- !u!114 &671582764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671582759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &690790961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,6 +2028,7 @@ GameObject:
   - component: {fileID: 690790965}
   - component: {fileID: 690790964}
   - component: {fileID: 690790963}
+  - component: {fileID: 690790966}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2004,6 +2146,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690790961}
   m_CullTransparentMesh: 0
+--- !u!114 &690790966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690790961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: a8290f96bb2c50b4b8ab2f5afd055a7e,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &707346486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2503,7 @@ GameObject:
   - component: {fileID: 763865172}
   - component: {fileID: 763865171}
   - component: {fileID: 763865170}
+  - component: {fileID: 763865173}
   m_Layer: 5
   m_Name: ScoreBoosterUpgrade
   m_TagString: Untagged
@@ -2433,6 +2621,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763865168}
   m_CullTransparentMesh: 0
+--- !u!114 &763865173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763865168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &798784448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,6 +2662,7 @@ GameObject:
   - component: {fileID: 798784452}
   - component: {fileID: 798784451}
   - component: {fileID: 798784450}
+  - component: {fileID: 798784453}
   m_Layer: 5
   m_Name: FishTab
   m_TagString: Untagged
@@ -2551,6 +2769,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798784448}
   m_CullTransparentMesh: 0
+--- !u!114 &798784453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798784448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &846305052
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,6 +3552,7 @@ GameObject:
   - component: {fileID: 1154499062}
   - component: {fileID: 1154499061}
   - component: {fileID: 1154499060}
+  - component: {fileID: 1154499063}
   m_Layer: 5
   m_Name: ScoreBoosterUpgrade
   m_TagString: Untagged
@@ -3422,6 +3670,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154499058}
   m_CullTransparentMesh: 0
+--- !u!114 &1154499063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154499058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1155255878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,6 +4000,7 @@ GameObject:
   - component: {fileID: 1292216216}
   - component: {fileID: 1292216215}
   - component: {fileID: 1292216214}
+  - component: {fileID: 1292216217}
   m_Layer: 5
   m_Name: PowerupsTab
   m_TagString: Untagged
@@ -3873,6 +4151,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292216212}
   m_CullTransparentMesh: 0
+--- !u!114 &1292216217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292216212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1333325914
 GameObject:
   m_ObjectHideFlags: 0
@@ -5097,6 +5404,7 @@ GameObject:
   - component: {fileID: 1792780115}
   - component: {fileID: 1792780114}
   - component: {fileID: 1792780113}
+  - component: {fileID: 1792780116}
   m_Layer: 5
   m_Name: ScoreBoosterUpgrade
   m_TagString: Untagged
@@ -5214,6 +5522,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792780111}
   m_CullTransparentMesh: 0
+--- !u!114 &1792780116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792780111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 102471526}
+          m_MethodName: PlayUISound
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: 0433fbb5ffc540d47ac2c7b9f49bf5b6,
+              type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1800539676
 GameObject:
   m_ObjectHideFlags: 0

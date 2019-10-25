@@ -9,6 +9,9 @@ public class Snowflake : MonoBehaviour, ICollectible
 
     Temperature temperature;
 
+    [SerializeField]
+    private AudioClip collectClip;
+
     public int ID { get; set; }
 
     // Start is called before the first frame update
@@ -29,6 +32,7 @@ public class Snowflake : MonoBehaviour, ICollectible
 
     public void Collect()
     {
+        SoundManager.instance.PlaySingle(collectClip);
         InGameEvents.ItemCollected(this);
         Destroy(gameObject);
         temperature.LowerTemperature(temperatureAmount + 1 * GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake));
