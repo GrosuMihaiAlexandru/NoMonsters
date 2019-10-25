@@ -20,6 +20,59 @@ public class QuestManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Debug.Log("Start");
+
+        //reading the saved quests first
+        PlayerData data = SaveSystem.LoadData();
+
+        // get the last time quests were assigned
+        QuestsAssignedTime = data.questsAssignedTime;
+        //Debug.Log(QuestsAssignedTime);
+
+        //NewQuests();
+
+        // If no quests were assigned before
+        if (QuestsAssignedTime == 0)
+        {
+            NewQuests();
+        }
+        else
+        {
+            Debug.Log("Quests already assigned");
+            // Check if it's time to assign new quests
+            ulong timeDiff = ((ulong)DateTime.Now.Ticks - QuestsAssignedTime);
+            ulong m = timeDiff / TimeSpan.TicksPerMillisecond;
+            // Convert the time in seconds
+            float secondsLeft = (float)(msTimeToWait - m) / 1000.0f;
+            //Debug.Log("Assigning new quests in: " + secondsLeft);
+            // Assign new quests if it's a new day
+            if (secondsLeft < 0)
+            {
+                Invoke("NewQuests", 1);
+            }
+            // Load the existing quests if there are any
+            else
+            {
+                // Verify that there are active quests
+                if (data.activeQuests != null)
+                {
+                    //Debug.Log("Quests active");
+                    QuestSaving[] savedQuests = data.activeQuests;
+                    //Debug.Log(savedQuests.Length);
+
+                    for (int i = 0; i < savedQuests.Length; i++)
+                    {
+                        //Debug.Log("saved quests: " + savedQuests[i].QuestName);
+                        Quests.Add((Quest)quests.AddComponent(System.Type.GetType(savedQuests[i].QuestName)));
+                        Quests[i].Goals = savedQuests[i].Goals;
+                        questsAssigned++;
+                    }
+                }
+            }
+        }
+
+        // Quests.Clear();
     }
 
     // The name of every quest in the game
@@ -47,58 +100,6 @@ public class QuestManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Start");
-
-        //reading the saved quests first
-        PlayerData data = SaveSystem.LoadData();
-
-        // get the last time quests were assigned
-        QuestsAssignedTime = data.questsAssignedTime;
-        Debug.Log(QuestsAssignedTime);
-
-        //NewQuests();
-
-        // If no quests were assigned before
-        if (QuestsAssignedTime == 0)
-        {
-            NewQuests();
-        }
-        else
-        {
-            Debug.Log("Quests already assigned");
-            // Check if it's time to assign new quests
-            ulong timeDiff = ((ulong)DateTime.Now.Ticks - QuestsAssignedTime);
-            ulong m = timeDiff / TimeSpan.TicksPerMillisecond;
-            // Convert the time in seconds
-            float secondsLeft = (float)(msTimeToWait - m) / 1000.0f;
-            Debug.Log("Assigning new quests in: " + secondsLeft);
-            // Assign new quests if it's a new day
-            if (secondsLeft < 0)
-            {
-                Invoke("NewQuests", 1);
-            }
-            // Load the existing quests if there are any
-            else
-            {
-                // Verify that there are active quests
-                if (data.activeQuests != null)
-                {
-                    Debug.Log("Quests active");
-                    QuestSaving[] savedQuests = data.activeQuests;
-                    //Debug.Log(savedQuests.Length);
-
-                    for (int i = 0; i < savedQuests.Length; i++)
-                    {
-                        Debug.Log(savedQuests[i].QuestName);
-                        Quests.Add((Quest)quests.AddComponent(System.Type.GetType(savedQuests[i].QuestName)));
-                        Quests[i].Goals = savedQuests[i].Goals;
-                        questsAssigned++;
-                    }
-                }
-            }
-        }
-
-        // Quests.Clear();
     }
 
     //public Text text;
@@ -117,9 +118,9 @@ public class QuestManager : MonoBehaviour
         timeLeft += ((int)secondsLeft / 3600).ToString("00") + "h ";
         secondsLeft -= ((int)secondsLeft / 3600) * 3600;
         // Minutes 
-        timeLeft += ((int)secondsLeft / 60).ToString("00") + "m ";
+        timeLeft += ((int)secondsLeft / 60).ToString("00") + "m";
         // Seconds
-        timeLeft += (secondsLeft % 60).ToString("00") + "s";
+        //timeLeft += (secondsLeft % 60).ToString("00") + "s";
 
         return timeLeft;
     }

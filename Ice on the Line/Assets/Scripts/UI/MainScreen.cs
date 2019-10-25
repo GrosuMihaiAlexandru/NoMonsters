@@ -12,6 +12,7 @@ public class MainScreen : MonoBehaviour
     // Displaying the current Gfish amount
     public Text Gfish;
 
+
     void Start()
     {
         fish.text = GameManager.instance.Fish.ToString();
