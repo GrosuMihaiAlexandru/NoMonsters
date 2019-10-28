@@ -13,10 +13,13 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     private int score = 0;
 
+    private int scoreMultiplier;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        scoreMultiplier = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier);
     }
 
     // Update is called once per frame
@@ -24,7 +27,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (InGame.playerAlive)
         {
-            score = (int)((player.transform.position.y * 100) + (player.transform.position.y * 100 * 0.5 * GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier)));
+            score = (int)((player.transform.position.y * 100) + (player.transform.position.y * 100 * 0.5 * scoreMultiplier));
 
             finalScore.text = score.ToString();
             inGameScore.text = score.ToString();

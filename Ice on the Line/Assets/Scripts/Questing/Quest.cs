@@ -16,7 +16,7 @@ public class Quest : MonoBehaviour
     {
 
         this.Completed = Goals[0].Completed;
-        Debug.Log(Goals.Count);
+        //Debug.Log(Goals.Count);
     }
 
     public void GiveReward()

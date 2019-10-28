@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class MainScreen : MonoBehaviour
     void Start()
     {
         fish.text = GameManager.instance.Fish.ToString();
+        Gfish.text = GameManager.instance.GFish.ToString();
+
     }
 
     public void PlayGame()
@@ -28,6 +31,7 @@ public class MainScreen : MonoBehaviour
 
     public void Shop()
     {
+        Analytics.CustomEvent("Opened Shop");
         SceneManager.LoadScene("Shop");
     }
 

@@ -94,12 +94,15 @@ public class ClickManager : MonoBehaviour
                         // if it's only a short tap the block rotates 
                         if (timer <= 0.2)
                         {
-                            if ((iceBlock.transform.position - initialPos).magnitude < 0.1)
+                            if (iceBlock)
                             {
-                                iceBlock.SendMessage("Rotation");
-                                moveAllowed = false;
-                                timer = 0;
-                                break;
+                                if ((iceBlock.transform.position - initialPos).magnitude < 0.1)
+                                {
+                                    iceBlock.SendMessage("Rotation");
+                                    moveAllowed = false;
+                                    timer = 0;
+                                    break;
+                                }
                             }
                         }
                         //Debug.Log("Touch Ended");

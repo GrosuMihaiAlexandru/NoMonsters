@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         // Reading saved data
         PlayerData data = SaveSystem.LoadData();
         tutorialDone = data.finishedTutorial;
+        Debug.Log(tutorialDone);
         fish = data.fish;
         Gfish = data.Gfish;
 
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     public int GetUpgradeLevels(Upgrade upgrade)
     {
+        //Debug.Log((int)upgrade);
         return upgradeLevels[(int)upgrade];
     }
 
@@ -132,5 +134,7 @@ public class GameManager : MonoBehaviour
     public int Score { get { return score; } set { score = value; } }
     
     public int Fish { get { return fish; } private set { fish = value; } }
+
+    public int GFish { get { return Gfish; } private set { Gfish = value; } }
 
 }

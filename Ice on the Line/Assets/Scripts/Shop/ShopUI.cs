@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 /// <summary>
 /// Handles the buttons behaviour as well as displaying the information in the UI
@@ -39,6 +40,8 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+        Gfish.text = GameManager.instance.GFish.ToString();
+
     }
 
     public void UpgradeScore()
@@ -50,6 +53,8 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+
+        Analytics.CustomEvent("UpgradeScore level " + upgrades[0].level);
     }
 
     public void UpgradeTemperature()
@@ -61,6 +66,8 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+
+        Analytics.CustomEvent("UpgradeTemperature level " + upgrades[1].level);
     }
 
     public void UpgradeSnowflake()
@@ -72,6 +79,8 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+
+        Analytics.CustomEvent("UpgradeSnowflake level " + upgrades[2].level);
     }
 
     public void BackButton()

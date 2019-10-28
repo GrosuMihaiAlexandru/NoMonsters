@@ -14,6 +14,8 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public bool respawnedOnce = false;
 
+
+    public GameObject pauseButton;
     public GameObject youDiedScreen;
     public Image timerCircle;
     public GameObject gameOverScreen;
@@ -62,15 +64,16 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     private void Advertising_RewardedAdCompleted(RewardedAdNetwork arg1, AdPlacement arg2)
     {
-        RewardedAdCompleted();
+        DoRespawn();
     }
 
-    private void RewardedAdCompleted()
+    private void DoRespawn()
     {
         Analytics.CustomEvent("FinishedRewardedAd");
         waypoints.Clear();
         Time.timeScale = 1;
 
+        pauseButton.SetActive(true);
         youDiedScreen.SetActive(false);
         StopCoroutine("TimerTick");
 
@@ -194,11 +197,13 @@ public class CharacterController : MonoBehaviour, IPlayer
                 if (!respawnedOnce)
                 {
                     isPlayerInvincible = true;
-                    // RewardedAdCompleted();
+                    // DoRespawn();
                     respawnedOnce = true;
                     
                     if (Advertising.IsRewardedAdReady())
                     {
+                        waypoints.Clear();
+                        pauseButton.SetActive(false);
                         youDiedScreen.SetActive(true);
                         StartCoroutine("TimerTick");
                         respawnedOnce = true;
@@ -277,6 +282,7 @@ public class CharacterController : MonoBehaviour, IPlayer
 
         youDiedScreen.SetActive(false);
         gameOverScreen.SetActive(true);
+        pauseButton.SetActive(false);
 
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();

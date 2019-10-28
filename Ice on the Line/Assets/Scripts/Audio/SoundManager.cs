@@ -31,6 +31,12 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void ToggleAllSounds(bool muted)
+    {
+        efxSource.mute = muted;
+        musicSource.mute = muted;
+    }
+
     public void PlaySingle(AudioClip clip)
     {
         efxSource.clip = clip;

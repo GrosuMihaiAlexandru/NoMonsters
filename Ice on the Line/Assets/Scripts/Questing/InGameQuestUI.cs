@@ -45,10 +45,7 @@ public class InGameQuestUI : MonoBehaviour
             Debug.Log(QuestManager.instance.Quests[i].QuestName);
             quests[i].GetComponent<QuestObject>().questName = QuestManager.instance.Quests[i].QuestName;
         }
-        for (int j = i; j < 3; j++)
-        {
-            //quests[j].SetActive(false);
-        }
+        
     }
 
     public void UpdateQuestsDisplay()

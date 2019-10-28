@@ -35,8 +35,11 @@ public class SaveSystem
         }
         else
         {
-            Debug.LogError("Save file not found in " + path);
-            return null;
+            // Creating a default file if the file doesn't exist
+            Debug.Log("Save file not found in " + path);
+            Debug.Log("Creating default file...");
+            SaveData(0, 0, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, null, 0, false);
+            return LoadData();
         }
     }
     

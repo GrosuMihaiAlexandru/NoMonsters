@@ -20,7 +20,8 @@ public class ExtraBlock : Powerup
     void Start()
     {
         ID = 0;
-        level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.extrablock);
+        // No upgrades for ExtraBlock
+        level = 0;
         count = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock);
         UpdateText();
     }   

@@ -25,7 +25,13 @@ public class QuestObject : MonoBehaviour
         Debug.Log(questName);
         int i = QuestManager.instance.Quests.FindIndex(x => x.QuestName == questName);
         Debug.Log(i);
+
+        // The quests doesn't exist because it has been completed
+        if (i == -1)
+            return;
+
         Debug.Log(QuestManager.instance.Quests[i].Description);
+        // Update the display of the quest
         description.text = QuestManager.instance.Quests[i].Description;
         progress.text = QuestManager.instance.Quests[i].Goals[0].CurrentAmount + "/" + QuestManager.instance.Quests[i].Goals[0].RequiredAmount;
         rewards.text = QuestManager.instance.Quests[i].Reward.Fish.ToString();
