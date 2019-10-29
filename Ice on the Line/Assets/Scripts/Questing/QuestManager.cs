@@ -68,6 +68,7 @@ public class QuestManager : MonoBehaviour
                         Quests[i].Goals = savedQuests[i].Goals;
                         questsAssigned++;
                     }
+                    Invoke("UpdateQuests", 1f);
                 }
             }
         }
@@ -100,6 +101,7 @@ public class QuestManager : MonoBehaviour
 
     void Start()
     {
+      
     }
 
     //public Text text;

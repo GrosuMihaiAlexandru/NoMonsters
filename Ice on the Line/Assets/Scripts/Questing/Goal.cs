@@ -18,7 +18,7 @@ public class Goal
         }
         set
         {
-            if (currentAmount <= RequiredAmount)
+            if (currentAmount < RequiredAmount)
             {
                 currentAmount = value;
             }
