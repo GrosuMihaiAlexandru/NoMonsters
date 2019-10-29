@@ -42,6 +42,9 @@ public class CharacterController : MonoBehaviour, IPlayer
     [SerializeField]
     private AudioClip walkingSoundClip = null;
 
+    [SerializeField]
+    private int gFishRespawn = 10;
+
     // properties from the interface
     public int MaxDistance { get; set; }
 
@@ -199,19 +202,19 @@ public class CharacterController : MonoBehaviour, IPlayer
                     isPlayerInvincible = true;
                     // DoRespawn();
                     respawnedOnce = true;
-                    
-                    if (Advertising.IsRewardedAdReady())
-                    {
-                        waypoints.Clear();
-                        pauseButton.SetActive(false);
-                        youDiedScreen.SetActive(true);
-                        StartCoroutine("TimerTick");
-                        respawnedOnce = true;
-                    }
-                    else
-                    {
-                        Die();
-                    }
+
+                    if (!Advertising.IsRewardedAdReady())
+                        youDiedScreen.transform.Find("RespawnAd").GetComponent<Button>().interactable = false;
+
+                    if (GameManager.instance.GFish < gFishRespawn)
+                        youDiedScreen.transform.Find("RespawnGoldenFish").GetComponent<Button>().interactable = false;
+
+
+                    waypoints.Clear();
+                    pauseButton.SetActive(false);
+                    youDiedScreen.SetActive(true);
+                    StartCoroutine("TimerTick");
+                    respawnedOnce = true;
                 }
                 else
                 {
@@ -257,12 +260,15 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public void SetPath(List<Node> path)
     {
-        // Clear the old path
-        waypoints.Clear();
-        // Add the new path to waypoints
-        foreach (Node n in path)
+        if (!isPlayerInvincible)
         {
-            this.waypoints.Add(n.worldPosition);
+            // Clear the old path
+            waypoints.Clear();
+            // Add the new path to waypoints
+            foreach (Node n in path)
+            {
+                this.waypoints.Add(n.worldPosition);
+            }
         }
     }
 
