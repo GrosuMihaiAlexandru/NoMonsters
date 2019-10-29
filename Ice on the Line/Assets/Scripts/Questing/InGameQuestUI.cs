@@ -47,12 +47,13 @@ public class InGameQuestUI : MonoBehaviour
         }
         for (int j = i; j < 3; j++)
         {
-            quests[j].SetActive(false);
+            //quests[j].SetActive(false);
         }
     }
 
     public void UpdateQuestsDisplay()
     {
+        ReadQuests();
         foreach (var x in quests)
         {
             x.GetComponent<QuestObject>().UpdateQuestProgressOnUI();

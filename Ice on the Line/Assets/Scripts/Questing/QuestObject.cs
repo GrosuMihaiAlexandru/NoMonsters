@@ -16,20 +16,9 @@ public class QuestObject : MonoBehaviour
     public Text rewards;
     public Image completed;
 
-    private InGameQuestUI questUI;
+    public InGameQuestUI questUI;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        //Debug.Log("Started");
-        questUI = transform.parent.GetComponent<InGameQuestUI>();
 
-        description = transform.GetChild(0).GetComponent<Text>();
-        progress = transform.GetChild(1).GetComponent<Text>();
-        rewards = transform.GetChild(2).GetChild(0).GetComponent<Text>();
-        completed = transform.GetChild(3).GetComponent<Image>();
-
-    }
 
     public void UpdateQuestProgressOnUI()
     {
