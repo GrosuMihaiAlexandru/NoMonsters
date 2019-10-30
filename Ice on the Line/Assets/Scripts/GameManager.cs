@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         // Reading saved data
         PlayerData data = SaveSystem.LoadData();
         tutorialDone = data.finishedTutorial;
-        Debug.Log(tutorialDone);
+        //Debug.Log(tutorialDone);
         fish = data.fish;
         Gfish = data.Gfish;
 

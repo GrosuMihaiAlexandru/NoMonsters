@@ -28,15 +28,15 @@ public class QuestObject : MonoBehaviour
 
     public void UpdateQuestProgressOnUI()
     {
-        Debug.Log(questName);
+        //Debug.Log(questName);
         int i = QuestManager.instance.Quests.FindIndex(x => x.QuestName == questName);
-        Debug.Log(i);
+        //Debug.Log(i);
 
         // The quests doesn't exist because it has been completed
         if (i == -1)
             return;
 
-        Debug.Log(QuestManager.instance.Quests[i].Description);
+        //Debug.Log(QuestManager.instance.Quests[i].Description);
         // Update the display of the quest
         description.text = QuestManager.instance.Quests[i].Description;
         progress.text = QuestManager.instance.Quests[i].Goals[0].CurrentAmount + "/" + QuestManager.instance.Quests[i].Goals[0].RequiredAmount;

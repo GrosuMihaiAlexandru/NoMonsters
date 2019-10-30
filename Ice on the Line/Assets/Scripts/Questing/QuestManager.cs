@@ -39,7 +39,7 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Quests already assigned");
+            //Debug.Log("Quests already assigned");
             // Check if it's time to assign new quests
             ulong timeDiff = ((ulong)DateTime.Now.Ticks - QuestsAssignedTime);
             ulong m = timeDiff / TimeSpan.TicksPerMillisecond;
@@ -156,7 +156,7 @@ public class QuestManager : MonoBehaviour
         if (questsAssigned < maxQuests)
         {
             questsAssigned++;
-            Debug.Log(questType);
+            //Debug.Log(questType);
             // Adding the quest component to the gameobject and also adding it to the quest list
             Quests.Add((Quest) quests.AddComponent(System.Type.GetType(questType)));
             //GameManager.instance.SaveProgress();
@@ -178,7 +178,7 @@ public class QuestManager : MonoBehaviour
             AssignQuest();
         }
         Invoke("SaveDelay", 1);
-        Debug.Log("Saved Quests");
+        //Debug.Log("Saved Quests");
     }
     void CheckQuest()
     {
@@ -195,7 +195,7 @@ public class QuestManager : MonoBehaviour
         int i = Quests.FindIndex(x => x.QuestName == questName);
         if (Quests[i].Completed)
         {
-            Debug.Log(Quests[i].QuestName + " completed");
+            //Debug.Log(Quests[i].QuestName + " completed");
             Quests[i].GiveReward();
             questsAssigned--;
             Destroy(quests.GetComponent(Quests[i].QuestName));

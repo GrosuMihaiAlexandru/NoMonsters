@@ -38,16 +38,32 @@ public class InGameQuestUI : MonoBehaviour
         updateQuestsTimer.text = "Refreshes in: " +  QuestManager.instance.TimeLeftUntilNewQuests();
     }
 
+    public void EmptyUIQuests()
+    {
+        foreach(GameObject q in quests)
+        {
+            QuestObject quest = q.GetComponent<QuestObject>();
+            quest.questName = "";
+            quest.description.text = "";
+            quest.progress.text = "";
+            quest.rewards.text = "";
+            quest.completed.sprite = checkBox;
+        }
+        //Debug.Log(quests[2].GetComponent<QuestObject>().description.text);
+    }
+
     public void ReadQuests()
     {
-        Debug.Log("ReadingQuests");
+        EmptyUIQuests();
+
+        //Debug.Log("ReadingQuests");
         int i = 0;
         for (; i < QuestManager.instance.Quests.Count; i++)
         {
             Debug.Log(QuestManager.instance.Quests[i].QuestName);
             quests[i].GetComponent<QuestObject>().questName = QuestManager.instance.Quests[i].QuestName;
         }
-        
+        //Debug.Log(quests[2].GetComponent<QuestObject>().description.text);
     }
 
     public void UpdateQuestsDisplay()
@@ -57,8 +73,10 @@ public class InGameQuestUI : MonoBehaviour
         {
             x.GetComponent<QuestObject>().UpdateQuestProgressOnUI();
         }
+        //Debug.Log("cacat");
+        //Debug.Log(quests[2].GetComponent<QuestObject>().description.text);
     }
-    
+
 
     public void Quest1()
     {
