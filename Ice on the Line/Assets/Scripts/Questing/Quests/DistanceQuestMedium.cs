@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CollectFishQuestHard : Quest
+public class DistanceQuestMedium : Quest
 {
     void Start()
     {
         // Name of the quest has to be the same as the class name
-        QuestName = "CollectFishQuestHard";
+        QuestName = "DistanceQuestMedium";
         // InGame description
-        Description = "Collect 100 fish";
-        Reward = new ItemReward(500);
+        Description = "Reach a distance of 150 blocks";
+        Reward = new ItemReward(275);
 
         // Add the goals to the list
-        Goals.Add(new CollectGoal(0, "Collect 100 fish", false, 0, 100));
+        Goals.Add(new DistanceGoal("Reach a distance of 150 blocks", false, 0, 150));
         Goals.ForEach(g => g.Init());
     }
 }
+

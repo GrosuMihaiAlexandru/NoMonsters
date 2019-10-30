@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CollectFishQuestHard : Quest
+public class IceSnapQuestEasy : Quest
 {
     void Start()
     {
         // Name of the quest has to be the same as the class name
-        QuestName = "CollectFishQuestHard";
+        QuestName = "IceSnapQuestEasy";
         // InGame description
-        Description = "Collect 100 fish";
-        Reward = new ItemReward(500);
+        Description = "Snap 40 ice blocks";
+        Reward = new ItemReward(150);
 
         // Add the goals to the list
-        Goals.Add(new CollectGoal(0, "Collect 100 fish", false, 0, 100));
+        Goals.Add(new IceSnapGoal("Snap 40 ice blocks", false, 0, 40));
         Goals.ForEach(g => g.Init());
     }
 }
+

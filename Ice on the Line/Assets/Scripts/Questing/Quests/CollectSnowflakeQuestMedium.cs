@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CollectFishQuestHard : Quest
+public class CollectSnowflakeQuestMedium : Quest
 {
     void Start()
     {
         // Name of the quest has to be the same as the class name
-        QuestName = "CollectFishQuestHard";
+        QuestName = "CollectSnowflakeQuestMedium";
         // InGame description
-        Description = "Collect 100 fish";
-        Reward = new ItemReward(500);
+        Description = "Collect 7 snowflakes";
+        Reward = new ItemReward(225);
 
         // Add the goals to the list
-        Goals.Add(new CollectGoal(0, "Collect 100 fish", false, 0, 100));
+        Goals.Add(new CollectGoal(1, "Collect 7 snowflakes", false, 0, 7));
         Goals.ForEach(g => g.Init());
     }
 }
+
