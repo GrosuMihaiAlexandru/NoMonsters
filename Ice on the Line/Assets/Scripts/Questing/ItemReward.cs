@@ -33,13 +33,13 @@ public class ItemReward
             switch (i)
             {
                 case 0:
-                    GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, Powerups[i]);
+                    GameManager.instance.AddPowerupUses(GameManager.Powerup.extrablock, Powerups[i]);
                     break;
                 case 1:
-                    GameManager.instance.SetPowerupUses(GameManager.Powerup.freeze, Powerups[i]);
+                    GameManager.instance.AddPowerupUses(GameManager.Powerup.freeze, Powerups[i]);
                     break;
                 case 2:
-                    GameManager.instance.SetPowerupUses(GameManager.Powerup.jetpack, Powerups[i]);
+                    GameManager.instance.AddPowerupUses(GameManager.Powerup.jetpack, Powerups[i]);
                     break;
                 default:
                     break;

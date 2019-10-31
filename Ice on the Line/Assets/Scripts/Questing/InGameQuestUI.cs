@@ -44,10 +44,10 @@ public class InGameQuestUI : MonoBehaviour
         {
             QuestObject quest = q.GetComponent<QuestObject>();
             quest.questName = "";
-            quest.description.text = "";
-            quest.progress.text = "";
-            quest.rewards.text = "";
-            quest.completed.sprite = checkBox;
+            quest.description.text = "Completed";
+            quest.progress.text = "-";
+            quest.rewards.text = "-";
+            quest.completed.sprite = checkBoxTicked;
         }
         //Debug.Log(quests[2].GetComponent<QuestObject>().description.text);
     }
