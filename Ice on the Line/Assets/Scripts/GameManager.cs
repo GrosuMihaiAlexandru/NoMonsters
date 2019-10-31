@@ -131,6 +131,12 @@ public class GameManager : MonoBehaviour
     {
         powerupUses[(int)powerup] = value;
     }
+
+    public void AddPowerupUses(Powerup powerup, int value)
+    {
+        powerupUses[(int)powerup] += value;
+    }
+
     public int Score { get { return score; } set { score = value; } }
     
     public int Fish { get { return fish; } private set { fish = value; } }

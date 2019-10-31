@@ -182,23 +182,27 @@ public class QuestManager : MonoBehaviour
     }
     void CheckQuest()
     {
-        List<Quest> removedQuests = new List<Quest>();
         foreach(Quest q in Quests)
         {
             //Debug.Log(q.QuestName);
             q.CheckGoals();
-            if (q.Completed)
-            {
-                Debug.Log(q.QuestName + " completed");
-                q.GiveReward();
-                questsAssigned--;
-                removedQuests.Add(q);
-                Destroy(quests.GetComponent(q.QuestName));
-            }
-
         }
-        Quests = Quests.Except(removedQuests).ToList();
         GameManager.instance.SaveProgress();
+    }
+
+    public void RemoveQuest(string questName)
+    {
+        int i = Quests.FindIndex(x => x.QuestName == questName);
+        if (Quests[i].Completed)
+        {
+            Debug.Log(Quests[i].QuestName + " completed");
+            Quests[i].GiveReward();
+            questsAssigned--;
+            Destroy(quests.GetComponent(Quests[i].QuestName));
+            Quests.RemoveAt(i);
+
+            GameManager.instance.SaveProgress();
+        }
     }
 
     string PickRandomQuests(int max)

@@ -21,6 +21,12 @@ public class MainScreen : MonoBehaviour
 
     }
 
+    public void UpdateDisplay()
+    {
+        fish.text = GameManager.instance.Fish.ToString();
+        Gfish.text = GameManager.instance.GFish.ToString();
+    }
+
     public void PlayGame()
     {
         if (GameManager.instance.tutorialDone)

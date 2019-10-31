@@ -5,10 +5,25 @@ using UnityEngine;
 [System.Serializable]
 public class Goal
 {
+    int currentAmount;
+
     public string Description { get; set; }
     public bool Completed { get; set; }
-    public int CurrentAmount { get; set; }
     public int RequiredAmount { get; set; }
+    public int CurrentAmount
+    {
+        get
+        {
+            return currentAmount;
+        }
+        set
+        {
+            if (currentAmount <= RequiredAmount)
+            {
+                currentAmount = value;
+            }
+        }
+    }
 
     public Goal(string description, bool completed, int currentAmount, int requiredAmount)
     {

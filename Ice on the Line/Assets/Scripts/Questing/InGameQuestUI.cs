@@ -6,6 +6,8 @@ using UnityEngine.UI;
 // Displays the active quests Ingame
 public class InGameQuestUI : MonoBehaviour
 {
+    public MainScreen mainScreen;
+
     public List<GameObject> quests;
     
     // Images for updating the checkboxes

@@ -10,6 +10,8 @@ using UnityEngine.Analytics;
 /// </summary>
 public class ShopUI : MonoBehaviour
 {
+    public Text extraBlockUses;
+
     public Text upgradesTabText;
     public Text powerupsTabText;
     public Text fishTabTex;
@@ -29,6 +31,8 @@ public class ShopUI : MonoBehaviour
     public Text Gfish;
 
     public List<Upgrade> upgrades = new List<Upgrade>();
+
+    public const int ExtraBlockCost = 200;
     
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,7 @@ public class ShopUI : MonoBehaviour
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
 
+        extraBlockUses.text = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock).ToString();
     }
 
     public void UpgradeScore()
@@ -53,6 +58,7 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+        GameManager.instance.SaveProgress();
 
         Analytics.CustomEvent("UpgradeScore level " + upgrades[0].level);
     }
@@ -66,6 +72,7 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+        GameManager.instance.SaveProgress();
 
         Analytics.CustomEvent("UpgradeTemperature level " + upgrades[1].level);
     }
@@ -79,8 +86,21 @@ public class ShopUI : MonoBehaviour
             d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
+        GameManager.instance.SaveProgress();
 
         Analytics.CustomEvent("UpgradeSnowflake level " + upgrades[2].level);
+    }
+
+    public void BuyExtraBlock()
+    {
+        if (GameManager.instance.Fish >= ExtraBlockCost)
+        {
+            GameManager.instance.RemoveFish(ExtraBlockCost);
+            GameManager.instance.AddPowerupUses(GameManager.Powerup.extrablock, 1);
+            fish.text = GameManager.instance.Fish.ToString();
+            extraBlockUses.text = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock).ToString();
+            GameManager.instance.SaveProgress();
+        }
     }
 
     public void BackButton()

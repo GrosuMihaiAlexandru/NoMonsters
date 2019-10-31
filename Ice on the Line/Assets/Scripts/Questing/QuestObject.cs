@@ -16,9 +16,15 @@ public class QuestObject : MonoBehaviour
     public Text rewards;
     public Image completed;
 
+
     public InGameQuestUI questUI;
 
-
+    public void CollectReward()
+    {
+        QuestManager.instance.RemoveQuest(questName);
+        questUI.UpdateQuestsDisplay();
+        questUI.mainScreen.UpdateDisplay();
+    }
 
     public void UpdateQuestProgressOnUI()
     {
