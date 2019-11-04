@@ -12,12 +12,22 @@ public class Temperature : MonoBehaviour
     [SerializeField]
     private int initialTemperature;
 
+    public int InitialTemperature
+    {
+        get
+        {
+            return initialTemperature;
+        }
+    }
+
     // The time between temperature rising update
     [SerializeField]
     private float temperatureUpdateTime = 1f;
 
     // The last time the globalTemperature was updated
     private float lastUpdateTime;
+
+    public int MaxTemperature { get; set; } = 50;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +46,7 @@ public class Temperature : MonoBehaviour
             // Temperature rises by 1 degree everytime temperatureUpdateTime
             if (time - lastUpdateTime >= temperatureUpdateTime + GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed) * 0.2f)
             {
-                if (globalTemperature < 50)
+                if (globalTemperature < MaxTemperature)
                 {
                     globalTemperature++;
 
