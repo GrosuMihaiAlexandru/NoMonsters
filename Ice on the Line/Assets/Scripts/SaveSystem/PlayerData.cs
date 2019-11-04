@@ -17,7 +17,7 @@ public class PlayerData
     /// 2 - snowflakeLevel
     /// 3 - extraBlockLevel
     /// </summary>
-    public int[] upgradesLevels = new int[4];
+    public int[] upgradesLevels;
 
     /// <summary>
     /// Uses left for each Powerup
@@ -25,21 +25,29 @@ public class PlayerData
     /// 1 - jetpack
     /// 2 - freeze
     /// </summary>
-    public int[] powerupUses = new int[3];
+    public int[] powerupUses;
 
     // the current active quests with their progress
     public QuestSaving[] activeQuests = new QuestSaving[3];
-
+    // Last time the quests were assigned
     public ulong questsAssignedTime;
 
-    public PlayerData(int fish, int Gfish, int[] upgrades, int[] uses, QuestSaving[] quests, ulong questTime, bool tutorial = true)
+    // Characters unlocked status
+    public bool[] characters;
+
+    // Special Currency
+    public int specialCurrency;
+
+    public PlayerData(int fish, int Gfish, int[] upgrades, int[] uses, bool[] characters, QuestSaving[] quests, ulong questTime, int specialCurrency = 0,  bool tutorial = true)
     {
         this.fish = fish;
         this.Gfish = Gfish;
         finishedTutorial = tutorial;
         upgradesLevels = upgrades;
         powerupUses = uses;
+        this.characters = characters;
         activeQuests = quests;
         questsAssignedTime = questTime;
+        this.specialCurrency = specialCurrency;
     }
 }

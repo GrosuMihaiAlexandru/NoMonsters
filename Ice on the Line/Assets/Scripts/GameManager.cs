@@ -25,10 +25,15 @@ public class GameManager : MonoBehaviour
     // Global Upgrade levels
     [SerializeField]
     private int[] upgradeLevels = new int[4];
-
     // Powerups uses
     [SerializeField]
     private int[] powerupUses = new int[3];
+    // The unlock status of characters
+    private bool[] characters = new bool[3];
+
+    public int selectedCharacter;
+
+    public int Candy { get; set; }
 
     void Awake()
     {
@@ -49,17 +54,20 @@ public class GameManager : MonoBehaviour
         //Debug.Log(tutorialDone);
         fish = data.fish;
         Gfish = data.Gfish;
+        Candy = data.specialCurrency;
 
         // reading Upgrade levels
         upgradeLevels = data.upgradesLevels;
         // reading Powerup uses
         powerupUses = data.powerupUses;
-
+        // reading Characters unlock status
+        Debug.Log(data.characters);
+        characters = data.characters;
     }
 
     void Start()
     {
-        
+
     }
 
     public void ReloadData()
@@ -101,14 +109,14 @@ public class GameManager : MonoBehaviour
         // making an array of quests from the quest list
         QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
         ulong questTime = QuestManager.instance.QuestsAssignedTime;
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, questTime);
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, characters, quests, questTime, Candy);
     }
 
     public void SaveTutorial()
     {
         QuestSaving[] quests = new QuestSaving[3];
         ulong questTime = 0;
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, quests, questTime, true);
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, characters, quests, questTime, Candy, true);
     }
 
     public int GetUpgradeLevels(Upgrade upgrade)
@@ -135,6 +143,34 @@ public class GameManager : MonoBehaviour
     public void AddPowerupUses(Powerup powerup, int value)
     {
         powerupUses[(int)powerup] += value;
+    }
+
+    public bool GetCharacterUnlockStatus(int character)
+    {
+        return characters[character];
+    }
+
+    public void UnlockCharacter(int character)
+    {
+        characters[character] = true;
+    }
+
+    public void AddCandy(int value)
+    {
+        Candy += value;
+    }
+
+    public void RemoveCandy(int amount)
+    {
+        if (Candy >= amount)
+            Candy -= amount;
+        else
+            Debug.Log("Insuficient Candy");
+    }
+
+    public void GiveCandy()
+    {
+        Candy = 300;
     }
 
     public int Score { get { return score; } set { score = value; } }

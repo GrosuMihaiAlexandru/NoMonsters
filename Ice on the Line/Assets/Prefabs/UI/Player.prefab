@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5604693132873113966}
   - component: {fileID: 5604693132873113968}
+  - component: {fileID: 9009949471939992467}
   - component: {fileID: 5604693132873113969}
   - component: {fileID: 5604693132873113967}
   - component: {fileID: 5604693132873113964}
@@ -46,12 +47,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da5699bb76eb744b8b7c4e4101437e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorial: 0
+  respawnedOnce: 0
+  pauseButton: {fileID: 0}
+  youDiedScreen: {fileID: 0}
+  timerCircle: {fileID: 0}
   gameOverScreen: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 768
   velocity: {x: 0, y: 0}
   movementSpeed: 5
+  walkingSoundClip: {fileID: 0}
+  gFishRespawn: 10
+--- !u!114 &9009949471939992467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604693132873113962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1fe31e03286ac49af613a903fa1b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  penguin: {fileID: 0}
+  seal: {fileID: 0}
+  vampirePenguin: {fileID: 0}
 --- !u!61 &5604693132873113969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +160,7 @@ Animator:
   m_GameObject: {fileID: 5604693132873113962}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e73a82256d9260c4fbdfc76cf8725cd0, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

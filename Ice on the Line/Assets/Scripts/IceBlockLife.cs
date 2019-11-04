@@ -99,6 +99,8 @@ public class IceBlockLife : MonoBehaviour
             damageMultiplier = 3f;
         else if (temperature < 30)
             damageMultiplier = 4f;
+        else if (temperature < 40)
+            damageMultiplier = 5f;
     }
 
     private void DestroyBlock()
