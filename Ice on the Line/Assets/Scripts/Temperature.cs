@@ -14,7 +14,7 @@ public class Temperature : MonoBehaviour
 
     // The time between temperature rising update
     [SerializeField]
-    private float temperatureUpdateTime = 5f;
+    private float temperatureUpdateTime = 1f;
 
     // The last time the globalTemperature was updated
     private float lastUpdateTime;
@@ -34,11 +34,15 @@ public class Temperature : MonoBehaviour
             float time = Time.time;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
-            if (time - lastUpdateTime >= temperatureUpdateTime + GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed) * 1)
+            if (time - lastUpdateTime >= temperatureUpdateTime + GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed) * 0.2f)
             {
-                globalTemperature++;
-                // Update the last time the temperature increased
-                lastUpdateTime = Time.time;
+                if (globalTemperature < 50)
+                {
+                    globalTemperature++;
+
+                    // Update the last time the temperature increased
+                    lastUpdateTime = Time.time;
+                }
             }
         }
     }

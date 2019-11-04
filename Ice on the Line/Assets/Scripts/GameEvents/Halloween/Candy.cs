@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Candy : MonoBehaviour, ICollectible
 {
+    private int value = 1;
+
     public int ID { get; set; }
 
     // Start is called before the first frame update
@@ -24,6 +26,7 @@ public class Candy : MonoBehaviour, ICollectible
     {
         InGameEvents.ItemCollected(this);
         Destroy(gameObject);
+        GameManager.instance.AddCandy(value);
     }
 
 }
