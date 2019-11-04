@@ -27,7 +27,16 @@ public class Temperature : MonoBehaviour
     // The last time the globalTemperature was updated
     private float lastUpdateTime;
 
-    public int MaxTemperature { get; set; } = 50;
+    [SerializeField]
+    private int maxTemperature= 50;
+    public int MaxTemperature { get { return maxTemperature; } set { maxTemperature = value; } }
+
+    // Variables that affect the temperature increase
+
+    // The minimum distance after which the difficulty starts increasing
+    public int minX;
+    // Base time per level that is added to the temperatureUpdateTime 
+    public float difficultyScaling = 0.05f;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +53,7 @@ public class Temperature : MonoBehaviour
             float time = Time.time;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
-            if (time - lastUpdateTime >= temperatureUpdateTime + GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed) * 0.2f)
+            if (time - lastUpdateTime >= CalculateTemperatureTime(CalculateDifficulty(GetComponent<InGame>().player.transform.position.y), GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed)))
             {
                 if (globalTemperature < MaxTemperature)
                 {
@@ -55,6 +64,39 @@ public class Temperature : MonoBehaviour
                 }
             }
         }
+    }
+
+    // returns the difficulty of the game based on current distance
+    private int CalculateDifficulty(float distance)
+    {
+        if (distance < minX)
+            return 1;
+        else if (distance < minX * 2)
+            return 2;
+        else if (distance < minX * 3)
+            return 3;
+        else
+            return 4;
+    }
+
+    // Return the base temperature update time based on the current difficulty
+    private int BaseTemperature(int difficulty)
+    {
+        return 4 - difficulty;
+    }
+
+    // Function which calculates how much time is added per upgrade level based on the current difficulty
+    private float LevelTemperature(int difficulty)
+    {
+        return difficulty * difficultyScaling + difficultyScaling;
+    }
+
+    public float CalculateTemperatureTime(int difficulty, int upgradeLevel)
+    {
+        int temperature = BaseTemperature(difficulty);
+        float levelTemperature = LevelTemperature(difficulty);
+
+        return temperature + levelTemperature * upgradeLevel;
     }
 
     // Activated by collecting lowering temperature powerups
