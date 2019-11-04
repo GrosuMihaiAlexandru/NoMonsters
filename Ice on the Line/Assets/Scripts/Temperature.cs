@@ -12,6 +12,14 @@ public class Temperature : MonoBehaviour
     [SerializeField]
     private int initialTemperature;
 
+    public int InitialTemperature
+    {
+        get
+        {
+            return initialTemperature;
+        }
+    }
+
     // The time between temperature rising update
     [SerializeField]
     private float temperatureUpdateTime = 1f;
