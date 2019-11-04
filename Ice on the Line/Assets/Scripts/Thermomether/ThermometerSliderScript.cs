@@ -19,9 +19,9 @@ public class ThermometerSliderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Temperature percentage: " + calculateTemperaturePercentage());
-        Debug.Log("Global temperature: " + temperature.GlobalTemperature);
-        Debug.Log("Max temperature: " + temperature.MaxTemperature);
+        //Debug.Log("Temperature percentage: " + calculateTemperaturePercentage());
+        //Debug.Log("Global temperature: " + temperature.GlobalTemperature);
+        //Debug.Log("Max temperature: " + temperature.MaxTemperature);
 
 
 
