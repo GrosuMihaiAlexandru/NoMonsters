@@ -337,10 +337,16 @@ public class IceBlock : MonoBehaviour
             bool rotateBack = false;
             bool canRotate = true;
             List<GameObject> temporaryHolograms = new List<GameObject>();
+            // The 4 directions of rotation
             bool[] canMoveUp = new bool[4];
             bool[] canMoveDown = new bool[4];
             bool[] canMoveLeft = new bool[4];
             bool[] canMoveRight = new bool[4];
+
+            bool[] canMoveUpLeft = new bool[4];
+            bool[] canMoveUpRight = new bool[4];
+            bool[] canMoveDownLeft = new bool[4];
+            bool[] canMoveDownRight = new bool[4];
 
             for(int i = 0; i < transform.childCount; i++)
             {
@@ -385,6 +391,27 @@ public class IceBlock : MonoBehaviour
                     {
                         canMoveRight[i] = true;
                     }
+
+                    RaycastHit2D upLeft = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y + 1), Vector2.zero, 0, rotationLayer);
+                    if (!upLeft || upLeft.collider.tag == "Untagged")
+                    {
+                        canMoveUpLeft[i] = true;
+                    }
+                    RaycastHit2D upRight = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y + 1), Vector2.zero, 0, rotationLayer);
+                    if (!upRight || upRight.collider.tag == "Untagged")
+                    {
+                        canMoveUpRight[i] = true;
+                    }
+                    RaycastHit2D downLeft = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y - 1), Vector2.zero, 0, rotationLayer);
+                    if (!downLeft || downLeft.collider.tag == "Untagged")
+                    {
+                        canMoveDownLeft[i] = true;
+                    }
+                    RaycastHit2D downRight = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y - 1), Vector2.zero, 0, rotationLayer);
+                    if (!downRight || downRight.collider.tag == "Untagged")
+                    {
+                        canMoveDownRight[i] = true;
+                    }
                 }
             }
             Debug.Log(canMoveUp[0] + " " + canMoveUp[1] + " " + canMoveUp[2] + " " + canMoveUp[3]);
@@ -394,7 +421,7 @@ public class IceBlock : MonoBehaviour
             {
                 transform.position = new Vector2(transform.position.x, transform.position.y + 1);
             }
-            else if (canMoveUp.All(x => x))
+            else if (canMoveDown.All(x => x))
             {
                 transform.position = new Vector2(transform.position.x, transform.position.y - 1);
             }
@@ -402,9 +429,25 @@ public class IceBlock : MonoBehaviour
             {
                 transform.position = new Vector2(transform.position.x - 1, transform.position.y);
             }
-            else if (canMoveLeft.All(x => x))
+            else if (canMoveRight.All(x => x))
             {
                 transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+            }
+            else if (canMoveUpLeft.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x - 1, transform.position.y + 1);
+            }
+            else if (canMoveUpRight.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x + 1, transform.position.y + 1);
+            }
+            else if (canMoveDownLeft.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x - 1, transform.position.y - 1);
+            }
+            else if (canMoveDownRight.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x + 1, transform.position.y - 1);
             }
             else if (!canRotate)
             {
