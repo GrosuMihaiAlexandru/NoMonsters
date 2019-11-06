@@ -30,6 +30,8 @@ public class LevelSelector : MonoBehaviour
     private GameObject oldLevel;
     private GameObject thisLevel;
     private GameObject nextLevel;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,8 +40,6 @@ public class LevelSelector : MonoBehaviour
         thisLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], currentPosition, Quaternion.identity);
         nextLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
         endOfCurrentLevel = (int)(currentPosition.y + levelLength);
-
-      
     }
 
     void Start()
@@ -77,7 +77,6 @@ public class LevelSelector : MonoBehaviour
             {
                 Destroy(oldLevel);
             }
-
         }
     }
 
