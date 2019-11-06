@@ -20,14 +20,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int score = 0;
 
-    public enum Upgrade { scoreMultiplier, temperatureSpeed, snowflake, extrablock}
+    public enum Upgrade { scoreMultiplier, temperatureSpeed, snowflake, fishMagnet, jetpack}
     public enum Powerup { extrablock, jetpack, freeze}
     // Global Upgrade levels
-    [SerializeField]
-    private int[] upgradeLevels = new int[4];
+    private int[] upgradeLevels = new int[5];
     // Powerups uses
-    [SerializeField]
-    private int[] powerupUses = new int[3];
+    private int[] powerupUses = new int[1];
     // The unlock status of characters
     private bool[] characters = new bool[3];
 
@@ -37,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-       
         if (instance == null)
         {
             instance = this;
@@ -48,6 +45,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        ReadSavedData();
+    }
+
+    private void ReadSavedData()
+    {
         // Reading saved data
         PlayerData data = SaveSystem.LoadData();
         tutorialDone = data.finishedTutorial;
@@ -55,14 +57,65 @@ public class GameManager : MonoBehaviour
         fish = data.fish;
         Gfish = data.Gfish;
         Candy = data.specialCurrency;
-
         // reading Upgrade levels
-        upgradeLevels = data.upgradesLevels;
+        if (upgradeLevels.Length > data.upgradesLevels.Length)
+        {
+            for (int i = 0; i < data.upgradesLevels.Length; i++)
+            {
+                upgradeLevels[i] = data.upgradesLevels[i];
+            }
+        }
+        else if (upgradeLevels.Length < data.upgradesLevels.Length)
+        {
+            for (int i = 0; i < upgradeLevels.Length; i++)
+            {
+                upgradeLevels[i] = data.upgradesLevels[i];
+            }
+        }
+        else
+        {
+            upgradeLevels = data.upgradesLevels;
+        }
+
         // reading Powerup uses
-        powerupUses = data.powerupUses;
+        if (powerupUses.Length > data.powerupUses.Length)
+        {
+            for (int i = 0; i < data.powerupUses.Length; i++)
+            {
+                powerupUses[i] = data.powerupUses[i];
+            }
+        }
+        else if (powerupUses.Length < data.powerupUses.Length)
+        {
+            for (int i = 0; i < powerupUses.Length; i++)
+            {
+                powerupUses[i] = data.powerupUses[i];
+            }
+        }
+        else
+        {
+            powerupUses = data.powerupUses;
+        }
+
         // reading Characters unlock status
-        Debug.Log(data.characters);
-        characters = data.characters;
+        if (characters.Length > data.characters.Length)
+        {
+            for (int i = 0; i < data.characters.Length; i++)
+            {
+                characters[i] = data.characters[i];
+            }
+        }
+        else if (characters.Length < data.characters.Length)
+        {
+            for (int i = 0; i < characters.Length; i++)
+            {
+                characters[i] = data.characters[i];
+            }
+        }
+        else
+        {
+            characters = data.characters;
+        }
     }
 
     void Start()

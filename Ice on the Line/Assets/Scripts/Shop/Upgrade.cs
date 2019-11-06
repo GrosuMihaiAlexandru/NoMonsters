@@ -31,6 +31,9 @@ public class Upgrade : MonoBehaviour
             case 2:
                 level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake);
                 break;
+            case 3:
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier);
+                break;
             default:
                 break;
         }
@@ -56,6 +59,9 @@ public class Upgrade : MonoBehaviour
                 case 2:
                     GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.snowflake, level);
                     break;
+                case 3:
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.fishMagnet, level);
+                    break;
                 default:
                     break;
             }
@@ -66,6 +72,7 @@ public class Upgrade : MonoBehaviour
     // Calculate the cost for the next Upgrade
     private void CalculateCost()
     {
-        cost = (int) (100 * Mathf.Pow(2, level));
+        Debug.Log(upgradeName + ": " + level);
+        cost = (int) (baseCost * Mathf.Pow(2, level));
     }
 }

@@ -16,6 +16,9 @@ public class InGameEvents : MonoBehaviour
     public delegate void IceBlockSnappedHandler();
     public static event IceBlockSnappedHandler OnIceBlockSnap;
 
+    public delegate void PowerupCollectedEventHandler(IPowerup powerup);
+    public static event PowerupCollectedEventHandler OnPowerupCollected;
+
     public static void ItemCollected(ICollectible collectible)
     {
         if (OnItemCollected != null)
@@ -38,5 +41,11 @@ public class InGameEvents : MonoBehaviour
     {
         if (OnIceBlockSnap != null)
             OnIceBlockSnap();
+    }
+
+    public static void PowerupCollected(IPowerup powerup)
+    {
+        if (OnPowerupCollected != null)
+            OnPowerupCollected(powerup);
     }
 }
