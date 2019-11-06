@@ -28,7 +28,7 @@ public class Temperature : MonoBehaviour
     private float lastUpdateTime;
 
     [SerializeField]
-    private int maxTemperature= 50;
+    private int maxTemperature = 50;
     public int MaxTemperature { get { return maxTemperature; } set { maxTemperature = value; } }
 
     // Variables that affect the temperature increase

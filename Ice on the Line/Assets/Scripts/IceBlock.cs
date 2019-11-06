@@ -6,6 +6,7 @@ using System.Linq;
 public class IceBlock : MonoBehaviour
 {
     public LayerMask defaultLayer;
+    public LayerMask rotationLayer;
 
     private Rigidbody2D rigidBody2D;
 
@@ -334,54 +335,129 @@ public class IceBlock : MonoBehaviour
             }
 
             bool rotateBack = false;
+            bool canRotate = true;
             List<GameObject> temporaryHolograms = new List<GameObject>();
-            foreach(Transform t in transform)
+            // The 4 directions of rotation
+            bool[] canMoveUp = new bool[4];
+            bool[] canMoveDown = new bool[4];
+            bool[] canMoveLeft = new bool[4];
+            bool[] canMoveRight = new bool[4];
+
+            bool[] canMoveUpLeft = new bool[4];
+            bool[] canMoveUpRight = new bool[4];
+            bool[] canMoveDownLeft = new bool[4];
+            bool[] canMoveDownRight = new bool[4];
+
+            for(int i = 0; i < transform.childCount; i++)
             {
+                Transform t = transform.GetChild(i);
                 GameObject temporaryHologram = Instantiate(hologram2);
                 temporaryHologram.transform.position = new Vector3(Mathf.Round(t.position.x), Mathf.Round(t.position.y), 0);
                 temporaryHologram.SetActive(false);
                 temporaryHolograms.Add(temporaryHologram);
                 Destroy(temporaryHologram, 0.3f);
 
-                RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, defaultLayer);
+                Debug.Log(t.position);
+
+                RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, rotationLayer);
                 if (hit)
                 {
-                    if (hit.collider.tag == "FixedBlock" || hit.collider.tag == "WalkableBlock" || hit.collider.tag == "Player")
+                    // Check if all blocks can move to the new position
+                    if (hit.collider.tag == "FixedBlock" || hit.collider.tag == "WalkableBlock" || hit.collider.tag == "Player" || hit.collider.tag == "Grid")
                     {
-                        rotateBack = true;
-                        
-                        /*
-                        RaycastHit2D up = Physics2D.Raycast(new Vector2(t.position.x, t.position.y + 1), Vector2.zero, 0, defaultLayer);
-                        if (!up)
-                        {
-                            transform.position = new Vector2(transform.position.x, transform.position.y + 1);
-                            break;
-                        }
-                        RaycastHit2D down = Physics2D.Raycast(new Vector2(t.position.x, t.position.y - 1), Vector2.zero, 0, defaultLayer);
-                        if (!down)
-                        {
-                            transform.position = new Vector2(transform.position.x, transform.position.y - 1);
-                            break;
-                        }
-                        RaycastHit2D left = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y), Vector2.zero, 0, defaultLayer);
-                        if (!left)
-                        {
-                            transform.position = new Vector2(transform.position.x - 1, transform.position.y);
-                            break;
-                        }
-                        RaycastHit2D right = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y), Vector2.zero, 0, defaultLayer);
-                        if (!right)
-                        {
-                            transform.position = new Vector2(transform.position.x + 1, transform.position.y);
-                            break;
-                        }
-                        */
+                        canRotate = false;
+                    }
+                }
+                // Check for new positions if the block can't rotate
+                if (!canRotate)
+                {
+                    RaycastHit2D up = Physics2D.Raycast(new Vector2(t.position.x, t.position.y + 1), Vector2.zero, 0, rotationLayer);
+                    if (!up || up.collider.tag == "Untagged")
+                    {
+                        canMoveUp[i] = true;
+                    }
+                    RaycastHit2D down = Physics2D.Raycast(new Vector2(t.position.x, t.position.y - 1), Vector2.zero, 0, rotationLayer);
+                    if (!down || down.collider.tag == "Untagged")
+                    {
+                        canMoveDown[i] = true;
+                    }
+                    RaycastHit2D left = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y), Vector2.zero, 0, rotationLayer);
+                    if (!left || left.collider.tag == "Untagged")
+                    {
+                        canMoveLeft[i] = true;
+                    }
+                    RaycastHit2D right = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y), Vector2.zero, 0, rotationLayer);
+                    if (!right || right.collider.tag == "Untagged")
+                    {
+                        canMoveRight[i] = true;
+                    }
+
+                    RaycastHit2D upLeft = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y + 1), Vector2.zero, 0, rotationLayer);
+                    if (!upLeft || upLeft.collider.tag == "Untagged")
+                    {
+                        canMoveUpLeft[i] = true;
+                    }
+                    RaycastHit2D upRight = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y + 1), Vector2.zero, 0, rotationLayer);
+                    if (!upRight || upRight.collider.tag == "Untagged")
+                    {
+                        canMoveUpRight[i] = true;
+                    }
+                    RaycastHit2D downLeft = Physics2D.Raycast(new Vector2(t.position.x - 1, t.position.y - 1), Vector2.zero, 0, rotationLayer);
+                    if (!downLeft || downLeft.collider.tag == "Untagged")
+                    {
+                        canMoveDownLeft[i] = true;
+                    }
+                    RaycastHit2D downRight = Physics2D.Raycast(new Vector2(t.position.x + 1, t.position.y - 1), Vector2.zero, 0, rotationLayer);
+                    if (!downRight || downRight.collider.tag == "Untagged")
+                    {
+                        canMoveDownRight[i] = true;
                     }
                 }
             }
+            Debug.Log(canMoveUp[0] + " " + canMoveUp[1] + " " + canMoveUp[2] + " " + canMoveUp[3]);
 
+            // Move the iceBlock if there is any position available
+            if (canMoveUp.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+            }
+            else if (canMoveDown.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+            }
+            else if (canMoveLeft.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x - 1, transform.position.y);
+            }
+            else if (canMoveRight.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+            }
+            else if (canMoveUpLeft.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x - 1, transform.position.y + 1);
+            }
+            else if (canMoveUpRight.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x + 1, transform.position.y + 1);
+            }
+            else if (canMoveDownLeft.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x - 1, transform.position.y - 1);
+            }
+            else if (canMoveDownRight.All(x => x))
+            {
+                transform.position = new Vector2(transform.position.x + 1, transform.position.y - 1);
+            }
+            else if (!canRotate)
+            {
+                rotateBack = true;
+            }
+
+            // Move the iceBlock back when no new position is available
             if (rotateBack)
             {
+
                 foreach(var t in temporaryHolograms)
                 {
                     t.SetActive(true);
@@ -404,6 +480,7 @@ public class IceBlock : MonoBehaviour
             }
         }
     }
+
 
     // Snaps the blocks in place and they become fixed after that
     public void SnapBlock()

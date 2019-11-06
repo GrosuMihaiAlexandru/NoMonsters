@@ -26,6 +26,8 @@ public class LevelSelector : MonoBehaviour
     // Check if the player reached the end of the current level
     private bool endOfLevelReached;
 
+    private bool canDestroyLevel = false;
+
     // The level that is deleted after instantiating the new one
     private GameObject oldLevel;
     private GameObject thisLevel;
@@ -72,10 +74,14 @@ public class LevelSelector : MonoBehaviour
                 //Debug.Log(nextPosition);
                 endOfCurrentLevel = (int)(currentPosition.y + levelLength);
                 nextLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
+
+                canDestroyLevel = true;
             }
-            if (game.player.transform.position.y - oldPosition.y >= -5f)
+            if (canDestroyLevel && game.player.transform.position.y - currentPosition.y >= 5f)
             {
+                //Debug.Log(game.player.transform.position.y + " " + currentPosition.y);
                 Destroy(oldLevel);
+                canDestroyLevel = false;
             }
         }
     }
