@@ -27,7 +27,7 @@ public class IceBlock : MonoBehaviour
 
     private List<GameObject> holograms;
 
-    private GameObject astar;
+    public GameObject astar;
 
     private bool canCallAstar = false;
 
@@ -348,16 +348,17 @@ public class IceBlock : MonoBehaviour
             bool[] canMoveDownLeft = new bool[4];
             bool[] canMoveDownRight = new bool[4];
 
+            Vector2[] positions = new Vector2[4];
             for(int i = 0; i < transform.childCount; i++)
             {
                 Transform t = transform.GetChild(i);
+                Debug.Log(t.position);
                 GameObject temporaryHologram = Instantiate(hologram2);
                 temporaryHologram.transform.position = new Vector3(Mathf.Round(t.position.x), Mathf.Round(t.position.y), 0);
                 temporaryHologram.SetActive(false);
                 temporaryHolograms.Add(temporaryHologram);
                 Destroy(temporaryHologram, 0.3f);
 
-                Debug.Log(t.position);
 
                 RaycastHit2D hit = Physics2D.Raycast(t.position, Vector2.zero, 0, rotationLayer);
                 if (hit)
@@ -369,9 +370,16 @@ public class IceBlock : MonoBehaviour
                     }
                 }
                 // Check for new positions if the block can't rotate
-                if (!canRotate)
+            }
+            if (!canRotate)
+            {
+                for (int i = 0; i < transform.childCount; i++)
                 {
+                    Transform t = transform.GetChild(i);
+
                     RaycastHit2D up = Physics2D.Raycast(new Vector2(t.position.x, t.position.y + 1), Vector2.zero, 0, rotationLayer);
+                    Debug.Log(new Vector2(t.position.x, t.position.y + 1));
+                    positions[i] = new Vector2(t.position.x, t.position.y + 1);
                     if (!up || up.collider.tag == "Untagged")
                     {
                         canMoveUp[i] = true;
@@ -414,8 +422,11 @@ public class IceBlock : MonoBehaviour
                     }
                 }
             }
-            Debug.Log(canMoveUp[0] + " " + canMoveUp[1] + " " + canMoveUp[2] + " " + canMoveUp[3]);
-
+            Debug.Log(positions[0] + " " + canMoveUp[0] + " " + positions[1] + " " + canMoveUp[1] + " " + positions[2] + " " +  canMoveUp[2] + " " + positions[3] + " " + canMoveUp[3]);
+            /*Debug.Log(canMoveDown[0] + " " + canMoveDown[1] + " " + canMoveDown[2] + " " + canMoveDown[3]);
+            Debug.Log(canMoveLeft[0] + " " + canMoveLeft[1] + " " + canMoveLeft[2] + " " + canMoveLeft[3]);
+            Debug.Log(canMoveRight[0] + " " + canMoveRight[1] + " " + canMoveRight[2] + " " + canMoveRight[3]);
+*/
             // Move the iceBlock if there is any position available
             if (canMoveUp.All(x => x))
             {

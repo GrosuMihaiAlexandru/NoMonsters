@@ -77,6 +77,9 @@ public class GameManager : MonoBehaviour
             upgradeLevels = data.upgradesLevels;
         }
 
+        //for (int i = 0; i < upgradeLevels.Length; i++)
+          //  Debug.Log(upgradeLevels[i]);
+
         // reading Powerup uses
         if (powerupUses.Length > data.powerupUses.Length)
         {
@@ -181,6 +184,9 @@ public class GameManager : MonoBehaviour
     public void SetUpgradeLevels(Upgrade upgrade, int value)
     {
         upgradeLevels[(int)upgrade] = value;
+
+        for (int i = 0; i < upgradeLevels.Length; i++)
+            Debug.Log(upgradeLevels[i]);
     }
 
     public int GetPowerupUses(Powerup powerup)

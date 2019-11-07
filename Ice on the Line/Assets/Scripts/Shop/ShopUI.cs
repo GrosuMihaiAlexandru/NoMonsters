@@ -38,11 +38,7 @@ public class ShopUI : MonoBehaviour
     void Start()
     {
 
-        foreach(Upgrade d in upgrades)
-        {
-            d.gameObject.GetComponentsInChildren<Text>()[0].text = "Level: " + d.level;
-            d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
-        }
+        UpdateShopUI();
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
 
@@ -99,7 +95,10 @@ public class ShopUI : MonoBehaviour
         foreach (Upgrade d in upgrades)
         {
             d.gameObject.GetComponentsInChildren<Text>()[0].text = "Level: " + d.level;
-            d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
+            if (d.level == d.maxLevel)
+                d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: Max";
+            else
+                d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
         GameManager.instance.SaveProgress();

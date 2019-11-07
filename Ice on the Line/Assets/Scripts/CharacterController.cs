@@ -109,7 +109,7 @@ public class CharacterController : MonoBehaviour, IPlayer
         // Debug.Log("ASDSADASDASDASD");
         
         pathfinding.SendMessage("UpdateGrid");
-        pathfinding.SendMessage("initializeMap");
+        pathfinding.SendMessage("InitializeMap");
         isPlayerInvincible = false;
         InGame.playerAlive = true;
         movementSpeed = 5;

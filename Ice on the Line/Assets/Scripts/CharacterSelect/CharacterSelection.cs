@@ -27,7 +27,7 @@ public class CharacterSelection : MonoBehaviour
 
     public void SetCharacter()
     {
-        Debug.Log(GameManager.instance.selectedCharacter);
+        //Debug.Log(GameManager.instance.selectedCharacter);
         switch (GameManager.instance.selectedCharacter)
         {
             case 0:

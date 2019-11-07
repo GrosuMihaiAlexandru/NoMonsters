@@ -14,6 +14,8 @@ public class Upgrade : MonoBehaviour
     [SerializeField]
     private string upgradeName;
 
+    public int maxLevel = 10;
+
     public int level = 1;
     public int cost;
 
@@ -32,7 +34,7 @@ public class Upgrade : MonoBehaviour
                 level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake);
                 break;
             case 3:
-                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier);
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.fishMagnet);
                 break;
             default:
                 break;

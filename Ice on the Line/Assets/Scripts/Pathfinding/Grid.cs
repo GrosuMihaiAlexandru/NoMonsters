@@ -65,6 +65,21 @@ public class Grid : MonoBehaviour
             }
     }
 
+    void ResetWalkable()
+    {
+        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
+
+        for (int x = 0; x < gridSizeX; x++)
+            for (int y = 0; y < gridSizeY; y++)
+            {
+                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(worldPoint.x, worldPoint.y), Vector2.zero, 0, walkableMask);
+                if (hit && hit.transform.tag == "WalkableBlock")
+                    hit.transform.tag = "FixedBlock";
+            }
+
+    }
+
     // Return a list of neighbours
     public List<Node> GetNeighbours(Node node)
     {

@@ -22,7 +22,7 @@ public class Pathfinding : MonoBehaviour
 
     private void Start()
     {
-        Invoke("initializeMap", 1f);
+        Invoke("InitializeMap", 1f);
     }
     private void Update()
     {
@@ -38,7 +38,7 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    void initializeMap()
+    void InitializeMap()
     {
         Node startNode = grid.NodeFromWorldPoint(seeker.position);
         // Debug.Log(seeker.position);
