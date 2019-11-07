@@ -11,9 +11,17 @@ public class ThermometerSliderScript : MonoBehaviour
 
     private Vector3 normalScale;
 
+    [SerializeField]
+    private List<Sprite> thermometerSprites = new List<Sprite>();
+
+    private Image thermometerRenderer;
+
+    private int selectedSprite = -1;
+
     // Start is called before the first frame update
     void Start()
     {
+        thermometerRenderer = transform.GetChild(1).GetComponent<Image>();
         normalScale = transform.localScale;
 
         temperature = GameObject.Find("InGame").GetComponent<Temperature>();
@@ -24,7 +32,30 @@ public class ThermometerSliderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        thermometerSlider.value = calculateTemperaturePercentage();
+        float temp = calculateTemperaturePercentage();
+
+        thermometerSlider.value = temp;
+        if (temp <= 0.33f)
+        {
+            TryChangingThermometerSprite(0);
+        }
+        else if (temp > 0.33f && temp <= 0.66f)
+        {
+            TryChangingThermometerSprite(1);
+        }
+        else if (temp > 0.66f)
+        {
+            TryChangingThermometerSprite(2);
+        }
+    }
+
+    private void TryChangingThermometerSprite(int index)
+    {
+        if (selectedSprite != index)
+        {
+            thermometerRenderer.sprite = thermometerSprites[index];
+            selectedSprite = index;
+        }
     }
 
     IEnumerator PulsateIfTooHot()
