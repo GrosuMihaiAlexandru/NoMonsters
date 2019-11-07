@@ -38,11 +38,7 @@ public class ShopUI : MonoBehaviour
     void Start()
     {
 
-        foreach(Upgrade d in upgrades)
-        {
-            d.gameObject.GetComponentsInChildren<Text>()[0].text = "Level: " + d.level;
-            d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
-        }
+        UpdateShopUI();
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
 
@@ -51,44 +47,61 @@ public class ShopUI : MonoBehaviour
 
     public void UpgradeScore()
     {
-        upgrades[0].LevelUpgrade(GameManager.instance.Fish);
-        foreach (Upgrade d in upgrades)
+        if (upgrades[0].level < 10)
         {
-            d.gameObject.GetComponentsInChildren<Text>()[0].text = "Level: " + d.level;
-            d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
-        }
-        fish.text = GameManager.instance.Fish.ToString();
-        GameManager.instance.SaveProgress();
+            upgrades[0].LevelUpgrade(GameManager.instance.Fish);
+            UpdateShopUI();
 
-        Analytics.CustomEvent("UpgradeScore level " + upgrades[0].level);
+            Analytics.CustomEvent("UpgradeScore level " + upgrades[0].level);
+        }
     }
 
     public void UpgradeTemperature()
     {
-        upgrades[1].LevelUpgrade(GameManager.instance.Fish);
-        foreach (Upgrade d in upgrades)
+        if (upgrades[1].level < 10)
         {
-            d.gameObject.GetComponentsInChildren<Text>()[0].text = "Level: " + d.level;
-            d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
-        }
-        fish.text = GameManager.instance.Fish.ToString();
-        GameManager.instance.SaveProgress();
+            upgrades[1].LevelUpgrade(GameManager.instance.Fish);
+            UpdateShopUI();
 
-        Analytics.CustomEvent("UpgradeTemperature level " + upgrades[1].level);
+            Analytics.CustomEvent("UpgradeTemperature level " + upgrades[1].level);
+        }
     }
 
     public void UpgradeSnowflake()
     {
-        upgrades[2].LevelUpgrade(GameManager.instance.Fish);
+        if (upgrades[2].level < 10)
+        {
+            upgrades[2].LevelUpgrade(GameManager.instance.Fish);
+            UpdateShopUI();
+
+            Analytics.CustomEvent("UpgradeSnowflake level " + upgrades[2].level);
+        }
+    }
+
+    public void UpgradeFishMagnet()
+    {
+        if (upgrades[3].level < 5)
+        {
+            upgrades[3].LevelUpgrade(GameManager.instance.Fish);
+            UpdateShopUI();
+
+            Analytics.CustomEvent("UpgradeFishMagnet level " + upgrades[3].level);
+        }
+    }
+
+    // Updates the shop and save the upgrades
+    private void UpdateShopUI()
+    {
         foreach (Upgrade d in upgrades)
         {
             d.gameObject.GetComponentsInChildren<Text>()[0].text = "Level: " + d.level;
-            d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
+            if (d.level == d.maxLevel)
+                d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: Max";
+            else
+                d.gameObject.GetComponentsInChildren<Text>()[1].text = "Upgrade: " + d.cost;
         }
         fish.text = GameManager.instance.Fish.ToString();
         GameManager.instance.SaveProgress();
-
-        Analytics.CustomEvent("UpgradeSnowflake level " + upgrades[2].level);
     }
 
     public void BuyExtraBlock()

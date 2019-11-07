@@ -122,7 +122,12 @@ public class IceBlockLife : MonoBehaviour
             animator.SetInteger("Health", currentHealth);
             //Debug.Log("Health: " + currentHealth + " DamageAmount: " + damage + "Temperature: " + game.GlobalTemperature + " Score: " + game.Score);
             if (currentHealth <= 0)
+            {
+                //GetComponent<IceBlock>().astar.SendMessage("ResetWalkable");
+                //GetComponent<IceBlock>().astar.SendMessage("InitializeMap");
+
                 break;
+            }
             yield return new WaitForSeconds(1f);
         }
     }

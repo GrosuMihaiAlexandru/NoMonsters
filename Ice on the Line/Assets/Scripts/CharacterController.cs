@@ -45,6 +45,9 @@ public class CharacterController : MonoBehaviour, IPlayer
     [SerializeField]
     private int gFishRespawn = 10;
 
+    [SerializeField]
+    private GameObject fishMagnet;
+
     // properties from the interface
     public int MaxDistance { get; set; }
 
@@ -106,7 +109,7 @@ public class CharacterController : MonoBehaviour, IPlayer
         // Debug.Log("ASDSADASDASDASD");
         
         pathfinding.SendMessage("UpdateGrid");
-        pathfinding.SendMessage("initializeMap");
+        pathfinding.SendMessage("InitializeMap");
         isPlayerInvincible = false;
         InGame.playerAlive = true;
         movementSpeed = 5;
@@ -151,6 +154,9 @@ public class CharacterController : MonoBehaviour, IPlayer
     // Update is called once per frame
     void Update()
     {
+        // centering the fish magnet
+        fishMagnet.transform.position = new Vector2(transform.position.x, transform.position.y);
+
         if (waypoints.Count > 0)
         {
             float distance = Vector2.Distance(transform.position, waypoints[0]);
@@ -294,5 +300,6 @@ public class CharacterController : MonoBehaviour, IPlayer
         QuestManager.instance.UpdateQuests();
         Destroy(gameObject);
     }
+
 
 }

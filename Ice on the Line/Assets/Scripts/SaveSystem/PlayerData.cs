@@ -16,6 +16,8 @@ public class PlayerData
     /// 1 - temperatureSpeedLevel
     /// 2 - snowflakeLevel
     /// 3 - extraBlockLevel
+    /// 4 - fishMagnet
+    /// 5 - jetpack
     /// </summary>
     public int[] upgradesLevels;
 
