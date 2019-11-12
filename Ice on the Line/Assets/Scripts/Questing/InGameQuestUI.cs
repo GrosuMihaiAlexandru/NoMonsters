@@ -6,7 +6,7 @@ using UnityEngine.UI;
 // Displays the active quests Ingame
 public class InGameQuestUI : MonoBehaviour
 {
-    public MainScreen mainScreen;
+    public MainScreenManager mainScreen;
 
     public List<GameObject> quests;
     
@@ -25,12 +25,6 @@ public class InGameQuestUI : MonoBehaviour
         Invoke("ReadQuests", 0.1f);
 
         transform.parent.parent.gameObject.SetActive(false);
-    }
-
-    void Start()
-    {
-
-
     }
 
     void Update()
@@ -77,19 +71,4 @@ public class InGameQuestUI : MonoBehaviour
         //Debug.Log(quests[2].GetComponent<QuestObject>().description.text);
     }
 
-
-    public void Quest1()
-    {
-        Quest quest = QuestManager.instance.Quests[0];
-    }
-
-    public void Quest2()
-    {
-
-    }
-
-    public void Quest3()
-    {
-
-    }
 }

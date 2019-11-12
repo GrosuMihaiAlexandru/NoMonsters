@@ -15,7 +15,7 @@ public class TotalDistanceGoal : Goal
 
     void TotalDistanceTraveled(IPlayer player)
     {
-        CurrentAmount += player.MaxDistance;
+        CurrentAmount += player.Distance;
         Evaluate();
     }
 }

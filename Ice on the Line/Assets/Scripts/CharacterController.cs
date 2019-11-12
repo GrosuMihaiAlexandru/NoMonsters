@@ -49,7 +49,7 @@ public class CharacterController : MonoBehaviour, IPlayer
     private GameObject fishMagnet;
 
     // properties from the interface
-    public int MaxDistance { get; set; }
+    public int Distance { get; set; }
 
     void Start()
     {
@@ -288,7 +288,7 @@ public class CharacterController : MonoBehaviour, IPlayer
         Time.timeScale = 0;
         InGame.playerAlive = false;
         // Set the max travel distance on death
-        MaxDistance = (int) gameObject.transform.position.y;
+        Distance = (int) gameObject.transform.position.y;
         InGameEvents.GameOver(this);
         // Set playerAlive to false
 

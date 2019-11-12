@@ -27,8 +27,8 @@ public class ScoreManager : MonoBehaviour
     {
         if (InGame.playerAlive)
         {
-            score = (int)((player.transform.position.y * 100) + (player.transform.position.y * 100 * 0.5 * scoreMultiplier));
-
+            //score = (int)((player.transform.position.y * 100) + (player.transform.position.y * 100 * 0.5 * scoreMultiplier));
+            score = (int) player.transform.position.y;
             finalScore.text = score.ToString();
             inGameScore.text = score.ToString();
         }

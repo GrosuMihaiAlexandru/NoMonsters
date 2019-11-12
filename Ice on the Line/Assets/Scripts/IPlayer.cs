@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IPlayer
 {
-    int MaxDistance { get; set; }
+    int Distance { get; set; }
 
     void Die();
 }

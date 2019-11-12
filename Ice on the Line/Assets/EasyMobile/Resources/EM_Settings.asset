@@ -211,9 +211,18 @@ MonoBehaviour:
     mAndroidMaxLoginRequests: 0
     mGpgsDebugLogEnabled: 0
     mGpgsPopupGravity: 0
-    mLeaderboards: []
+    mLeaderboards:
+    - _name: Max Distance
+      _iosId: 
+      _androidId: CgkI4sy04bkWEAIQAQ
     mAchievements: []
-    mAndroidXmlResources: 
+    mAndroidXmlResources: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<!--\r\nGoogle
+      Play game services IDs.\r\nSave this file as res/values/games-ids.xml in your
+      project.\r\n-->\r\n<resources>\r\n  <!-- app_id -->\r\n  <string name=\"app_id\"
+      translatable=\"false\">771419350626</string>\r\n  <!-- package_name -->\r\n
+      \ <string name=\"package_name\" translatable=\"false\">com.NoMonsters.IceOnTheLine</string>\r\n
+      \ <!-- leaderboard Max Distance -->\r\n  <string name=\"leaderboard_max_distance\"
+      translatable=\"false\">CgkI4sy04bkWEAIQAQ</string>\r\n</resources>\r\n"
     mEnableMultiplayer: 0
     mEnableSavedGames: 0
     mAutoConflictResolutionStrategy: 0
@@ -320,8 +329,8 @@ MonoBehaviour:
         mValue: '[Your usage description]'
   mIsAdModuleEnable: 1
   mIsIAPModuleEnable: 0
-  mIsGameServiceModuleEnable: 0
+  mIsGameServiceModuleEnable: 1
   mIsNotificationModuleEnable: 0
   mIsSharingModuleEnable: 0
-  mActiveModuleIndex: 0
+  mActiveModuleIndex: 1
   mIsSelectingModule: 0

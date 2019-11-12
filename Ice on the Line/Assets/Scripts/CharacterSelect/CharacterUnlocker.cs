@@ -100,7 +100,7 @@ public class CharacterUnlocker : MonoBehaviour
             costText.gameObject.SetActive(false);
 
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(PlayMethod);
+            button.onClick.AddListener(MainScreenManager.PlayGame);
             button.interactable = true;
         }
         else // character locked
@@ -156,14 +156,6 @@ public class CharacterUnlocker : MonoBehaviour
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(UnlockMethod);
         }
-    }
-
-    private void PlayMethod()
-    {
-        if (GameManager.instance.tutorialDone)
-            SceneManager.LoadScene("SampleScene");
-        else
-            SceneManager.LoadScene("Tutorial");
     }
 
     private void UnlockMethod()

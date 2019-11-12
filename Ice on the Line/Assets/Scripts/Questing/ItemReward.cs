@@ -29,6 +29,7 @@ public class ItemReward
             GameManager.instance.AddFish(Fish);
         if (GFish != 0)
             GameManager.instance.AddGfish(GFish);
+        /*
         for (int i = 0; i < 3; i++)
             switch (i)
             {
@@ -44,6 +45,7 @@ public class ItemReward
                 default:
                     break;
             }
+            */
     }
 
 }
