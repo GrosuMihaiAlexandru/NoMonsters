@@ -19,6 +19,9 @@ public class InGameEvents : MonoBehaviour
     public delegate void PowerupCollectedEventHandler(IPowerup powerup);
     public static event PowerupCollectedEventHandler OnPowerupCollected;
 
+    public delegate void ConsumableUsedEventHander(IConsumable consumable);
+    public static event ConsumableUsedEventHander OnConsumableUsed;
+
     public static void ItemCollected(ICollectible collectible)
     {
         if (OnItemCollected != null)
@@ -47,5 +50,11 @@ public class InGameEvents : MonoBehaviour
     {
         if (OnPowerupCollected != null)
             OnPowerupCollected(powerup);
+    }
+
+    public static void ConsumableUsed(IConsumable consumable)
+    {
+        if (OnConsumableUsed != null)
+            OnConsumableUsed(consumable);
     }
 }

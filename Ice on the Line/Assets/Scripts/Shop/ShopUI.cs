@@ -11,6 +11,7 @@ using UnityEngine.Analytics;
 public class ShopUI : MonoBehaviour
 {
     public Text extraBlockUses;
+    public Text bombUses;
 
     public Text upgradesTabText;
     public Text powerupsTabText;
@@ -32,7 +33,8 @@ public class ShopUI : MonoBehaviour
 
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    public const int ExtraBlockCost = 200;
+    public const int extraBlockCost = 200;
+    public const int bombCost = 200;
     
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,9 @@ public class ShopUI : MonoBehaviour
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
 
-        extraBlockUses.text = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock).ToString();
+        extraBlockUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString();
+        bombUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString();
+
     }
 
     public void UpgradeScore()
@@ -106,15 +110,28 @@ public class ShopUI : MonoBehaviour
 
     public void BuyExtraBlock()
     {
-        if (GameManager.instance.Fish >= ExtraBlockCost)
+        if (GameManager.instance.Fish >= extraBlockCost)
         {
-            GameManager.instance.RemoveFish(ExtraBlockCost);
-            GameManager.instance.AddPowerupUses(GameManager.Powerup.extrablock, 1);
+            GameManager.instance.RemoveFish(extraBlockCost);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 1);
             fish.text = GameManager.instance.Fish.ToString();
-            extraBlockUses.text = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock).ToString();
+            extraBlockUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString();
             GameManager.instance.SaveProgress();
         }
     }
+
+    public void BuyBomb()
+    {
+        if (GameManager.instance.Fish >= bombCost)
+        {
+            GameManager.instance.RemoveFish(bombCost);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 1);
+            fish.text = GameManager.instance.Fish.ToString();
+            bombUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString();
+            GameManager.instance.SaveProgress();
+        }
+    }
+
 
     public void BackButton()
     {
