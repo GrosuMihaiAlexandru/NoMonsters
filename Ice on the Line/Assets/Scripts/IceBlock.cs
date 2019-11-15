@@ -35,6 +35,7 @@ public class IceBlock : MonoBehaviour
     public bool limitRotation = false;
 
     public bool isExtraBlock;
+    public bool isBomb;
 
     private const int gridWidth = 6;
 
@@ -96,11 +97,6 @@ public class IceBlock : MonoBehaviour
 
                     Vector2 position = new Vector2(hologram.transform.position.x, hologram.transform.position.y);
 
-                    RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero, 0, defaultLayer);
-                    RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero, 0, defaultLayer);
-                    RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0 , defaultLayer);
-                    RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero, 0, defaultLayer);
-
                     if (isExtraBlock)
                     {
                         changeColor = true;
@@ -110,9 +106,31 @@ public class IceBlock : MonoBehaviour
                             SnapBlock();
                         }
                     }
+                    else if (isBomb)
+                    {
+                        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero, 0, defaultLayer);
+
+                        changeColor = false;
+                        if (hit && hit.collider.tag == "Obstacle")
+                        {
+                            Debug.Log("OnObstacle");
+                            changeColor = true;
+                            if (touch.phase == TouchPhase.Ended)
+                            {
+                                canSnap = false;
+                                SnapBlock();
+                            }
+                        }
+
+                    }
                     // Checking if the object can snap
                     else
                     {
+                        RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero, 0, defaultLayer);
+                        RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero, 0, defaultLayer);
+                        RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0, defaultLayer);
+                        RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero, 0, defaultLayer);
+
                         if (hitUp)
                         {
                             if (hitUp.collider.tag == "WalkableBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
@@ -264,7 +282,7 @@ public class IceBlock : MonoBehaviour
             }
         }
         // Calling the pathfinding method
-        if (canCallAstar)
+        if (canCallAstar && !isBomb)
         {
             canCallAstar = false;
             astar.SendMessage("UpdateGrid");
@@ -523,11 +541,11 @@ public class IceBlock : MonoBehaviour
         }
 
         // Set animator to active
-        if (!isExtraBlock)
+        if (!isExtraBlock && !isBomb)
             GetComponent<Animator>().enabled = true;
 
         // Activate the breaking of ice
-        if (!isExtraBlock)
+        if (!isExtraBlock && !isBomb)
             GetComponent<IceBlockLife>().PlayerOnTop();
         // Center the object
         transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), transform.position.z);

@@ -20,12 +20,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int score = 0;
 
-    public enum Upgrade { scoreMultiplier, temperatureSpeed, snowflake, fishMagnet, jetpack}
-    public enum Powerup { extrablock, jetpack, freeze}
+    public enum Upgrade { scoreMultiplier, temperatureSpeed, snowflake, fishMagnet, fishDouble, timeFreeze}
+    public enum Consumable { extrablock, bomb, teleport}
     // Global Upgrade levels
+    [SerializeField]
     private int[] upgradeLevels = new int[5];
-    // Powerups uses
-    private int[] powerupUses = new int[1];
+    // Consumable uses
+    [SerializeField]
+    private int[] cosumableUses = new int[2];
     // The unlock status of characters
     private bool[] characters = new bool[3];
 
@@ -80,24 +82,24 @@ public class GameManager : MonoBehaviour
         //for (int i = 0; i < upgradeLevels.Length; i++)
           //  Debug.Log(upgradeLevels[i]);
 
-        // reading Powerup uses
-        if (powerupUses.Length > data.powerupUses.Length)
+        // reading Consumable uses
+        if (cosumableUses.Length > data.powerupUses.Length)
         {
             for (int i = 0; i < data.powerupUses.Length; i++)
             {
-                powerupUses[i] = data.powerupUses[i];
+                cosumableUses[i] = data.powerupUses[i];
             }
         }
-        else if (powerupUses.Length < data.powerupUses.Length)
+        else if (cosumableUses.Length < data.powerupUses.Length)
         {
-            for (int i = 0; i < powerupUses.Length; i++)
+            for (int i = 0; i < cosumableUses.Length; i++)
             {
-                powerupUses[i] = data.powerupUses[i];
+                cosumableUses[i] = data.powerupUses[i];
             }
         }
         else
         {
-            powerupUses = data.powerupUses;
+            cosumableUses = data.powerupUses;
         }
 
         // reading Characters unlock status
@@ -165,14 +167,14 @@ public class GameManager : MonoBehaviour
         // making an array of quests from the quest list
         QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
         ulong questTime = QuestManager.instance.QuestsAssignedTime;
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, characters, quests, questTime, Candy);
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, cosumableUses, characters, quests, questTime, Candy);
     }
 
     public void SaveTutorial()
     {
         QuestSaving[] quests = new QuestSaving[3];
         ulong questTime = 0;
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, powerupUses, characters, quests, questTime, Candy, true);
+        SaveSystem.SaveData(fish, Gfish, upgradeLevels, cosumableUses, characters, quests, questTime, Candy, true);
     }
 
     public int GetUpgradeLevels(Upgrade upgrade)
@@ -189,19 +191,19 @@ public class GameManager : MonoBehaviour
             Debug.Log(upgradeLevels[i]);
     }
 
-    public int GetPowerupUses(Powerup powerup)
+    public int GetPowerupUses(Consumable powerup)
     {
-        return powerupUses[(int)powerup];
+        return cosumableUses[(int)powerup];
     }
 
-    public void SetPowerupUses(Powerup powerup, int value)
+    public void SetPowerupUses(Consumable powerup, int value)
     {
-        powerupUses[(int)powerup] = value;
+        cosumableUses[(int)powerup] = value;
     }
 
-    public void AddPowerupUses(Powerup powerup, int value)
+    public void AddPowerupUses(Consumable powerup, int value)
     {
-        powerupUses[(int)powerup] += value;
+        cosumableUses[(int)powerup] += value;
     }
 
     public bool GetCharacterUnlockStatus(int character)

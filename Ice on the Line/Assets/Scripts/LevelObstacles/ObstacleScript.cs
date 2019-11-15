@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleScript : MonoBehaviour
+public class ObstacleScript : MonoBehaviour, IDestructable
 {
     [SerializeField]
     private LayerMask layerMask;
@@ -10,10 +10,34 @@ public class ObstacleScript : MonoBehaviour
     [SerializeField]
     private List<Sprite> obstacleSprites = new List<Sprite>();
 
+    [SerializeField]
+    private List<Sprite> obstacleDestroyedSprites = new List<Sprite>();
+
+    private int index;
+
+    GameObject astar;
+
+    public void DestroySelf()
+    {
+        Debug.Log("Destroyed Obstacle");
+        GameObject obstacle = gameObject;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 0, layerMask);
+        if (hit && hit.transform.gameObject.tag == "Obstacle")
+        {
+            hit.transform.gameObject.tag = "FixedBlock";
+        }
+        // Change Sprite to destryed version
+        GetComponent<SpriteRenderer>().sprite = obstacleDestroyedSprites[index];
+        // Update Player Movement after the block is destroyed
+        astar.SendMessage("UpdateGrid");
+        astar.SendMessage("BreadthFirstSearch");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        int index = Random.Range(0, obstacleSprites.Count);
+        astar = GameObject.Find("A*");
+        index = Random.Range(0, obstacleSprites.Count);
         this.gameObject.GetComponent<SpriteRenderer>().sprite = obstacleSprites[index];
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 0, layerMask);

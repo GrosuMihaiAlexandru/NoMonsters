@@ -24,18 +24,13 @@ public class MainScreenManager : MonoBehaviour
 
     void Awake()
     {
-        if (!RuntimeManager.IsInitialized())
-            RuntimeManager.Init();
-
         // GDPR
         int accepted = PlayerPrefs.GetInt("GDPRAccepted", 0);
-
+        Debug.Log("GDPR status " + accepted);
         if (accepted == 0)
         {
             GDPRPanel.SetActive(true);
         }
-
-        
     }
 
     // Start is called before the first frame update
