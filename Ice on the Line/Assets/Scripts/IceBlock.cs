@@ -7,6 +7,7 @@ public class IceBlock : MonoBehaviour
 {
     public LayerMask defaultLayer;
     public LayerMask rotationLayer;
+    public LayerMask specialLayer;
 
     private Rigidbody2D rigidBody2D;
 
@@ -59,7 +60,9 @@ public class IceBlock : MonoBehaviour
         holograms = new List<GameObject>();
         for (int i = 0; i < hologramMax; i++)
         {
-            holograms.Add(Instantiate(hologram));
+            GameObject newHologram = Instantiate(hologram);
+            newHologram.GetComponent<Hologram>().parentBlock = this;
+            holograms.Add(newHologram);
         }
 
     }
@@ -89,6 +92,11 @@ public class IceBlock : MonoBehaviour
                     HoldEnded();
 
                 bool changeColor = false;
+
+                if (barrierUnderneath)
+                {
+                    setColorToRed();
+                }
 
                 foreach (GameObject hologram in holograms)
                 {
@@ -126,6 +134,7 @@ public class IceBlock : MonoBehaviour
                     // Checking if the object can snap
                     else
                     {
+                        
                         RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero, 0, defaultLayer);
                         RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero, 0, defaultLayer);
                         RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0, defaultLayer);
@@ -135,7 +144,8 @@ public class IceBlock : MonoBehaviour
                         {
                             if (hitUp.collider.tag == "WalkableBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
                             {
-                                changeColor = true;
+                                if (!barrierUnderneath)
+                                    changeColor = true;
                                 //Debug.Log("Object can snap up");
 #if UNITY_ANDROID
                                 if (touch.phase == TouchPhase.Ended)
@@ -168,7 +178,8 @@ public class IceBlock : MonoBehaviour
                         {
                             if (hitDown.collider.tag == "WalkableBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
                             {
-                                changeColor = true;
+                                if (!barrierUnderneath)
+                                    changeColor = true;
                                 //Debug.Log("Object can snap down");
 #if UNITY_ANDROID
                                 if (touch.phase == TouchPhase.Ended)
@@ -201,7 +212,8 @@ public class IceBlock : MonoBehaviour
                         {
                             if (hitLeft.collider.tag == "WalkableBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
                             {
-                                changeColor = true;
+                                if (!barrierUnderneath)
+                                    changeColor = true;
                                 //Debug.Log("Object can snap left");
 #if UNITY_ANDROID
                                 if (touch.phase == TouchPhase.Ended)
@@ -234,7 +246,8 @@ public class IceBlock : MonoBehaviour
                         {
                             if (hitRight.collider.tag == "WalkableBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
                             {
-                                changeColor = true;
+                                if (!barrierUnderneath)
+                                    changeColor = true;
                                 //Debug.Log("Object can snap right");
 #if UNITY_ANDROID
                                 if (touch.phase == TouchPhase.Ended)
@@ -264,10 +277,13 @@ public class IceBlock : MonoBehaviour
                             }
                         }
                     }
-                    if (changeColor)
-                        setColorToGreen();
-                    else
-                        setColorToWhite();
+                    if (!barrierUnderneath)
+                    {
+                        if (changeColor)
+                            setColorToGreen();
+                        else
+                            setColorToWhite();
+                    }
                 }
 
             }
@@ -304,6 +320,14 @@ public class IceBlock : MonoBehaviour
         foreach (var t in holograms)
         {
             t.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+
+    private void setColorToRed()
+    {
+        foreach (var t in holograms)
+        {
+            t.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 
@@ -370,7 +394,7 @@ public class IceBlock : MonoBehaviour
             for(int i = 0; i < transform.childCount; i++)
             {
                 Transform t = transform.GetChild(i);
-                Debug.Log(t.position);
+                //Debug.Log(t.position);
                 GameObject temporaryHologram = Instantiate(hologram2);
                 temporaryHologram.transform.position = new Vector3(Mathf.Round(t.position.x), Mathf.Round(t.position.y), 0);
                 temporaryHologram.SetActive(false);
