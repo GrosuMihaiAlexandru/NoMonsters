@@ -85,7 +85,7 @@ public class Bomb : MonoBehaviour, IConsumable
             if (hit && hit.transform.tag == "Obstacle")
             {
                 Use();
-                hit.transform.GetComponent<ObstacleScript>().DestroySelf();
+                hit.transform.GetComponent<IDestructable>().DestroySelf();
             }
             Destroy(bomb);
             // Destroy iceblock script after placing the bomb
