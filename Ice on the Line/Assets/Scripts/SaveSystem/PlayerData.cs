@@ -17,15 +17,15 @@ public class PlayerData
     /// 2 - snowflakeLevel
     /// 3 - extraBlockLevel
     /// 4 - fishMagnet
-    /// 5 - jetpack
+    /// 5 - bomb
     /// </summary>
     public int[] upgradesLevels;
 
     /// <summary>
-    /// Uses left for each Powerup
+    /// Uses left for each Consumable
     /// 0 - extraBlock
-    /// 1 - jetpack
-    /// 2 - freeze
+    /// 1 - bomb
+    /// 2 - teleport
     /// </summary>
     public int[] powerupUses;
 

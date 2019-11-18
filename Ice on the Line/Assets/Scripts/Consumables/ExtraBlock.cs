@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 using UnityEngine;
 
-public class ExtraBlock : Powerup
+public class ExtraBlock : MonoBehaviour, IConsumable
 {
-    public List<GameObject> extraBlocks;
+    // General Consumable variables
+    public int ID { get; set; }
+    public int Count { get; set; }
 
-    private bool usedPowerup;
+    // Consumable Functionality variables
+    public GameObject extraBlockPrefab;
+
+    private bool usedConsumable;
 
     private GameObject extraBlock;
 
@@ -16,21 +22,22 @@ public class ExtraBlock : Powerup
     bool moveAllowed = false;
     bool clicked = false;
 
+    public Text countText;
+
     // Start is called before the first frame update
     void Start()
     {
         ID = 0;
-        // No upgrades for ExtraBlock
-        level = 0;
-        count = GameManager.instance.GetPowerupUses(GameManager.Powerup.extrablock);
-        UpdateText();
+
+        Count = GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock);
+        UpdateDisplay();
     }   
    
     // The Implementation of the powerup mechanics
     void Update()
     {
 
-        if (usedPowerup)
+        if (usedConsumable)
         {
             if (Input.touchCount > 0)
             {
@@ -40,7 +47,7 @@ public class ExtraBlock : Powerup
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        extraBlock = Instantiate(extraBlocks[0]);
+                        extraBlock = Instantiate(extraBlockPrefab);
                         extraBlock.transform.position = touchPos;
                         extraBlock.GetComponentsInChildren<BoxCollider2D>().ToList().ForEach(x => x.enabled = false);
                         moveAllowed = true;
@@ -63,10 +70,10 @@ public class ExtraBlock : Powerup
     // Event triggered on PowerupClick
     public void OnClick()
     {
-        if (count > 0)
+        if (Count > 0)
         {
-            UsePowerup();
-            usedPowerup = true;
+            Use();
+            usedConsumable = true;
             Debug.Log("ClickedButton");
         }
     }
@@ -76,26 +83,33 @@ public class ExtraBlock : Powerup
     {
         if (extraBlock)
         {
-            usedPowerup = false;
+            usedConsumable = false;
             extraBlock.GetComponentsInChildren<BoxCollider2D>().ToList().ForEach(x => x.enabled = true);
             Debug.Log("ReleasedButton");
         }
     }
 
-    public override void UsePowerup()
+    public void Use()
     {
-        InGameEvents.PowerupUsed(this);
-        count--;
-        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
+        InGameEvents.ConsumableUsed(this);
+        Count--;
+        GameManager.instance.SetPowerupUses(GameManager.Consumable.extrablock, Count);
         GameManager.instance.SaveProgress();
-        UpdateText();
+        UpdateDisplay();
     }
 
-    public override void AddPowerup(int value)
+    public void Add(int amount)
     {
-        count += value;
-        GameManager.instance.SetPowerupUses(GameManager.Powerup.extrablock, count);
+        Count += amount;
+        GameManager.instance.SetPowerupUses(GameManager.Consumable.extrablock, Count);
         GameManager.instance.SaveProgress();
     }
 
+    public void UpdateDisplay()
+    {
+        if (Count <= 99)
+            countText.text = "x" + Count;
+        else
+            countText.text = "x99";
+    }
 }
