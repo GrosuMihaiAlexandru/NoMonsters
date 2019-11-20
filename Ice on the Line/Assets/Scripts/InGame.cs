@@ -17,6 +17,7 @@ public class InGame : MonoBehaviour
     public GameObject gameOverScreen;
 
     public bool isTutorial;
+    public bool isEndless;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,15 @@ public class InGame : MonoBehaviour
         // Losing condition shouldn't work during the tutorial
         if (!isTutorial)
         {
-            iceblocks = GetComponent<LevelSelector>().ThisLevel.GetComponentsInChildren<IceBlock>().ToList();
+            if (isEndless)
+            {
+                iceblocks = GetComponent<LevelSelector>().ThisLevel.GetComponentsInChildren<IceBlock>().ToList();
+            }
+            else
+            {
+                iceblocks = GetComponent<CampaignLevelSelector>().selectedLevel.GetComponentsInChildren<IceBlock>().ToList();
+
+            }
             movesLeft = false;
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
             for (int i = 0; i < iceblocks.Count; i++)
