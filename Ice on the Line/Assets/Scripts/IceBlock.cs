@@ -464,7 +464,7 @@ public class IceBlock : MonoBehaviour
                     }
                 }
             }
-            Debug.Log(positions[0] + " " + canMoveUp[0] + " " + positions[1] + " " + canMoveUp[1] + " " + positions[2] + " " +  canMoveUp[2] + " " + positions[3] + " " + canMoveUp[3]);
+            //Debug.Log(positions[0] + " " + canMoveUp[0] + " " + positions[1] + " " + canMoveUp[1] + " " + positions[2] + " " +  canMoveUp[2] + " " + positions[3] + " " + canMoveUp[3]);
             /*Debug.Log(canMoveDown[0] + " " + canMoveDown[1] + " " + canMoveDown[2] + " " + canMoveDown[3]);
             Debug.Log(canMoveLeft[0] + " " + canMoveLeft[1] + " " + canMoveLeft[2] + " " + canMoveLeft[3]);
             Debug.Log(canMoveRight[0] + " " + canMoveRight[1] + " " + canMoveRight[2] + " " + canMoveRight[3]);

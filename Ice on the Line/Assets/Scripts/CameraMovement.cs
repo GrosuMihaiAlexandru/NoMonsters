@@ -86,4 +86,5 @@ public class CameraMovement : MonoBehaviour
     {
         Camera.main.orthographicSize = sizeX * Screen.height / Screen.width * 0.5f;
     }
+
 }
