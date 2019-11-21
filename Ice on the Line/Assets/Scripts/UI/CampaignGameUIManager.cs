@@ -6,12 +6,10 @@ using UnityEngine.SceneManagement;
 using EasyMobile;
 using UnityEngine.SocialPlatforms;
 
-public class EndlessGameUIManager : MonoBehaviour
+public class CampaignGameUIManager : MonoBehaviour
 {
-    public Text Distance;
-    public Text BestDistance;
-    public Text Fish;
-
+    public Text fishCollectedVictory;
+    public Text fishCollectedGameOver;
 
     // ToggleVolume
     public Button soundToggleButton;
@@ -44,7 +42,6 @@ public class EndlessGameUIManager : MonoBehaviour
         }
 
         InGameEvents.OnItemCollected += CollectFish;
-        InGameEvents.OnGameOver += DisplayGameOver;
     }
 
 
@@ -74,28 +71,10 @@ public class EndlessGameUIManager : MonoBehaviour
         }
     }
 
-    public void Menu()
-    {
-        SceneManager.LoadScene("MainScreen");
-
-        //Unpause the game when going to menu
-        Time.timeScale = 1;
-    }
-
     public void CampaignMenu()
     {
         SceneManager.LoadScene("Campaign");
 
-        Time.timeScale = 1;
-    }
-
-    public void Retry()
-    {
-        SceneManager.LoadScene(1);
-
-        // Set player to alive and unpause the game
-        InGame.playerAlive = true;
-        InGame.gamePaused = false;
         Time.timeScale = 1;
     }
 
@@ -119,45 +98,15 @@ public class EndlessGameUIManager : MonoBehaviour
         InGame.gamePaused = false;
     }
 
-    // Event for updating the collected amount of fish to be displayed in gameOver
     public void CollectFish(ICollectible collectible)
     {
         if (collectible.ID == 0)
             collectedFish++;
     }
 
-    // Display the final distance of the player in gameOver
-    public void DisplayGameOver(IPlayer player)
+    public void LoadNextLevel()
     {
-        playerFinalDistance = player.Distance;
-        Distance.text = "DISTANCE: " + playerFinalDistance.ToString();
-        Fish.text = collectedFish.ToString();
-    }
-
-    public void SubmitScoreToLeaderboard()
-    {
-        if (GameServices.IsInitialized())
-            GameServices.ReportScore(playerFinalDistance, EM_GameServicesConstants.Leaderboard_Max_Distance);
-
-    }
-
-    public void LoadLocalUserScore()
-    {
-        if (GameServices.IsInitialized())
-            GameServices.LoadLocalUserScore(EM_GameServicesConstants.Leaderboard_Max_Distance, OnLocalUserScoreLoaded);
-    }
-
-    void OnLocalUserScoreLoaded(string leaderboardName, IScore score)
-    {
-        if (score != null)
-        {
-            if (playerFinalDistance > score.value)
-                SubmitScoreToLeaderboard();
-        }
-        else
-        {
-            Debug.Log("No score found");
-        }
+        LevelController.instance.SelectNextLevel(LevelController.instance.selectedLevel.LevelName);
     }
 
 }

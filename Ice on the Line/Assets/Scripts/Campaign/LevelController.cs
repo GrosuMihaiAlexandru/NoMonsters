@@ -53,6 +53,11 @@ public class LevelController : MonoBehaviour
         levels.SkipWhile(e => e.LevelName != currentLevelName).Skip(1).FirstOrDefault().Unlock();
     }
 
+    public void SelectNextLevel(string currentLevelName)
+    {
+        selectedLevel = levels.SkipWhile(e => e.LevelName != currentLevelName).Skip(1).FirstOrDefault();
+    }
+
     public void SaveCampaignProgression()
     {
         SaveSystem.SaveCampaignProgress(levels);

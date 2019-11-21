@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class UILevelSelector : MonoBehaviour
 {
+
     private LevelController levelController;
 
     private int currentPage;
     public List<UILevel> levelList;
+
 
     void Awake()
     {
@@ -40,4 +42,6 @@ public class UILevelSelector : MonoBehaviour
             levelController.StartLevel(level.LevelName);
         }
     }
+
+    
 }

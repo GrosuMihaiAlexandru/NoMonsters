@@ -7,8 +7,13 @@ public class CampaignLevelEnd : MonoBehaviour
 {
     private int starsCollected = 0;
 
+    private GameObject victoryScreen;
+
     void Start()
     {
+        // Might FuckUp if victory screen location is changed
+        victoryScreen = GameObject.Find("GameUI").transform.Find("Victory").gameObject;
+        Debug.Log(victoryScreen);
         InGameEvents.OnItemCollected += InGameEvents_OnItemCollected;
     }
 
@@ -27,7 +32,7 @@ public class CampaignLevelEnd : MonoBehaviour
             LevelController.instance.CompleteLevel(LevelController.instance.selectedLevel.LevelName, starsCollected);
             LevelController.instance.UnlockNextLevel(LevelController.instance.selectedLevel.LevelName);
             LevelController.instance.SaveCampaignProgression();
-            SceneManager.LoadScene("Campaign");
+            victoryScreen.SetActive(true);
         }
     }
 }

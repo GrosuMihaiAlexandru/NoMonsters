@@ -12,6 +12,9 @@ public class UILevel : MonoBehaviour
     public GameObject levelNumber;
     private Image[] stars;
 
+    public Sprite emptyStar;
+    public Sprite fullStar;
+
     void Awake()
     {
         starParent = transform.Find("Stars").transform;
@@ -43,8 +46,8 @@ public class UILevel : MonoBehaviour
     {
         for (int i = 0; i < stars; i++)
         {
-            this.stars[i].color = Color.yellow;
-            Debug.Log("Yellow!");
+            this.stars[i].sprite = fullStar;
+            //Debug.Log("Yellow!");
         }
     }
 }
