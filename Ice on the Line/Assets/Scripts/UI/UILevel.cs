@@ -21,7 +21,7 @@ public class UILevel : MonoBehaviour
     public void SetDefault()
     {
         levelIDText.text = level.ID.ToString();
-        SetStars(0);
+        SetStars(level.Stars);
         Unlock(!level.Locked);
     }
 

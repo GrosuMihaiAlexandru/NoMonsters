@@ -873,6 +873,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: Distance
+      value: 
+      objectReference: {fileID: 1361392467}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: BestDistance
+      value: 
+      objectReference: {fileID: 1466957605}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: Fish
+      value: 
+      objectReference: {fileID: 2083118707}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: soundToggleButton
+      value: 
+      objectReference: {fileID: 454703264286036399}
     - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -928,26 +948,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: Distance
-      value: 
-      objectReference: {fileID: 1361392467}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: BestDistance
-      value: 
-      objectReference: {fileID: 1466957605}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: Fish
-      value: 
-      objectReference: {fileID: 2083118707}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: soundToggleButton
-      value: 
-      objectReference: {fileID: 454703264286036399}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f60bdf052a7807448087113ea563646, type: 3}
 --- !u!1001 &1758731710562004784
@@ -1225,7 +1225,7 @@ MonoBehaviour:
   player: {fileID: 0}
   gameOverScreen: {fileID: 484328802}
   isTutorial: 0
-  isEndless: 0
+  isEndless: 1
 --- !u!1001 &8123514558076365343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1353,7 +1353,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1220984985}
+    - target: {fileID: 8571453205859400624, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1220984985}
     - target: {fileID: 8123514557975874161, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 419716451}
+    - target: {fileID: 8123514558715312344, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1409,16 +1419,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1220984985}
     - target: {fileID: 8123514558809667865, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 419716451}
-    - target: {fileID: 8571453205859400624, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1220984985}
-    - target: {fileID: 8123514558715312344, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -240,7 +240,7 @@ PrefabInstance:
     - target: {fileID: 8571453204763475666, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8123514557439277426, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
         type: 3}
@@ -266,6 +266,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: PauseGameAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571453204925033994, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 331018789}
+    - target: {fileID: 8571453204925033994, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698dea4a954bb6d4abba3dfab2d0c30b, type: 3}
@@ -323,7 +333,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 331018788}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 331018789}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42da08f77db01ca49849a2a1c2b9a88b, type: 3}
@@ -416,6 +426,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: Distance
+      value: 
+      objectReference: {fileID: 108069129}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: BestDistance
+      value: 
+      objectReference: {fileID: 108069128}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: Fish
+      value: 
+      objectReference: {fileID: 108069127}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: soundToggleButton
+      value: 
+      objectReference: {fileID: 108069126}
     - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -471,28 +501,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: Distance
-      value: 
-      objectReference: {fileID: 108069129}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: BestDistance
-      value: 
-      objectReference: {fileID: 108069128}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: Fish
-      value: 
-      objectReference: {fileID: 108069127}
-    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
-        type: 3}
-      propertyPath: soundToggleButton
-      value: 
-      objectReference: {fileID: 108069126}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f60bdf052a7807448087113ea563646, type: 3}
+--- !u!1 &331018789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6072140608486782232, guid: 6f60bdf052a7807448087113ea563646,
+    type: 3}
+  m_PrefabInstance: {fileID: 331018788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &609828764
 PrefabInstance:
   m_ObjectHideFlags: 0

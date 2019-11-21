@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UILevelSelector : MonoBehaviour
 {
-    [SerializeField]
     private LevelController levelController;
 
     private int currentPage;
