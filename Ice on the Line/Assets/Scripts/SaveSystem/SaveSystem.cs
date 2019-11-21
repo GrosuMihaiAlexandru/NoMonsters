@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 
 public class SaveSystem
 {
@@ -43,4 +44,60 @@ public class SaveSystem
         }
     }
     
+    public static void SaveCampaignProgress(List<Level> levels)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/campaignData.iotl";
+
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        formatter.Serialize(stream, levels);
+        stream.Close();
+    }
+
+    public static List<Level> LoadCampaignProgress()
+    {
+        string path = Application.persistentDataPath + "/campaignData.iotl";
+        
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            List<Level> levels = formatter.Deserialize(stream) as List<Level>;
+
+            return levels;
+        }
+        else
+        {
+            Debug.Log("Save file not found " + path);
+            Debug.Log("Creating default file...");
+            List <Level> levels = new List<Level>
+            {
+                new Level(1, "Tutorial1", false, 0, false),
+                new Level(2, "Tutorial2", false, 0, true),
+                new Level(3, "Tutorial3", false, 0, true),
+                new Level(4, "Tutorial4", false, 0, true),
+                new Level(5, "Tutorial5", false, 0, true),
+                new Level(6, "Tutorial6", false, 0, true),
+                new Level(7, "Tutorial7", false, 0, true),
+                new Level(8, "Tutorial8", false, 0, true),
+                new Level(9, "Tutorial9", false, 0, true),
+                new Level(10, "Tutorial10", false, 0, true),
+                new Level(11, "Tutorial11", false, 0, true),
+                new Level(12, "Tutorial12", false, 0, true),
+                new Level(13, "Tutorial13", false, 0, true),
+                new Level(14, "Tutorial14", false, 0, true),
+                new Level(15, "Tutorial15", false, 0, true),
+                new Level(16, "Tutorial16", false, 0, true),
+                new Level(17, "Tutorial16", false, 0, true),
+                new Level(18, "Tutorial16", false, 0, true),
+                new Level(19, "Tutorial16", false, 0, true),
+                new Level(20, "Tutorial16", false, 0, true)
+            };
+            SaveCampaignProgress(levels);
+            return LoadCampaignProgress();
+        }
+    }
 }

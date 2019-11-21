@@ -13,7 +13,7 @@ public class UILevelSelector : MonoBehaviour
 
     void Awake()
     {
-        levelController = GetComponent<LevelController>();
+        levelController = GameObject.Find("LevelController").GetComponent<LevelController>();
     }
 
     void Start()

@@ -540,56 +540,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1220984984
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1220984986}
-  - component: {fileID: 1220984985}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1220984985
+--- !u!114 &1220984985 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+    type: 3}
+  m_PrefabInstance: {fileID: 1734079608289747659}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220984984}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42da08f77db01ca49849a2a1c2b9a88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Distance: {fileID: 1361392467}
-  BestDistance: {fileID: 1466957605}
-  Fish: {fileID: 2083118707}
-  soundToggleButton: {fileID: 454703264286036399}
-  soundOn: {fileID: 21300000, guid: f73ef4c20d630e34e821711fb6c1351d, type: 3}
-  soundOff: {fileID: 21300000, guid: 06c728ee2d1858b4198c4d571c89d5da, type: 3}
-  collectedFish: 0
---- !u!4 &1220984986
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220984984}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1930797, y: 4.37732, z: -7.572439}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1289132503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -899,6 +861,95 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33cc3361bf2144942846b9b73f6f9d6f, type: 3}
+--- !u!1001 &1734079608289747659
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6072140608486782232, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_Name
+      value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.1930797
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.37732
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.572439
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438673536036468381, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: Distance
+      value: 
+      objectReference: {fileID: 1361392467}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: BestDistance
+      value: 
+      objectReference: {fileID: 1466957605}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: Fish
+      value: 
+      objectReference: {fileID: 2083118707}
+    - target: {fileID: 1734079607086064210, guid: 6f60bdf052a7807448087113ea563646,
+        type: 3}
+      propertyPath: soundToggleButton
+      value: 
+      objectReference: {fileID: 454703264286036399}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6f60bdf052a7807448087113ea563646, type: 3}
 --- !u!1001 &1758731710562004784
 PrefabInstance:
   m_ObjectHideFlags: 0

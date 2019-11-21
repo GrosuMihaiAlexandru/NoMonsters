@@ -391,7 +391,6 @@ GameObject:
   m_Component:
   - component: {fileID: 251974014}
   - component: {fileID: 251974013}
-  - component: {fileID: 251974015}
   m_Layer: 0
   m_Name: LevelController
   m_TagString: Untagged
@@ -426,13 +425,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &251974015
+--- !u!1 &349978316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 349978318}
+  - component: {fileID: 349978317}
+  m_Layer: 0
+  m_Name: UILevelSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &349978317
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251974012}
+  m_GameObject: {fileID: 349978316}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d701fe73e83337346be8e4de1e5d668f, type: 3}
@@ -444,6 +460,20 @@ MonoBehaviour:
   - {fileID: 56553811}
   - {fileID: 460662495}
   - {fileID: 1804986261}
+--- !u!4 &349978318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349978316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 133.56436, y: 106.45879, z: -304.21597}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &460662494 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 769239290727094265, guid: 779b605be76d38448b3c320345f1dd60,
