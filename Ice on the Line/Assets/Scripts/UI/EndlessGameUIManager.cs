@@ -82,11 +82,26 @@ public class EndlessGameUIManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void CampaignMenu()
+    {
+        SceneManager.LoadScene("Campaign");
+
+        Time.timeScale = 1;
+    }
+
     public void Retry()
     {
         SceneManager.LoadScene(1);
 
         // Set player to alive and unpause the game
+        InGame.playerAlive = true;
+        InGame.gamePaused = false;
+        Time.timeScale = 1;
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene("CampaignLevel");
         InGame.playerAlive = true;
         InGame.gamePaused = false;
         Time.timeScale = 1;
