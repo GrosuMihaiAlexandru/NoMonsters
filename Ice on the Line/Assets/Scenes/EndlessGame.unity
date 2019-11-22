@@ -138,6 +138,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6957026290044088986, guid: 6c1a6cee59caec7458ea3007b0805084,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6957026290044088990, guid: 6c1a6cee59caec7458ea3007b0805084,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -735,6 +740,43 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5604693133561671649}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1742715847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8123514557439277426, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8123514558076365343}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1742715849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742715847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900876f1cbe508b4c9d24fd6d9ba8733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thermometerSprites:
+  - {fileID: 21300000, guid: 74f60803dc72f6645877fda24fa31b21, type: 3}
+  - {fileID: 21300000, guid: 7f5d0cd278d6e6b449848f3ab0576348, type: 3}
+  - {fileID: 21300000, guid: 70acd1ae56264d847b02fc9822930628, type: 3}
+  speed1Clips:
+  - {fileID: 8300000, guid: f197a5904f3def140aa2d5d0e28f6860, type: 3}
+  - {fileID: 8300000, guid: ad86fcf23327ed146867d38927fa543e, type: 3}
+  - {fileID: 8300000, guid: 0387ee2ab062d4d44a9f944fe7042b8c, type: 3}
+  - {fileID: 8300000, guid: 1934f73746de4804487a0e69222ebf55, type: 3}
+  speed2Clips:
+  - {fileID: 8300000, guid: b1fc70b7fd619fe4480be21217813d3d, type: 3}
+  - {fileID: 8300000, guid: abeb7f4c9f0ed9c4f8855609ece589e7, type: 3}
+  - {fileID: 8300000, guid: b1186ea4c009f0541b7e66b1df6c7fa0, type: 3}
+  - {fileID: 8300000, guid: c92f2010fcf4cd04288c4f848afa30e0, type: 3}
+  speed3Clips:
+  - {fileID: 8300000, guid: a689bcebb0b72ab4cbb69d8f30b698dd, type: 3}
+  - {fileID: 8300000, guid: 979af569ee1160d4aa94e29b9459717e, type: 3}
+  - {fileID: 8300000, guid: eb62ce73ae4629444a4ca15a8183970b, type: 3}
+  - {fileID: 8300000, guid: 917a93c7eefa9d24c8aa762750edcf3d, type: 3}
 --- !u!1 &1821020391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8123514557463378680, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
@@ -1238,6 +1280,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8571453205859400624, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1220984985}
     - target: {fileID: 8123514558135136667, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1353,11 +1400,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1220984985}
-    - target: {fileID: 8571453205859400624, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1220984985}
     - target: {fileID: 8123514557975874161, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1428,5 +1470,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1220984985}
-    m_RemovedComponents: []
+    - target: {fileID: 8123514557439277423, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: thermometerSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123514557439277423, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: speed1Clips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123514557439277423, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: speed2Clips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123514557439277423, guid: 698dea4a954bb6d4abba3dfab2d0c30b,
+        type: 3}
+      propertyPath: speed3Clips.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8123514557439277423, guid: 698dea4a954bb6d4abba3dfab2d0c30b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 698dea4a954bb6d4abba3dfab2d0c30b, type: 3}
