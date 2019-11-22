@@ -289,7 +289,7 @@ public class CharacterController : MonoBehaviour, IPlayer
         InGame.playerAlive = false;
         // Set the max travel distance on death
         Distance = (int) gameObject.transform.position.y;
-        InGameEvents.GameOver(this);
+        
         // Set playerAlive to false
 
         youDiedScreen.SetActive(false);
@@ -298,6 +298,9 @@ public class CharacterController : MonoBehaviour, IPlayer
 
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();
+
+        InGameEvents.GameOver(this);
+
         Destroy(gameObject);
     }
 
