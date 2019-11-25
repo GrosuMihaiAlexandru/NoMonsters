@@ -25,6 +25,10 @@ public class MainScreenManager : MonoBehaviour
     // Main Menu theme song
     public AudioClip mainMenuClip;
 
+    private bool extraOptions = false;
+
+    public GameObject extraOptionsPanel;
+
     void Awake()
     {
         // GDPR
@@ -124,4 +128,25 @@ public class MainScreenManager : MonoBehaviour
         if (GameServices.IsInitialized())
             GameServices.ShowLeaderboardUI();
     }
+
+    public void ToggleExtraOptions()
+    {
+        if (extraOptions)
+        {
+            extraOptions = false;
+            extraOptionsPanel.SetActive(false);
+        }
+        else
+        {
+            extraOptions = true;
+            extraOptionsPanel.SetActive(true);
+
+        }
+    }
+
+    public void OpenCampaignScene()
+    {
+        SceneManager.LoadScene("Campaign");
+    }
+
 }

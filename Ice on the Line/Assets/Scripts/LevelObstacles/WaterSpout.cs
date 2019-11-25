@@ -31,7 +31,7 @@ public class WaterSpout : MonoBehaviour, IDestructable
 
         if (hit)
         {
-            Debug.Log(hit.transform.tag);
+            //Debug.Log(hit.transform.tag);
 
             iceBlock = hit.collider.gameObject.GetComponent<Hologram>().parentBlock;
             iceBlock.barrierUnderneath = true;
@@ -40,7 +40,7 @@ public class WaterSpout : MonoBehaviour, IDestructable
         {
             if (iceBlock != null)
             {
-                Debug.Log(iceBlock);
+                //Debug.Log(iceBlock);
                 iceBlock.barrierUnderneath = false;
                 iceBlock = null;
             }

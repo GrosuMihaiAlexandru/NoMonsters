@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CampaignLevelEnd : MonoBehaviour
 {
@@ -9,10 +10,23 @@ public class CampaignLevelEnd : MonoBehaviour
 
     private GameObject victoryScreen;
 
+    private Image[] stars;
+
+    public Sprite emptyStar;
+    public Sprite fullStar;
+
+    private GameObject starsObject;
+
+    void Awake()
+    {
+        victoryScreen = GameObject.Find("GameUI").transform.Find("Victory").gameObject;
+        starsObject = victoryScreen.transform.Find("VictoryBox").transform.Find("Stars").gameObject;
+        stars = starsObject.transform.GetComponentsInChildren<Image>();
+    }
+
     void Start()
     {
         // Might FuckUp if victory screen location is changed
-        victoryScreen = GameObject.Find("GameUI").transform.Find("Victory").gameObject;
         Debug.Log(victoryScreen);
         InGameEvents.OnItemCollected += InGameEvents_OnItemCollected;
     }
@@ -29,10 +43,31 @@ public class CampaignLevelEnd : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            Debug.Log("EndReached");
+
             LevelController.instance.CompleteLevel(LevelController.instance.selectedLevel.LevelName, starsCollected);
             LevelController.instance.UnlockNextLevel(LevelController.instance.selectedLevel.LevelName);
             LevelController.instance.SaveCampaignProgression();
+            ResetStars();
+            SetStars(starsCollected);
             victoryScreen.SetActive(true);
+        }
+    }
+
+    public void ResetStars()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            this.stars[i].sprite = emptyStar;
+        }
+    }
+
+    public void SetStars(int stars)
+    {
+        for (int i = 0; i < stars; i++)
+        {
+            this.stars[i].sprite = fullStar;
+            //Debug.Log("Yellow!");
         }
     }
 }

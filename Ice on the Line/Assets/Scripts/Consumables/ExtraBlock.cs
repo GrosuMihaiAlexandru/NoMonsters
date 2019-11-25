@@ -74,7 +74,7 @@ public class ExtraBlock : MonoBehaviour, IConsumable
         {
             Use();
             usedConsumable = true;
-            Debug.Log("ClickedButton");
+            //Debug.Log("ClickedButton");
         }
     }
 
@@ -85,7 +85,7 @@ public class ExtraBlock : MonoBehaviour, IConsumable
         {
             usedConsumable = false;
             extraBlock.GetComponentsInChildren<BoxCollider2D>().ToList().ForEach(x => x.enabled = true);
-            Debug.Log("ReleasedButton");
+            //Debug.Log("ReleasedButton");
         }
     }
 

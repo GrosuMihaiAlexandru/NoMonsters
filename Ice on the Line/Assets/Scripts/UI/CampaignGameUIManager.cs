@@ -8,6 +8,7 @@ using UnityEngine.SocialPlatforms;
 
 public class CampaignGameUIManager : MonoBehaviour
 {
+
     public Text fishCollectedVictory;
     public Text fishCollectedGameOver;
 
@@ -74,8 +75,8 @@ public class CampaignGameUIManager : MonoBehaviour
     public void CampaignMenu()
     {
         SceneManager.LoadScene("Campaign");
-
         Time.timeScale = 1;
+        ShowInterstitialAdWithChance(40);
     }
 
     public void RetryLevel()
@@ -84,6 +85,7 @@ public class CampaignGameUIManager : MonoBehaviour
         InGame.playerAlive = true;
         InGame.gamePaused = false;
         Time.timeScale = 1;
+        ShowInterstitialAdWithChance(20);
     }
 
     public void PauseGameAction()
@@ -107,6 +109,19 @@ public class CampaignGameUIManager : MonoBehaviour
     public void LoadNextLevel()
     {
         LevelController.instance.SelectNextLevel(LevelController.instance.selectedLevel.LevelName);
+        SceneManager.LoadScene("CampaignLevel");
+        ShowInterstitialAdWithChance(40);
+    }
+
+    public void ShowInterstitialAdWithChance(int percentage) // chance should be less than 1, or it will always show
+    {
+        int x = Random.Range(1, 101);
+        bool shouldShow = x < percentage;
+        Debug.Log(shouldShow);
+        if (shouldShow && Advertising.IsInterstitialAdReady())
+        {
+            Advertising.ShowInterstitialAd();
+        }
     }
 
 }

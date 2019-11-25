@@ -39,7 +39,7 @@ public class SaveSystem
             // Creating a default file if the file doesn't exist
             Debug.Log("Save file not found in " + path);
             Debug.Log("Creating default file...");
-            SaveData(0, 0, new int[] { 0, 0, 0, 0, 0}, new int[] { 0, 0, 0 }, new bool[] { true, false, false}, null, 0, 0, false);
+            SaveData(0, 0, new int[] { 0, 0, 0, 0, 0}, new int[] { 3, 3, 0 }, new bool[] { true, false, false}, null, 0, 0, false);
             return LoadData();
         }
     }
@@ -78,23 +78,23 @@ public class SaveSystem
                 new Level(1, "Tutorial1", false, 0, false),
                 new Level(2, "Tutorial2", false, 0, true),
                 new Level(3, "Tutorial3", false, 0, true),
-                new Level(4, "Tutorial4", false, 0, true),
-                new Level(5, "Tutorial5", false, 0, true),
-                new Level(6, "Tutorial6", false, 0, true),
-                new Level(7, "Tutorial7", false, 0, true),
-                new Level(8, "Tutorial8", false, 0, true),
-                new Level(9, "Tutorial9", false, 0, true),
-                new Level(10, "Tutorial10", false, 0, true),
-                new Level(11, "Tutorial11", false, 0, true),
-                new Level(12, "Tutorial12", false, 0, true),
-                new Level(13, "Tutorial13", false, 0, true),
-                new Level(14, "Tutorial14", false, 0, true),
-                new Level(15, "Tutorial15", false, 0, true),
-                new Level(16, "Tutorial16", false, 0, true),
-                new Level(17, "Tutorial16", false, 0, true),
-                new Level(18, "Tutorial16", false, 0, true),
-                new Level(19, "Tutorial16", false, 0, true),
-                new Level(20, "Tutorial16", false, 0, true)
+                new Level(4, "Level4", false, 0, true),
+                new Level(5, "Level5", false, 0, true),
+                new Level(6, "Level6", false, 0, true),
+                new Level(7, "Level7", false, 0, true),
+                new Level(8, "Level8", false, 0, true),
+                new Level(9, "Level9", false, 0, true),
+                new Level(10, "Level10", false, 0, true),
+                new Level(11, "Level11", false, 0, true),
+                new Level(12, "Level12", false, 0, true),
+                new Level(13, "Level13", false, 0, true),
+                new Level(14, "Level14", false, 0, true),
+                new Level(15, "Level15", false, 0, true),
+                new Level(16, "Level16", false, 0, true),
+                new Level(17, "Level17", false, 0, true),
+                new Level(18, "Level18", false, 0, true),
+                new Level(19, "Level19", false, 0, true),
+                new Level(20, "Level20", false, 0, true)
             };
             SaveCampaignProgress(levels);
             return LoadCampaignProgress();
