@@ -23,7 +23,7 @@ public class ClickManager : MonoBehaviour
     float timer = 0;
 
     [SerializeField]
-    private float holdTime = 0.07f;
+    private float holdTime = 0.1f;
 
     Vector3 initialPos;
 
@@ -92,7 +92,7 @@ public class ClickManager : MonoBehaviour
                     // you release your finger
                     case TouchPhase.Ended:
                         // if it's only a short tap the block rotates 
-                        if (timer <= 0.2)
+                        if (timer <= 0.2f)
                         {
                             if (iceBlock)
                             {

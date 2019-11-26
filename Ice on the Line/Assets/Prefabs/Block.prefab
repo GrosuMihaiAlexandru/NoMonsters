@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7053912765462572789}
   - component: {fileID: 7053912765462572790}
+  - component: {fileID: 8388058831345007801}
   m_Layer: 8
   m_Name: Block
   m_TagString: Untagged
@@ -57,3 +58,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99, y: 0.99}
   m_EdgeRadius: 0
+--- !u!58 &8388058831345007801
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7053912765462572793}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 7988a901ade68e44186bcccf8186d002, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
