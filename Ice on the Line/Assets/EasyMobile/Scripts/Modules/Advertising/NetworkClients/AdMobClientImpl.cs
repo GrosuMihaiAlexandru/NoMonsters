@@ -307,7 +307,7 @@ namespace EasyMobile
 
             mIsInitialized = true;
 
-            //Debug.Log("AdMob client has been initialized.");
+            Debug.Log("AdMob client has been initialized.");
 #endif
         }
 
@@ -337,7 +337,7 @@ namespace EasyMobile
                 {
                     mDefaultBanner = CreateNewBanner(position, size, id);
                     mCurrentDefaultBannerSize = size;
-                    //Debug.Log("Creating new default banner...");
+                    Debug.Log("Creating new default banner...");
                 }
 
                 mDefaultBanner.SetPosition(ToAdMobAdPosition(position));
@@ -348,7 +348,7 @@ namespace EasyMobile
                 if (!mCustomBannerAds.ContainsKey(placement) || mCustomBannerAds[placement].Value == null || mCustomBannerAds[placement].Key != size)
                 {
                     mCustomBannerAds[placement] = new KeyValuePair<BannerAdSize, BannerView>(size, CreateNewBanner(position, size, id));
-                    //Debug.Log("Creating new custom banner...");
+                    Debug.Log("Creating new custom banner...");
                 }
 
                 mCustomBannerAds[placement].Value.SetPosition(ToAdMobAdPosition(position));
