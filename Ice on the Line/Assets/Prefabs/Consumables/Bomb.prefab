@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 5925606396054442995}
   - component: {fileID: 6270725393631914346}
   - component: {fileID: 1455912700578811484}
+  - component: {fileID: 3884512530723292662}
   m_Layer: 0
   m_Name: BombCollider
   m_TagString: Untagged
@@ -170,3 +171,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 10.5}
   m_EdgeRadius: 0
+--- !u!58 &3884512530723292662
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295101243122858792}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.525

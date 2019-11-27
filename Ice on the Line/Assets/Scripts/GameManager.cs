@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int Gfish;
 
+    [SerializeField]
+    private int lives;  
+
     // Check to display tutorial or not
     [SerializeField]
     public bool tutorialDone;
