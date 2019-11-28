@@ -10,6 +10,7 @@ public class Level
     public bool Completed { get; set; }
     public int Stars { get; set; }
     public bool Locked { get; set; }
+    public int AwardsGiven { get; set; }
 
     public Level (int id, string levelName, bool completed, int stars, bool locked)
     {
@@ -18,6 +19,7 @@ public class Level
         this.Completed = completed;
         this.Stars = stars;
         this.Locked = locked;
+        GiveRewards(stars);
     }
 
     public void Complete()
@@ -42,5 +44,11 @@ public class Level
     public void Unlock()
     {
         this.Locked = false;
+    }
+
+    public void GiveRewards(int stars)
+    {
+        if (this.AwardsGiven < stars)
+            AwardsGiven = stars;
     }
 }

@@ -72,8 +72,18 @@ public class CampaignGameUIManager : MonoBehaviour
         }
     }
 
+    public void ReturnToMenuAndLoseLife()
+    {
+        GameManager.instance.RemoveLives(1);
+        GameManager.instance.SaveProgress();
+
+        SceneManager.LoadScene("Campaign");
+        Time.timeScale = 1;
+        ShowInterstitialAdWithChance(40);
+    }
     public void CampaignMenu()
     {
+      
         SceneManager.LoadScene("Campaign");
         Time.timeScale = 1;
         ShowInterstitialAdWithChance(40);
@@ -81,6 +91,9 @@ public class CampaignGameUIManager : MonoBehaviour
 
     public void RetryLevel()
     {
+        GameManager.instance.RemoveLives(1);
+        GameManager.instance.SaveProgress();
+
         SceneManager.LoadScene("CampaignLevel");
         InGame.playerAlive = true;
         InGame.gamePaused = false;

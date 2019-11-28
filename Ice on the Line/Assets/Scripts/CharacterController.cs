@@ -285,6 +285,12 @@ public class CharacterController : MonoBehaviour, IPlayer
             { "level", (int)(transform.position.y / levelHeight) + 1 }
         });
 
+        // Remove 1 life when the player dies
+        /*
+        GameManager.instance.RemoveLives(1);
+        GameManager.instance.SaveProgress();
+        */
+
         Time.timeScale = 0;
         InGame.playerAlive = false;
         // Set the max travel distance on death

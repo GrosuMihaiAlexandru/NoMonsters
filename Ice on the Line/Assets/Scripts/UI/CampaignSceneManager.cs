@@ -12,17 +12,21 @@ public class CampaignSceneManager : MonoBehaviour
     // The currency display
     public Text fish;
     public Text Gfish;
+    public Text lives;
 
     // ToggleVolume
     public Button soundToggleButton;
     public Sprite soundOn;
     public Sprite soundOff;
 
+    public Slider livesSlider;
+
     private bool extraOptions = false;
 
     void Start()
     {
         UpdateDisplay();
+        UpdateSlider();
 
         // Sound Button
         if (PlayerPrefs.GetInt("Muted", 0) == 0)
@@ -91,6 +95,12 @@ public class CampaignSceneManager : MonoBehaviour
     {
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
+        lives.text = GameManager.instance.Lives.ToString() + " / " + GameManager.instance.maxLives;
+    }
+
+    public void UpdateSlider()
+    {
+        livesSlider.value = GameManager.instance.Lives;
     }
 
     public void ShowLeaderboardUI()

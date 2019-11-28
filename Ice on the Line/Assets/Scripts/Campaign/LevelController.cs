@@ -6,6 +6,8 @@ using System.Linq;
 
 public class LevelController : MonoBehaviour
 {
+    private int campaignVersion = 1;
+
     public static LevelController instance;
 
     public List<Level> levels;
@@ -35,7 +37,12 @@ public class LevelController : MonoBehaviour
         if (selectedLevel == null)
             Debug.LogError("Level not found");
         else
-            SceneManager.LoadScene("CampaignLevel");
+        {
+            if (GameManager.instance.Lives > 0)
+            {
+                SceneManager.LoadScene("CampaignLevel");
+            }
+        }
     }
 
     public void CompleteLevel(string levelName)

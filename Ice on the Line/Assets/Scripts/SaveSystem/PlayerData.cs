@@ -40,16 +40,24 @@ public class PlayerData
     // Special Currency
     public int specialCurrency;
 
-    public PlayerData(int fish, int Gfish, int[] upgrades, int[] uses, bool[] characters, QuestSaving[] quests, ulong questTime, int specialCurrency = 0,  bool tutorial = true)
+    // Last time the lifes were assigned
+    public ulong lifeAssignedTime;
+
+    // The amount of retries for campaign levels
+    public int lives;
+
+    public PlayerData(int fish, int Gfish, int lives, int[] upgrades, int[] uses, bool[] characters, QuestSaving[] quests, ulong questTime, ulong lifeTime, int specialCurrency = 0,  bool tutorial = true)
     {
         this.fish = fish;
         this.Gfish = Gfish;
+        this.lives = lives;
         finishedTutorial = tutorial;
         upgradesLevels = upgrades;
         powerupUses = uses;
         this.characters = characters;
         activeQuests = quests;
         questsAssignedTime = questTime;
+        lifeAssignedTime = lifeTime;
         this.specialCurrency = specialCurrency;
     }
 }
