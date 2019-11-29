@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -44,6 +45,11 @@ public class CampaignLevelEnd : MonoBehaviour
         if (collision.tag == "Player")
         {
             Debug.Log("EndReached");
+
+            Analytics.CustomEvent("Level finished", new Dictionary<string, object>
+            {
+                { "level", LevelController.instance.selectedLevel.ID }
+            });
 
             LevelController.instance.CompleteLevel(LevelController.instance.selectedLevel.LevelName, starsCollected);
             LevelController.instance.UnlockNextLevel(LevelController.instance.selectedLevel.LevelName);
