@@ -38,12 +38,16 @@ public class Temperature : MonoBehaviour
     // Base time per level that is added to the temperatureUpdateTime 
     public float difficultyScaling = 0.05f;
 
+    private InGame ingame;
+
     // Start is called before the first frame update
     void Start()
     {
         globalTemperature = initialTemperature;
         lastUpdateTime = Time.time;
+        ingame = GetComponent<InGame>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -53,7 +57,7 @@ public class Temperature : MonoBehaviour
             float time = Time.time;
 
             // Temperature rises by 1 degree everytime temperatureUpdateTime
-            if (time - lastUpdateTime >= CalculateTemperatureTime(CalculateDifficulty(GetComponent<InGame>().player.transform.position.y), GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed)))
+            if (time - lastUpdateTime >= CalculateTemperatureTime(CalculateDifficulty(ingame.player.transform.position.y), GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed)))
             {
                 if (globalTemperature < MaxTemperature)
                 {
@@ -70,13 +74,13 @@ public class Temperature : MonoBehaviour
     private int CalculateDifficulty(float distance)
     {
         if (distance < minX)
-            return 1;
+            return 0;
         else if (distance < minX * 2)
-            return 2;
+            return 1;
         else if (distance < minX * 3)
-            return 3;
+            return 2;
         else
-            return 4;
+            return 3;
     }
 
     // Return the base temperature update time based on the current difficulty

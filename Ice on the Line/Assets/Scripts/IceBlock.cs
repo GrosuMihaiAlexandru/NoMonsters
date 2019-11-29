@@ -587,6 +587,8 @@ public class IceBlock : MonoBehaviour
         allowRotation = false;
         holograms.Clear();
 
+        // Begin breaking the iceBlock
+        GetComponent<IceBlockLife>().PlayerOnTop();
     }
 
     bool startedHold = false;
