@@ -34,7 +34,7 @@ public class NotificationsHandler : MonoBehaviour
         }
     }
 
-    void ScheduleRepeatingLocalNotificationAfterDelay(string title, string subtitle, string body)
+    void ScheduleRepeatingLocalNotificationAfterDelay()
     {
         // Prepare the notification content (see the above section).
         NotificationContent content = PrepareNotificationContent("PLAY NOW!", "The penguin misses you", "You haven't played in a while. Have another go!");
@@ -47,18 +47,30 @@ public class NotificationsHandler : MonoBehaviour
         Notifications.ScheduleLocalNotification(delay, content, NotificationRepeat.EveryMinute);
     }
 
+    void ScheduleLocalNotificationAtDate()
+    {
+        // Prepare the notification content (see the above section).
+        NotificationContent content = PrepareNotificationContent("PLAY NOW!", "The penguin misses you", "You haven't played in a while. Have another go!");
+
+        DateTime date = new DateTime(DateTime.Now.Millisecond + 86400000);
+
+        // Schedule the notification.
+        // Notifications.ScheduleLocalNotification(delay, content, NotificationRepeat.EveryMinute);
+        Notifications.ScheduleLocalNotification(date, content);
+    }
+
     NotificationContent PrepareNotificationContent(string title, string subtitle, string body)
     {
         NotificationContent content = new NotificationContent();
 
         // Provide the notification title.
-        content.title = "Demo Notification";
+        content.title = title;
 
         // You can optionally provide the notification subtitle, which is visible on iOS only.
-        content.subtitle = "Demo Subtitle";
+        content.subtitle = subtitle;
 
         // Provide the notification message.
-        content.body = "This is a demo notification.";
+        content.body = body;
 
         // You can optionally attach custom user information to the notification
         // in form of a key-value dictionary.
@@ -80,7 +92,7 @@ public class NotificationsHandler : MonoBehaviour
         // don't set the smallIcon and largeIcon fields of the content.
         // If you want to use custom icons instead, simply specify their names here (without file extensions).
 
-        // content.smallIcon = "ic_stat_cooltemperature";
+        content.smallIcon = "ic_stat_snowflake";
         // content.largeIcon = "ic_stat_cooltemperature";
 
         return content;

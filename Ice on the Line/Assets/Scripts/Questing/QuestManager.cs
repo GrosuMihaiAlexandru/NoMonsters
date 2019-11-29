@@ -174,6 +174,9 @@ public class QuestManager : MonoBehaviour
     {
         QuestsAssignedTime = (ulong)DateTime.Now.Ticks;
 
+        // schedule notifications for new quests
+
+
         while (questsAssigned < maxQuests)
         {
             questType = PickRandomQuests(questsBacklog.Count);
