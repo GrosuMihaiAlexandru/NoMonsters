@@ -54,7 +54,7 @@ public class InGameQuestUI : MonoBehaviour
         int i = 0;
         for (; i < QuestManager.instance.Quests.Count; i++)
         {
-            Debug.Log(QuestManager.instance.Quests[i].QuestName);
+            //Debug.Log(QuestManager.instance.Quests[i].QuestName);
             quests[i].GetComponent<QuestObject>().questName = QuestManager.instance.Quests[i].QuestName;
         }
         //Debug.Log(quests[2].GetComponent<QuestObject>().description.text);

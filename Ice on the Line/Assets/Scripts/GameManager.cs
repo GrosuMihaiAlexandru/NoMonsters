@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +9,18 @@ public class GameManager : MonoBehaviour
 
     // The currencies of the game
     [SerializeField]
-    private int fish;
+    private int fish = 0;
     [SerializeField]
-    private int Gfish;
+    private int Gfish = 0;
+
+    // The number of Lives from Campaign Mode
+    [SerializeField]
+    private int lives = 0;
+    public int maxLives = 5;
 
     // Check to display tutorial or not
     [SerializeField]
-    public bool tutorialDone;
+    public bool tutorialDone = false;
 
     // The score of of the game
     [SerializeField]
@@ -31,8 +37,14 @@ public class GameManager : MonoBehaviour
     // The unlock status of characters
     private bool[] characters = new bool[3];
 
+    // Lives System
+    private float msNewLifeTime = 720000;
+    private ulong livesAssignedTime;
+
+    // Selected Character
     public int selectedCharacter;
 
+    // Special Currency
     public int Candy { get; set; }
 
     void Awake()
@@ -59,7 +71,20 @@ public class GameManager : MonoBehaviour
         fish = data.fish;
         Gfish = data.Gfish;
         Candy = data.specialCurrency;
-        // reading Upgrade levels
+        lives = data.lives;
+        Debug.Log(lives);
+        // Assigning lives
+        livesAssignedTime = data.lifeAssignedTime;
+        //Debug.Log(livesAssignedTime);
+        if (livesAssignedTime == 0)
+        {
+            AddLives(maxLives);
+        }
+        else
+        {
+            CheckAddingNewLives();
+        }
+            // reading Upgrade levels
         if (upgradeLevels.Length > data.upgradesLevels.Length)
         {
             for (int i = 0; i < data.upgradesLevels.Length; i++)
@@ -123,9 +148,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void CheckAddingNewLives()
     {
+        ulong timeDiff = ((ulong)DateTime.Now.Ticks - livesAssignedTime);
+        ulong m = timeDiff / TimeSpan.TicksPerMillisecond;
+        float secondsLeft = (float)(msNewLifeTime - m) / 1000.0f;
 
+        int livesToAdd = 0;
+        Debug.Log(secondsLeft);
+        while (secondsLeft < 0)
+        {
+            livesToAdd++;
+            secondsLeft += msNewLifeTime / 1000.0f;
+
+            if (livesToAdd == maxLives)
+                break;
+        }
+        AddLives(livesToAdd);
+    }
+
+    private void AddLives(int amount)
+    {
+        lives += amount;
+        if (lives >= maxLives)
+            lives = maxLives;
+        livesAssignedTime = (ulong)DateTime.Now.Ticks;
+        Debug.Log(livesAssignedTime);
+        Invoke("SaveProgress", 1f);
+    }
+
+    public void RemoveLives(int amount)
+    {
+        if (lives >= amount)
+            lives -= amount;
+        else
+            Debug.Log("Insuficient lives");
     }
 
     public void ReloadData()
@@ -167,14 +224,14 @@ public class GameManager : MonoBehaviour
         // making an array of quests from the quest list
         QuestSaving[] quests = QuestManager.instance.SaveQuests().ToArray();
         ulong questTime = QuestManager.instance.QuestsAssignedTime;
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, cosumableUses, characters, quests, questTime, Candy);
+        SaveSystem.SaveData(fish, Gfish, lives, upgradeLevels, cosumableUses, characters, quests, questTime, livesAssignedTime, Candy);
     }
 
     public void SaveTutorial()
     {
         QuestSaving[] quests = new QuestSaving[3];
         ulong questTime = 0;
-        SaveSystem.SaveData(fish, Gfish, upgradeLevels, cosumableUses, characters, quests, questTime, Candy, true);
+        SaveSystem.SaveData(fish, Gfish, lives, upgradeLevels, cosumableUses, characters, quests, questTime, livesAssignedTime, Candy, true);
     }
 
     public int GetUpgradeLevels(Upgrade upgrade)
@@ -240,4 +297,5 @@ public class GameManager : MonoBehaviour
 
     public int GFish { get { return Gfish; } private set { Gfish = value; } }
 
+    public int Lives { get { return lives; } private set { lives = value; } }
 }

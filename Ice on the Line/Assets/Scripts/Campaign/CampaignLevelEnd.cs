@@ -18,11 +18,15 @@ public class CampaignLevelEnd : MonoBehaviour
 
     private GameObject starsObject;
 
+    private Text fishText;
+
+
     void Awake()
     {
         victoryScreen = GameObject.Find("GameUI").transform.Find("Victory").gameObject;
         starsObject = victoryScreen.transform.Find("VictoryBox").transform.Find("Stars").gameObject;
         stars = starsObject.transform.GetComponentsInChildren<Image>();
+        fishText = victoryScreen.GetComponentInChildren<Text>();
     }
 
     void Start()
@@ -53,10 +57,24 @@ public class CampaignLevelEnd : MonoBehaviour
 
             LevelController.instance.CompleteLevel(LevelController.instance.selectedLevel.LevelName, starsCollected);
             LevelController.instance.UnlockNextLevel(LevelController.instance.selectedLevel.LevelName);
-            LevelController.instance.SaveCampaignProgression();
+
+            // Giving rewards
+            int awardsNumber = starsCollected - LevelController.instance.selectedLevel.AwardsGiven;
+            LevelController.instance.selectedLevel.GiveRewards(awardsNumber);
+
+            int fishReward = awardsNumber * 50;
+
+            GameManager.instance.AddFish(fishReward);
+
+            fishText.text = fishReward.ToString();
+
             ResetStars();
             SetStars(starsCollected);
             victoryScreen.SetActive(true);
+
+            // Saving Progress
+            LevelController.instance.SaveCampaignProgression();
+            GameManager.instance.SaveProgress();
         }
     }
 

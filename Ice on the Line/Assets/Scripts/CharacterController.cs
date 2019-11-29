@@ -183,12 +183,12 @@ public class CharacterController : MonoBehaviour, IPlayer
         if (hit)
         {
             // Notify the object the player is on
-            if (hit.collider.gameObject.transform.parent.gameObject.layer == 8)
+            /*if (hit.collider.gameObject.transform.parent.gameObject.layer == 8)
             {
                 GameObject obj = hit.collider.gameObject.transform.parent.gameObject;
                 //Debug.Log(obj.transform.position);
                 obj.SendMessage("PlayerOnTop");
-            }
+            }*/
         }
         else
         {
@@ -284,6 +284,12 @@ public class CharacterController : MonoBehaviour, IPlayer
         {
             { "level", (int)(transform.position.y / levelHeight) + 1 }
         });
+
+        // Remove 1 life when the player dies
+        /*
+        GameManager.instance.RemoveLives(1);
+        GameManager.instance.SaveProgress();
+        */
 
         Time.timeScale = 0;
         InGame.playerAlive = false;

@@ -21,7 +21,7 @@ public class QuestManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log("Start");
+        //Debug.Log("Start");
 
         //reading the saved quests first
         PlayerData data = SaveSystem.LoadData();

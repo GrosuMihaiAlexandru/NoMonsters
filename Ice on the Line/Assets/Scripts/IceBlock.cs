@@ -334,6 +334,11 @@ public class IceBlock : MonoBehaviour
     // Rotation
     public void Rotation()
     {
+        foreach (Transform t in transform)
+        {
+            t.tag = "Untagged";
+        }
+
         hasRotated = true;
         if (allowRotation)
         {
@@ -407,8 +412,9 @@ public class IceBlock : MonoBehaviour
                 if (hit)
                 {
                     // Check if all blocks can move to the new position
-                    if (hit.collider.tag == "FixedBlock" || hit.collider.tag == "WalkableBlock" || hit.collider.tag == "Player" || hit.collider.tag == "Grid")
+                    if (hit.collider.CompareTag("FixedBlock") || hit.collider.CompareTag("WalkableBlock") || hit.collider.CompareTag("Player") || hit.collider.CompareTag("Grid") || hit.collider.CompareTag("SmallBlock"))
                     {
+                        Debug.Log(hit.collider.tag);
                         canRotate = false;
                     }
                 }
@@ -533,6 +539,10 @@ public class IceBlock : MonoBehaviour
                 }
             }
         }
+        foreach (Transform t in transform)
+        {
+            t.tag = "SmallBlock";
+        }
     }
 
 
@@ -577,6 +587,8 @@ public class IceBlock : MonoBehaviour
         allowRotation = false;
         holograms.Clear();
 
+        // Begin breaking the iceBlock
+        GetComponent<IceBlockLife>().PlayerOnTop();
     }
 
     bool startedHold = false;
