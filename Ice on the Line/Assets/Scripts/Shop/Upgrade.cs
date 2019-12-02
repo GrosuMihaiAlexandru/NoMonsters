@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Info about each upgrade  
+// Info about each Upgrade  
 public class Upgrade : MonoBehaviour
 {
     [SerializeField]
@@ -14,6 +14,8 @@ public class Upgrade : MonoBehaviour
     [SerializeField]
     private string upgradeName;
 
+    public int maxLevel = 10;
+
     public int level = 1;
     public int cost;
 
@@ -23,13 +25,16 @@ public class Upgrade : MonoBehaviour
         switch (upgradeNumber)
         {
             case 0:
-                level = GameManager.instance.ScoreMultiplierLevel;
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier);
                 break;
             case 1:
-                level = GameManager.instance.TemperatureSpeedLevel;
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed);
                 break;
             case 2:
-                level = GameManager.instance.SnowflakeLevel;
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake);
+                break;
+            case 3:
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.fishMagnet);
                 break;
             default:
                 break;
@@ -37,6 +42,7 @@ public class Upgrade : MonoBehaviour
         CalculateCost();
     }
 
+    // Upgrade and update level in GameManager
     public void LevelUpgrade(int fishAmount)
     {
         if (fishAmount >= cost)
@@ -47,13 +53,16 @@ public class Upgrade : MonoBehaviour
             switch (upgradeNumber)
             {
                 case 0:
-                    GameManager.instance.ScoreMultiplierLevel = level;
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.scoreMultiplier, level);
                     break;
                 case 1:
-                    GameManager.instance.TemperatureSpeedLevel = level;
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.temperatureSpeed, level);
                     break;
                 case 2:
-                    GameManager.instance.SnowflakeLevel = level;
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.snowflake, level);
+                    break;
+                case 3:
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.fishMagnet, level);
                     break;
                 default:
                     break;
@@ -62,9 +71,10 @@ public class Upgrade : MonoBehaviour
         }
     }
     
-    // Calculate the cost for the next upgrade
+    // Calculate the cost for the next Upgrade
     private void CalculateCost()
     {
-        cost = (int) (100 * Mathf.Pow(2, level));
+        Debug.Log(upgradeName + ": " + level);
+        cost = (int) (baseCost * Mathf.Pow(2, level));
     }
 }

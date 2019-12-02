@@ -50,6 +50,7 @@ public class IceBlockLife : MonoBehaviour
 
         animator = GetComponent<Animator>();
         animator.SetInteger("Health", currentHealth);
+        animator.enabled = false;
     }
 
     private void Update()
@@ -58,18 +59,8 @@ public class IceBlockLife : MonoBehaviour
         CalculateMultiplier(temperature.GlobalTemperature);
         if (playerOnTop)
         {
-            // Begin the countdown to detect that the player is standing still for minimumStandingTime
-            if (countdownCanStart)
-            {
-                countdownCanStart = false;
-                beganStandingTime = Time.time;
-            }
-
-            if (Time.time - beganStandingTime >= minimumStandingTime)
-            {
-                if (!coroutineStarted)
-                    StartCoroutine(DamageIce());
-            }
+            if (!coroutineStarted)
+                StartCoroutine(DamageIce());
         }
 
         if (currentHealth <= 0)
@@ -97,7 +88,10 @@ public class IceBlockLife : MonoBehaviour
         else if (temperature < 20)
             damageMultiplier = 3f;
         else if (temperature < 30)
+            damageMultiplier = 3.5f;
+        else
             damageMultiplier = 4f;
+       
     }
 
     private void DestroyBlock()
@@ -105,7 +99,7 @@ public class IceBlockLife : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void PlayerOnTop()
+    public void PlayerOnTop()
     {
         playerOnTop = true;
     }
@@ -113,15 +107,23 @@ public class IceBlockLife : MonoBehaviour
     IEnumerator DamageIce()
     {
         coroutineStarted = true;
-
         while (playerOnTop)
         {
+
             int damage = (int)(baseDamage * damageMultiplier);
+            Debug.Log(currentHealth + " / " + damage);
             currentHealth -= damage;
+
+
             animator.SetInteger("Health", currentHealth);
             //Debug.Log("Health: " + currentHealth + " DamageAmount: " + damage + "Temperature: " + game.GlobalTemperature + " Score: " + game.Score);
             if (currentHealth <= 0)
+            {
+                //GetComponent<IceBlock>().astar.SendMessage("ResetWalkable");
+                //GetComponent<IceBlock>().astar.SendMessage("InitializeMap");
+
                 break;
+            }
             yield return new WaitForSeconds(1f);
         }
     }

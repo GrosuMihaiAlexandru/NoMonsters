@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Snowflake : MonoBehaviour
+public class Snowflake : MonoBehaviour, ICollectible
 {
     [SerializeField]
-    private static int temperatureAmount = 10;
+    private int temperatureAmount = 10;
 
     Temperature temperature;
+
+    [SerializeField]
+    private AudioClip collectClip;
+
+    public int ID { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        ID = 1;
         temperature = GameObject.Find("InGame").GetComponent<Temperature>();    
     }
 
@@ -20,8 +26,15 @@ public class Snowflake : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Destroy(gameObject);
-            temperature.LowerTemperature(temperatureAmount + 1 * GameManager.instance.SnowflakeLevel);
+            Collect();
         }
+    }
+
+    public void Collect()
+    {
+        SoundManager.instance.PlaySingle(collectClip);
+        InGameEvents.ItemCollected(this);
+        Destroy(gameObject);
+        temperature.LowerTemperature(temperatureAmount + 1 * GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.snowflake));
     }
 }

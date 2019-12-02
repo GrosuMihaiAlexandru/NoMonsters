@@ -8,6 +8,12 @@ TagManager:
   - Hologram
   - FixedBlock
   - Collectible
+  - WalkableBlock
+  - Grid
+  - FishMagnet
+  - Obstacle
+  - SmallBlock
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -22,8 +28,8 @@ TagManager:
   - Hologram
   - Walls
   - InvisibleBarrier
-  - 
-  - 
+  - Player
+  - Obtacles
   - 
   - 
   - 
@@ -50,4 +56,7 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 912381969
+    locked: 0
+  - name: Player
+    uniqueID: 3491093701
     locked: 0

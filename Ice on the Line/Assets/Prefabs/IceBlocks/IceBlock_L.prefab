@@ -53,14 +53,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 25344
+  rotationLayer:
+    serializedVersion: 2
+    m_Bits: 11008
+  specialLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   hologram: {fileID: 7735615788758842778, guid: 8511ca65b2fcdbe468eb39c266a078e6,
     type: 3}
   hologram2: {fileID: 7936135580943922644, guid: b9252a1067f4a04489dd5b57a9d4689a,
     type: 3}
   barrierUnderneath: 0
+  astar: {fileID: 0}
   allowRotation: 1
   limitRotation: 0
+  isExtraBlock: 0
+  isBomb: 0
 --- !u!114 &7223193616290600998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 715504751ad85e44ca8dfd22f5438858, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d93e45558734d484994f50b573840160, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

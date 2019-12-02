@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 720887447282182560}
   - component: {fileID: 1797351664498646645}
   - component: {fileID: 7547826140144312508}
+  - component: {fileID: 7012515443078263164}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Collectible
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5952102077886693412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.49, y: 3.49, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 30
-  m_Sprite: {fileID: 21300000, guid: 549bede61339ba54c8be9356a96d1f02, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33151c165b648e448921c3ea90575f52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -143,3 +144,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 1
+  collectClip: {fileID: 8300000, guid: ccb0e5602e181fd4285aa0831787d456, type: 3}
+--- !u!95 &7012515443078263164
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952102077886693412}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 710df70b0ef970d4f9a364b8e7890d99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

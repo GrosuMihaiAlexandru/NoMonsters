@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5604693132873113966}
   - component: {fileID: 5604693132873113968}
+  - component: {fileID: 9009949471939992467}
+  - component: {fileID: 9101124812586556487}
   - component: {fileID: 5604693132873113969}
   - component: {fileID: 5604693132873113967}
   - component: {fileID: 5604693132873113964}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -46,12 +48,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da5699bb76eb744b8b7c4e4101437e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorial: 0
+  respawnedOnce: 0
+  pauseButton: {fileID: 0}
+  youDiedScreen: {fileID: 0}
+  timerCircle: {fileID: 0}
   gameOverScreen: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 768
   velocity: {x: 0, y: 0}
   movementSpeed: 5
+  walkingSoundClip: {fileID: 8300000, guid: bd96d96e9be3e564fbd5d557672d7757, type: 3}
+  gFishRespawn: 10
+  fishMagnet: {fileID: 0}
+--- !u!114 &9009949471939992467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604693132873113962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1fe31e03286ac49af613a903fa1b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  penguin: {fileID: 21300000, guid: 7710f9a1be5ec6c4aa812da424c781ce, type: 3}
+  seal: {fileID: 21300000, guid: aca1497ffb65334468c6dd0978f54d3f, type: 3}
+  vampirePenguin: {fileID: 21300000, guid: 7bd2aad87c831834db5911e6878d0257, type: 3}
+  penguinAnimator: {fileID: 9100000, guid: db92fc31dbfc7f04ea10e0af8025a176, type: 2}
+  sealAnimator: {fileID: 9100000, guid: 93c74c52f44d78d44a54e0f0f16a7b91, type: 2}
+  vampirePenguinAnimator: {fileID: 9100000, guid: a95e6fb7209213642ab75719b8f7bd3c,
+    type: 2}
+--- !u!114 &9101124812586556487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604693132873113962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf153f453a0e865408d447daaf96cfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &5604693132873113969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -69,8 +110,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.376, y: 1.2}
-    newSize: {x: 3.44, y: 3}
+    oldSize: {x: 1.538, y: 1.34}
+    newSize: {x: 1.538, y: 1.34}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -116,12 +157,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 2a7bf3f8e82039243bd99c6abcb4a7a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7710f9a1be5ec6c4aa812da424c781ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.44, y: 3}
+  m_Size: {x: 1.538, y: 1.34}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -137,7 +178,7 @@ Animator:
   m_GameObject: {fileID: 5604693132873113962}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e73a82256d9260c4fbdfc76cf8725cd0, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

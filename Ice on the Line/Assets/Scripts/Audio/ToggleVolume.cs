@@ -5,27 +5,29 @@ using UnityEngine.UI;
 
 public class ToggleVolume : MonoBehaviour
 {
-    private AudioManager audioManager;
+    private SoundManager soundManager;
     public Button soundToggleButton;
     public Sprite soundOn;
     public Sprite soundOff;
 
-
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
-        UpdateIconAndVolume();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        if (PlayerPrefs.GetInt("Muted", 0) == 0)
+        {
+            soundToggleButton.GetComponent<Image>().sprite = soundOn;
+            soundManager.ToggleAllSounds(false);
+        }
+        else
+        {
+            soundToggleButton.GetComponent<Image>().sprite = soundOff;
+            soundManager.ToggleAllSounds(true);
+        }
+        transform.parent.gameObject.SetActive(false);
     }
 
     public void PauseVolume()
     {
-        audioManager.ToggleVolume();
         UpdateIconAndVolume();
     }
 
@@ -33,13 +35,19 @@ public class ToggleVolume : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Muted", 0) == 0)
         {
-            AudioListener.volume = 1;
-            soundToggleButton.GetComponent<Image>().sprite = soundOn;
+            Debug.Log("a11111");
+            soundManager.ToggleAllSounds(true);
+
+            soundToggleButton.GetComponent<Image>().sprite = soundOff;
+            PlayerPrefs.SetInt("Muted", 1);
         }
         else
         {
-            AudioListener.volume = 0;
-            soundToggleButton.GetComponent<Image>().sprite = soundOff;
+            Debug.Log("a2@22222");
+            soundManager.ToggleAllSounds(false);
+
+            soundToggleButton.GetComponent<Image>().sprite = soundOn;
+            PlayerPrefs.SetInt("Muted", 0);
         }
     }
 }

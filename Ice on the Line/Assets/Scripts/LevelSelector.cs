@@ -26,10 +26,14 @@ public class LevelSelector : MonoBehaviour
     // Check if the player reached the end of the current level
     private bool endOfLevelReached;
 
+    private bool canDestroyLevel = false;
+
     // The level that is deleted after instantiating the new one
     private GameObject oldLevel;
     private GameObject thisLevel;
     private GameObject nextLevel;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,8 +42,6 @@ public class LevelSelector : MonoBehaviour
         thisLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], currentPosition, Quaternion.identity);
         nextLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
         endOfCurrentLevel = (int)(currentPosition.y + levelLength);
-
-      
     }
 
     void Start()
@@ -72,19 +74,23 @@ public class LevelSelector : MonoBehaviour
                 //Debug.Log(nextPosition);
                 endOfCurrentLevel = (int)(currentPosition.y + levelLength);
                 nextLevel = Instantiate(levels[SelectLevel(levels.Count - 1)], nextPosition, Quaternion.identity);
-            }
-            if (game.player.transform.position.y - oldPosition.y >= -5f)
-            {
-                Destroy(oldLevel);
-            }
 
+                canDestroyLevel = true;
+            }
+            if (canDestroyLevel && game.player.transform.position.y - currentPosition.y >= 5f)
+            {
+                //Debug.Log(game.player.transform.position.y + " " + currentPosition.y);
+                Destroy(oldLevel);
+                canDestroyLevel = false;
+            }
         }
     }
 
     public int SelectLevel(int maxLevel)
     {
+        Random.InitState(System.DateTime.Now.Millisecond);
         int r = Random.Range(0, maxLevel + 1);
-        while (r == currentLevel)
+        while (r == currentLevel)       
         {
             r = Random.Range(0, maxLevel + 1);
         }
@@ -92,4 +98,5 @@ public class LevelSelector : MonoBehaviour
         return r;
     }
  
+    public GameObject ThisLevel { get { return thisLevel; } set { thisLevel = value; } }
 }

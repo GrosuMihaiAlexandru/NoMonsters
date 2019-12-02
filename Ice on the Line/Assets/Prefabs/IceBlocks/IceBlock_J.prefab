@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5349693473128140936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.33, y: 0, z: 0}
+  m_LocalPosition: {x: -6.305, y: 0.088, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4112077497499926769}
@@ -53,14 +53,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 25344
+  rotationLayer:
+    serializedVersion: 2
+    m_Bits: 11008
+  specialLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   hologram: {fileID: 7735615788758842778, guid: 8511ca65b2fcdbe468eb39c266a078e6,
     type: 3}
   hologram2: {fileID: 7936135580943922644, guid: b9252a1067f4a04489dd5b57a9d4689a,
     type: 3}
   barrierUnderneath: 0
+  astar: {fileID: 0}
   allowRotation: 1
   limitRotation: 0
+  isExtraBlock: 0
+  isBomb: 0
 --- !u!114 &3913585289917876141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 40349fcb0ad6f3d4993ce9ba79cc56d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e54b91dc9b84d104780e15ff08812a4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
