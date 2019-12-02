@@ -21,7 +21,7 @@ public class QuestManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log("Start");
+        //Debug.Log("Start");
 
         //reading the saved quests first
         PlayerData data = SaveSystem.LoadData();
@@ -173,6 +173,9 @@ public class QuestManager : MonoBehaviour
     void NewQuests()
     {
         QuestsAssignedTime = (ulong)DateTime.Now.Ticks;
+
+        // schedule notifications for new quests
+
 
         while (questsAssigned < maxQuests)
         {

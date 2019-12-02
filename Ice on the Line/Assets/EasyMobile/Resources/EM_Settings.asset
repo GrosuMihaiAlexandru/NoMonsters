@@ -22,7 +22,7 @@ MonoBehaviour:
       rewardedAdNetwork: 0
     mAndroidDefaultAdNetworks:
       bannerAdNetwork: 2
-      interstitialAdNetwork: 0
+      interstitialAdNetwork: 2
       rewardedAdNetwork: 2
     mAdColony:
       mAppId:
@@ -58,7 +58,7 @@ MonoBehaviour:
         mAndroidId: ca-app-pub-5669650059092297/1703098753
       mDefaultInterstitialAdId:
         mIosId: 
-        mAndroidId: 
+        mAndroidId: ca-app-pub-5669650059092297/2938830783
       mDefaultRewardedAdId:
         mIosId: 
         mAndroidId: ca-app-pub-5669650059092297/9704398776
@@ -245,14 +245,14 @@ MonoBehaviour:
     mFirebaseTopics: []
     mCategoryGroups: []
     mDefaultCategory:
-      id: notification.category.default
+      id: notification.category.IceOnTheLine
       groupId: 
-      name: Default
-      description: 
+      name: IceOnTheLineCategory
+      description: The default category for all Ice on the Line notifications
       importance: 0
       enableBadge: 1
-      lights: 1
-      lightColor: {r: 1, g: 1, b: 1, a: 1}
+      lights: 2
+      lightColor: {r: 0.24056602, g: 0.6585049, b: 1, a: 1}
       vibration: 1
       vibrationPattern: 
       lockScreenVisibility: 2
@@ -329,8 +329,8 @@ MonoBehaviour:
         mValue: '[Your usage description]'
   mIsAdModuleEnable: 1
   mIsIAPModuleEnable: 0
-  mIsGameServiceModuleEnable: 0
-  mIsNotificationModuleEnable: 0
+  mIsGameServiceModuleEnable: 1
+  mIsNotificationModuleEnable: 1
   mIsSharingModuleEnable: 0
-  mActiveModuleIndex: 1
-  mIsSelectingModule: 1
+  mActiveModuleIndex: 5
+  mIsSelectingModule: 0

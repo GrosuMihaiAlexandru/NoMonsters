@@ -22,6 +22,13 @@ public class MainScreenManager : MonoBehaviour
     public Sprite soundOn;
     public Sprite soundOff;
 
+    // Main Menu theme song
+    public AudioClip mainMenuClip;
+
+    private bool extraOptions = false;
+
+    public GameObject extraOptionsPanel;
+
     void Awake()
     {
         // GDPR
@@ -49,6 +56,8 @@ public class MainScreenManager : MonoBehaviour
             soundToggleButton.GetComponent<Image>().sprite = soundOff;
             SoundManager.instance.ToggleAllSounds(true);
         }
+        SoundManager.instance.musicSource.clip = mainMenuClip;
+        SoundManager.instance.musicSource.Play();
     }
 
     public void PauseVolume()
@@ -111,10 +120,7 @@ public class MainScreenManager : MonoBehaviour
 
     public static void PlayGame()
     {
-        if (GameManager.instance.tutorialDone)
-            SceneManager.LoadScene("EndlessGame");
-        else
-            SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("EndlessGame");
     }
 
     public void ShowLeaderboardUI()
@@ -122,4 +128,25 @@ public class MainScreenManager : MonoBehaviour
         if (GameServices.IsInitialized())
             GameServices.ShowLeaderboardUI();
     }
+
+    public void ToggleExtraOptions()
+    {
+        if (extraOptions)
+        {
+            extraOptions = false;
+            extraOptionsPanel.SetActive(false);
+        }
+        else
+        {
+            extraOptions = true;
+            extraOptionsPanel.SetActive(true);
+
+        }
+    }
+
+    public void OpenCampaignScene()
+    {
+        SceneManager.LoadScene("Campaign");
+    }
+
 }

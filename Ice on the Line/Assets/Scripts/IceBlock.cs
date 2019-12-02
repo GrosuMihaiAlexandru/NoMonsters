@@ -40,7 +40,7 @@ public class IceBlock : MonoBehaviour
 
     private const int gridWidth = 6;
 
-    
+    private bool hasRotated = false;
 
     void OnDestroy()
     {
@@ -153,7 +153,7 @@ public class IceBlock : MonoBehaviour
                                     // Debug.Log(canSnap);
                                     if (!barrierUnderneath)
                                     {
-                                        if (canSnap && !barrierUnderneath)
+                                        if (canSnap && !hasRotated)
                                         {
                                             canSnap = false;
                                             SnapBlock();
@@ -187,7 +187,7 @@ public class IceBlock : MonoBehaviour
                                     //Debug.Log(canSnap);
                                     if (!barrierUnderneath)
                                     {
-                                        if (canSnap)
+                                        if (canSnap && !hasRotated)
                                         {
                                             canSnap = false;
                                             SnapBlock();
@@ -221,7 +221,7 @@ public class IceBlock : MonoBehaviour
                                     // Debug.Log(canSnap);
                                     if (!barrierUnderneath)
                                     {
-                                        if (canSnap && !barrierUnderneath)
+                                        if (canSnap && !hasRotated)
                                         {
                                             canSnap = false;
                                             SnapBlock();
@@ -255,7 +255,7 @@ public class IceBlock : MonoBehaviour
                                     //Debug.Log(canSnap);
                                     if (!barrierUnderneath)
                                     {
-                                        if (canSnap && !barrierUnderneath)
+                                        if (canSnap && !hasRotated)
                                         {
                                             canSnap = false;
                                             SnapBlock();
@@ -334,6 +334,12 @@ public class IceBlock : MonoBehaviour
     // Rotation
     public void Rotation()
     {
+        foreach (Transform t in transform)
+        {
+            t.tag = "Untagged";
+        }
+
+        hasRotated = true;
         if (allowRotation)
         {
             SoundManager.instance.PlayRotateIceBlockSoundClip();
@@ -406,8 +412,9 @@ public class IceBlock : MonoBehaviour
                 if (hit)
                 {
                     // Check if all blocks can move to the new position
-                    if (hit.collider.tag == "FixedBlock" || hit.collider.tag == "WalkableBlock" || hit.collider.tag == "Player" || hit.collider.tag == "Grid")
+                    if (hit.collider.CompareTag("FixedBlock") || hit.collider.CompareTag("WalkableBlock") || hit.collider.CompareTag("Player") || hit.collider.CompareTag("Grid") || hit.collider.CompareTag("SmallBlock"))
                     {
+                        Debug.Log(hit.collider.tag);
                         canRotate = false;
                     }
                 }
@@ -532,6 +539,10 @@ public class IceBlock : MonoBehaviour
                 }
             }
         }
+        foreach (Transform t in transform)
+        {
+            t.tag = "SmallBlock";
+        }
     }
 
 
@@ -576,6 +587,8 @@ public class IceBlock : MonoBehaviour
         allowRotation = false;
         holograms.Clear();
 
+        // Begin breaking the iceBlock
+        GetComponent<IceBlockLife>().PlayerOnTop();
     }
 
     bool startedHold = false;
@@ -583,6 +596,7 @@ public class IceBlock : MonoBehaviour
     // The player has started moving the block
     public void HoldStarted()
     {
+        hasRotated = false;
         // SoundManager.instance.PlayStartDragIceBlockSoundClip();
         if (!startedHold)
         {
@@ -595,7 +609,9 @@ public class IceBlock : MonoBehaviour
         // Making the collider smaller during dragging to make them easier to move
         foreach (Transform block in transform)
         {
-            block.GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 0.7f);
+            //block.GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 0.7f);
+            block.GetComponent<CircleCollider2D>().enabled = true;
+            block.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 
@@ -617,7 +633,9 @@ public class IceBlock : MonoBehaviour
         // Returning the collider size to it's initial value
         foreach (Transform block in transform)
         {
-            block.GetComponent<BoxCollider2D>().size = new Vector2(0.9f, 0.9f);
+            //block.GetComponent<BoxCollider2D>().size = new Vector2(0.9f, 0.9f);
+            block.GetComponent<CircleCollider2D>().enabled = false;
+            block.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
         // Mouse Controlls

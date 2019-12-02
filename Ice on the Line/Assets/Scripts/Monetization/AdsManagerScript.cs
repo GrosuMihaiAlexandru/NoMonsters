@@ -17,12 +17,12 @@ public class AdsManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Advertising.ShowBannerAd(BannerAdPosition.Bottom);
+        //Advertising.ShowBannerAd(BannerAdPosition.Bottom);
     }
 
     private void OnDestroy()
     {
-        Advertising.DestroyBannerAd();
+        //Advertising.DestroyBannerAd();
     }
 
 

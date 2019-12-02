@@ -183,12 +183,12 @@ public class CharacterController : MonoBehaviour, IPlayer
         if (hit)
         {
             // Notify the object the player is on
-            if (hit.collider.gameObject.transform.parent.gameObject.layer == 8)
+            /*if (hit.collider.gameObject.transform.parent.gameObject.layer == 8)
             {
                 GameObject obj = hit.collider.gameObject.transform.parent.gameObject;
                 //Debug.Log(obj.transform.position);
                 obj.SendMessage("PlayerOnTop");
-            }
+            }*/
         }
         else
         {
@@ -285,11 +285,17 @@ public class CharacterController : MonoBehaviour, IPlayer
             { "level", (int)(transform.position.y / levelHeight) + 1 }
         });
 
+        // Remove 1 life when the player dies
+        /*
+        GameManager.instance.RemoveLives(1);
+        GameManager.instance.SaveProgress();
+        */
+
         Time.timeScale = 0;
         InGame.playerAlive = false;
         // Set the max travel distance on death
         Distance = (int) gameObject.transform.position.y;
-        InGameEvents.GameOver(this);
+        
         // Set playerAlive to false
 
         youDiedScreen.SetActive(false);
@@ -298,6 +304,9 @@ public class CharacterController : MonoBehaviour, IPlayer
 
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();
+
+        InGameEvents.GameOver(this);
+
         Destroy(gameObject);
     }
 

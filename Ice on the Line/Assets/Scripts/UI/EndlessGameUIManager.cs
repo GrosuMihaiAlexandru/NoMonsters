@@ -82,11 +82,26 @@ public class EndlessGameUIManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void CampaignMenu()
+    {
+        SceneManager.LoadScene("Campaign");
+
+        Time.timeScale = 1;
+    }
+
     public void Retry()
     {
         SceneManager.LoadScene(1);
 
         // Set player to alive and unpause the game
+        InGame.playerAlive = true;
+        InGame.gamePaused = false;
+        Time.timeScale = 1;
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene("CampaignLevel");
         InGame.playerAlive = true;
         InGame.gamePaused = false;
         Time.timeScale = 1;
@@ -104,12 +119,14 @@ public class EndlessGameUIManager : MonoBehaviour
         InGame.gamePaused = false;
     }
 
+    // Event for updating the collected amount of fish to be displayed in gameOver
     public void CollectFish(ICollectible collectible)
     {
         if (collectible.ID == 0)
             collectedFish++;
     }
 
+    // Display the final distance of the player in gameOver
     public void DisplayGameOver(IPlayer player)
     {
         playerFinalDistance = player.Distance;
