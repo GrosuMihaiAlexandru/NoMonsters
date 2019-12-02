@@ -40,11 +40,11 @@ public class NotificationsHandler : MonoBehaviour
         NotificationContent content = PrepareNotificationContent("PLAY NOW!", "The penguin misses you", "You haven't played in a while. Have another go!");
 
         // Set the delay time as a TimeSpan.
-        TimeSpan delay = new TimeSpan(0, 1, 0);
+        TimeSpan delay = new TimeSpan(2, 0, 0);
 
         // Schedule the notification.
         // Notifications.ScheduleLocalNotification(delay, content, NotificationRepeat.EveryMinute);
-        Notifications.ScheduleLocalNotification(delay, content, NotificationRepeat.EveryMinute);
+        Notifications.ScheduleLocalNotification(delay, content, NotificationRepeat.EveryDay);
     }
 
     void ScheduleLocalNotificationAtDate()
