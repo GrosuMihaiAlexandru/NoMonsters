@@ -111,7 +111,7 @@ public class IceBlockLife : MonoBehaviour
         {
 
             int damage = (int)(baseDamage * damageMultiplier);
-            Debug.Log(currentHealth + " / " + damage);
+            //Debug.Log(currentHealth + " / " + damage);
             currentHealth -= damage;
 
 

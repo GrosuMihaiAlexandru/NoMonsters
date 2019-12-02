@@ -51,6 +51,8 @@ public class CharacterController : MonoBehaviour, IPlayer
     // properties from the interface
     public int Distance { get; set; }
 
+    public float speedDebuff = 1f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -166,7 +168,7 @@ public class CharacterController : MonoBehaviour, IPlayer
                 animator.enabled = true;
                 Vector2 direction = new Vector2(waypoints[0].x - transform.position.x, waypoints[0].y - transform.position.y);
                 transform.up = direction    ;
-                velocity = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
+                velocity = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * speedDebuff * Time.deltaTime);
                 transform.position = velocity;
 
                 if (!SoundManager.instance.efxSource.isPlaying)
@@ -310,5 +312,15 @@ public class CharacterController : MonoBehaviour, IPlayer
         Destroy(gameObject);
     }
 
+    public void ApplySpeedDebuff(float value, float time)
+    {
+        speedDebuff = value;
+        Invoke("RemoveSpeedDebuff", time);
+    }
 
+    // Reset debuff to normal value
+    public void RemoveSpeedDebuff()
+    {
+        speedDebuff = 1;
+    }
 }

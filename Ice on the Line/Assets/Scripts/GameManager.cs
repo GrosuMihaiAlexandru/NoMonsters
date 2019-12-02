@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
         float secondsLeft = (float)(msNewLifeTime - m) / 1000.0f;
 
         int livesToAdd = 0;
-        Debug.Log(secondsLeft);
+        //Debug.Log(secondsLeft);
         while (secondsLeft < 0)
         {
             livesToAdd++;
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
         if (lives >= maxLives)
             lives = maxLives;
         livesAssignedTime = (ulong)DateTime.Now.Ticks;
-        Debug.Log(livesAssignedTime);
+        //Debug.Log(livesAssignedTime);
         Invoke("SaveProgress", 1f);
     }
 
