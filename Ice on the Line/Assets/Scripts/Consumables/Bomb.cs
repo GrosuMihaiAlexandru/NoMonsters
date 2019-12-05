@@ -16,7 +16,6 @@ public class Bomb : MonoBehaviour, IConsumable
 
     float deltaX, deltaY;
 
-    bool moveAllowed = false;
     bool clicked = false;
 
     public Text countText;
@@ -45,7 +44,6 @@ public class Bomb : MonoBehaviour, IConsumable
                     case TouchPhase.Began:
                         bomb = Instantiate(bombPrefab);
                         bomb.transform.position = touchPos;
-                        moveAllowed = true;
 
                         break;
                     case TouchPhase.Moved:
@@ -55,7 +53,6 @@ public class Bomb : MonoBehaviour, IConsumable
                         break;
                     case TouchPhase.Ended:
                         Debug.Log("Ended");
-                        moveAllowed = false;
                         break;
                 }
             }

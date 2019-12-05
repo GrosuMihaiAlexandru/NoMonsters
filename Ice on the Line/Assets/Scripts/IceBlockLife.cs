@@ -112,7 +112,8 @@ public class IceBlockLife : MonoBehaviour
 
             int damage = (int)(baseDamage * damageMultiplier);
             //Debug.Log(currentHealth + " / " + damage);
-            currentHealth -= damage;
+            if (!Temperature.timeFreeze)
+                currentHealth -= damage;
 
 
             animator.SetInteger("Health", currentHealth);

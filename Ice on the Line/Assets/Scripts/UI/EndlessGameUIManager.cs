@@ -8,9 +8,9 @@ using UnityEngine.SocialPlatforms;
 
 public class EndlessGameUIManager : MonoBehaviour
 {
-    public Text Distance;
-    public Text BestDistance;
-    public Text Fish;
+    public Text distanceText;
+    public Text bestDistanceText;
+    public Text fishText;
 
 
     // ToggleVolume
@@ -47,7 +47,11 @@ public class EndlessGameUIManager : MonoBehaviour
         InGameEvents.OnGameOver += DisplayGameOver;
     }
 
-
+    public void OnDestroy()
+    {
+        InGameEvents.OnItemCollected -= CollectFish;
+        InGameEvents.OnGameOver -= DisplayGameOver;
+    }
 
     public void PauseVolume()
     {
@@ -123,15 +127,15 @@ public class EndlessGameUIManager : MonoBehaviour
     public void CollectFish(ICollectible collectible)
     {
         if (collectible.ID == 0)
-            collectedFish++;
+            collectedFish += Fish.fishMultiplier;
     }
 
     // Display the final distance of the player in gameOver
     public void DisplayGameOver(IPlayer player)
     {
         playerFinalDistance = player.Distance;
-        Distance.text = "DISTANCE: " + playerFinalDistance.ToString();
-        Fish.text = collectedFish.ToString();
+        distanceText.text = "DISTANCE: " + playerFinalDistance.ToString();
+        fishText.text = collectedFish.ToString();
     }
 
     public void SubmitScoreToLeaderboard()

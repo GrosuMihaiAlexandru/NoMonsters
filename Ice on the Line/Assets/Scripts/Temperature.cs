@@ -40,12 +40,17 @@ public class Temperature : MonoBehaviour
 
     private InGame ingame;
 
+    private int temperatureSpeedLevel;
+
+    public static bool timeFreeze;
+
     // Start is called before the first frame update
     void Start()
     {
         globalTemperature = initialTemperature;
         lastUpdateTime = Time.time;
         ingame = GetComponent<InGame>();
+        temperatureSpeedLevel = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed);
     }
 
 
@@ -56,15 +61,18 @@ public class Temperature : MonoBehaviour
         {
             float time = Time.time;
 
-            // Temperature rises by 1 degree everytime temperatureUpdateTime
-            if (time - lastUpdateTime >= CalculateTemperatureTime(CalculateDifficulty(ingame.player.transform.position.y), GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed)))
+            if (!timeFreeze)
             {
-                if (globalTemperature < MaxTemperature)
+                // Temperature rises by 1 degree everytime temperatureUpdateTime
+                if (time - lastUpdateTime >= CalculateTemperatureTime(CalculateDifficulty(ingame.player.transform.position.y), temperatureSpeedLevel))
                 {
-                    globalTemperature++;
+                    if (globalTemperature < MaxTemperature)
+                    {
+                        globalTemperature++;
 
-                    // Update the last time the temperature increased
-                    lastUpdateTime = Time.time;
+                        // Update the last time the temperature increased
+                        lastUpdateTime = Time.time;
+                    }
                 }
             }
         }
@@ -118,5 +126,15 @@ public class Temperature : MonoBehaviour
         {
             globalTemperature = value;
         }
+    }
+
+    public static void FreezeTime()
+    {
+        timeFreeze = true;
+    }
+
+    public static void UnfreezeTime()
+    {
+        timeFreeze = false;
     }
 }

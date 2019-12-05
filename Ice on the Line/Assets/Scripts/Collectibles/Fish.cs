@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour, ICollectible
 {
+    public static int fishMultiplier = 1;
+    public static bool doubleFish = false;
+
     private Rigidbody2D rb;
     private GameObject player;
     private Vector2 playerDirection;
@@ -54,6 +57,36 @@ public class Fish : MonoBehaviour, ICollectible
         SoundManager.instance.PlaySingle(collectClip);
         InGameEvents.ItemCollected(this);
         Destroy(gameObject);
-        GameManager.instance.AddFish(value);
+        GameManager.instance.AddFish(value * fishMultiplier);
     }
+
+    public static void AddMultiplier()
+    {
+        if (doubleFish)
+        {
+            fishMultiplier = (fishMultiplier / 2 + 1) * 2;
+        }
+        else
+        {
+            fishMultiplier++;
+        }
+    }
+
+    public static void DoubleFish()
+    {
+        fishMultiplier *= 2;
+        doubleFish = true;
+    }
+
+    public static void ResetDoubleFish()
+    {
+        doubleFish = false;
+        fishMultiplier /= 2;
+    }
+
+    public static void ResetMultiplier()
+    {
+        fishMultiplier = 1;
+    }
+
 }

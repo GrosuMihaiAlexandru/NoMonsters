@@ -6,7 +6,6 @@ public class FishMagnet : MonoBehaviour, IPowerup
 {
     public int ID { get; set; }
 
-    // Start is called before the first frame update
     void Start()
     {
         ID = 10;
@@ -23,6 +22,7 @@ public class FishMagnet : MonoBehaviour, IPowerup
     public void ActivatePowerup()
     {
         GameObject.Find("Player").GetComponent<PowerupManager>().UseFishMagnet();
+        InGameEvents.PowerupCollected(this);
         Destroy(gameObject);
     }
 }

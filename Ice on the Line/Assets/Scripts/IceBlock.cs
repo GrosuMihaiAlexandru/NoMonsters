@@ -37,6 +37,7 @@ public class IceBlock : MonoBehaviour
 
     public bool isExtraBlock;
     public bool isBomb;
+    public bool isTeleport;
 
     private const int gridWidth = 6;
 
@@ -107,12 +108,78 @@ public class IceBlock : MonoBehaviour
 
                     if (isExtraBlock)
                     {
-                        changeColor = true;
-                        if (touch.phase == TouchPhase.Ended)
+                        changeColor = false;
+
+                        RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero, 0, defaultLayer);
+                        RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero, 0, defaultLayer);
+                        RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0, defaultLayer);
+                        RaycastHit2D hitRight = Physics2D.Raycast(position + Vector2.right, Vector2.zero, 0, defaultLayer);
+
+                        if (hitUp)
                         {
-                            canSnap = false;
-                            SnapBlock();
+                            if (hitUp.collider.tag == "WalkableBlock" || hitUp.collider.tag == "Player" || hitUp.collider.tag == "Collectible")
+                            {
+                                if (!barrierUnderneath)
+                                    changeColor = true;
+
+                                Debug.Log("Can Snap up");
+                                if (touch.phase == TouchPhase.Ended)
+                                {
+                                    Debug.Log("Snapped up");
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
                         }
+
+                        if (hitDown)
+                        {
+                            if (hitDown.collider.tag == "WalkableBlock" || hitDown.collider.tag == "Player" || hitDown.collider.tag == "Collectible")
+                            {
+                                if (!barrierUnderneath)
+                                    changeColor = true;
+
+                                if (touch.phase == TouchPhase.Ended)
+                                {
+                                    Debug.Log("Snapped down");
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                        }
+
+                        if (hitLeft)
+                        {
+                            if (hitLeft.collider.tag == "WalkableBlock" || hitLeft.collider.tag == "Player" || hitLeft.collider.tag == "Collectible")
+                            {
+                                if (!barrierUnderneath)
+                                    changeColor = true;
+
+                                if (touch.phase == TouchPhase.Ended)
+                                {
+                                    Debug.Log("Snapped left");
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                        }
+
+                        if (hitRight)
+                        {
+                            if (hitRight.collider.tag == "WalkableBlock" || hitRight.collider.tag == "Player" || hitRight.collider.tag == "Collectible")
+                            {
+                                if (!barrierUnderneath)
+                                    changeColor = true;
+
+                                if (touch.phase == TouchPhase.Ended)
+                                {
+                                    Debug.Log("Snapped right");
+                                    canSnap = false;
+                                    SnapBlock();
+                                }
+                            }
+                        }
+
                     }
                     else if (isBomb)
                     {
@@ -131,10 +198,25 @@ public class IceBlock : MonoBehaviour
                         }
 
                     }
+                    else if (isTeleport)
+                    {
+                        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero, 0, defaultLayer);
+                        Debug.Log(hit.transform.tag);
+                        changeColor = false;
+                        if (hit && hit.collider.tag == "FixedBlock")
+                        {
+                            Debug.Log("OnSnow");
+                            changeColor = true;
+                            if (touch.phase == TouchPhase.Ended)
+                            {
+                                canSnap = false;
+                                SnapBlock();
+                            }
+                        }
+                    }
                     // Checking if the object can snap
                     else
                     {
-                        
                         RaycastHit2D hitUp = Physics2D.Raycast(position + Vector2.up, Vector2.zero, 0, defaultLayer);
                         RaycastHit2D hitDown = Physics2D.Raycast(position + Vector2.down, Vector2.zero, 0, defaultLayer);
                         RaycastHit2D hitLeft = Physics2D.Raycast(position + Vector2.left, Vector2.zero, 0, defaultLayer);
@@ -549,6 +631,7 @@ public class IceBlock : MonoBehaviour
     // Snaps the blocks in place and they become fixed after that
     public void SnapBlock()
     {
+        Debug.Log("Snapped");
         SoundManager.instance.PlaySnapIceBlockSoundClip();
 
         InGameEvents.IceBlockSnapped();
@@ -588,7 +671,8 @@ public class IceBlock : MonoBehaviour
         holograms.Clear();
 
         // Begin breaking the iceBlock
-        GetComponent<IceBlockLife>().PlayerOnTop();
+        if (!isExtraBlock)
+            GetComponent<IceBlockLife>().PlayerOnTop();
     }
 
     bool startedHold = false;
@@ -612,6 +696,14 @@ public class IceBlock : MonoBehaviour
             //block.GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 0.7f);
             block.GetComponent<CircleCollider2D>().enabled = true;
             block.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+        if (isExtraBlock)
+        {
+            foreach (Transform block in transform)
+            {
+                block.GetComponent<CircleCollider2D>().enabled = false;
+            }
         }
     }
 
@@ -687,6 +779,9 @@ public class IceBlock : MonoBehaviour
 
     public bool CanSnap { get { return canSnap; } private set { canSnap = value; } }
 
-
+    public bool HasSnapped()
+    {
+        return !canSnap;
+    }
 }
 
