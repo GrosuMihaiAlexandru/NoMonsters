@@ -43,6 +43,8 @@ public class IceBlock : MonoBehaviour
 
     private bool hasRotated = false;
 
+    public GameObject blockPlacementPrefab;
+
     void OnDestroy()
     {
         foreach (GameObject obj in holograms)
@@ -188,7 +190,7 @@ public class IceBlock : MonoBehaviour
                         changeColor = false;
                         if (hit && hit.collider.tag == "Obstacle")
                         {
-                            Debug.Log("OnObstacle");
+                            //Debug.Log("OnObstacle");
                             changeColor = true;
                             if (touch.phase == TouchPhase.Ended)
                             {
@@ -201,11 +203,11 @@ public class IceBlock : MonoBehaviour
                     else if (isTeleport)
                     {
                         RaycastHit2D hit = Physics2D.Raycast(position, Vector2.zero, 0, defaultLayer);
-                        Debug.Log(hit.transform.tag);
+                        //Debug.Log(hit.transform.tag);
                         changeColor = false;
                         if (hit && hit.collider.tag == "FixedBlock")
                         {
-                            Debug.Log("OnSnow");
+                            //Debug.Log("OnSnow");
                             changeColor = true;
                             if (touch.phase == TouchPhase.Ended)
                             {
@@ -631,8 +633,12 @@ public class IceBlock : MonoBehaviour
     // Snaps the blocks in place and they become fixed after that
     public void SnapBlock()
     {
-        Debug.Log("Snapped");
+        //Debug.Log("Snapped");
         SoundManager.instance.PlaySnapIceBlockSoundClip();
+
+        // Display Block Placement animation
+        if (isExtraBlock)
+            Instantiate(blockPlacementPrefab, transform.position, Quaternion.identity);
 
         InGameEvents.IceBlockSnapped();
         // Destroy the rigidbody so that it won't move after it snapped
@@ -671,7 +677,7 @@ public class IceBlock : MonoBehaviour
         holograms.Clear();
 
         // Begin breaking the iceBlock
-        if (!isExtraBlock)
+        if (!isExtraBlock || !isBomb)
             GetComponent<IceBlockLife>().PlayerOnTop();
     }
 

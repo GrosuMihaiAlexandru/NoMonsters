@@ -134,6 +134,7 @@ public class EndlessGameUIManager : MonoBehaviour
     public void DisplayGameOver(IPlayer player)
     {
         playerFinalDistance = player.Distance;
+        Debug.Log("Distace:" + playerFinalDistance);
         distanceText.text = "DISTANCE: " + playerFinalDistance.ToString();
         fishText.text = collectedFish.ToString();
     }
@@ -156,10 +157,13 @@ public class EndlessGameUIManager : MonoBehaviour
         if (score != null)
         {
             if (playerFinalDistance > score.value)
+            {
                 SubmitScoreToLeaderboard();
+            }
         }
         else
         {
+            SubmitScoreToLeaderboard();
             Debug.Log("No score found");
         }
     }

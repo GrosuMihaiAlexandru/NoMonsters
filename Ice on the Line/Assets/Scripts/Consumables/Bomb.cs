@@ -22,6 +22,10 @@ public class Bomb : MonoBehaviour, IConsumable
 
     public LayerMask layer;
 
+    private Animator animator;
+
+    private bool explode = false;
+
     void Start()
     {
         ID = 1;
@@ -44,7 +48,8 @@ public class Bomb : MonoBehaviour, IConsumable
                     case TouchPhase.Began:
                         bomb = Instantiate(bombPrefab);
                         bomb.transform.position = touchPos;
-
+                        animator = bomb.GetComponentInChildren<Animator>();
+                        animator.SetBool("Explode", false);
                         break;
                     case TouchPhase.Moved:
 
@@ -73,6 +78,7 @@ public class Bomb : MonoBehaviour, IConsumable
     // Event triggerd on PowerupRelease
     public void OnRelease()
     {
+        animator.SetBool("Explode", true);
         if (bomb)
         {
             usedConsumable = false;
@@ -84,9 +90,8 @@ public class Bomb : MonoBehaviour, IConsumable
                 Use();
                 hit.transform.GetComponent<IDestructable>().DestroySelf();
             }
-            Destroy(bomb);
             // Destroy iceblock script after placing the bomb
-            Debug.Log("ReleasedButton");
+            //Debug.Log("ReleasedButton");
         }
     }
 
@@ -99,6 +104,9 @@ public class Bomb : MonoBehaviour, IConsumable
 
     public void Use()
     {
+        explode = true;
+        
+        Debug.Log("Used bomb");
         InGameEvents.ConsumableUsed(this);
         Count--;
         GameManager.instance.SetPowerupUses(GameManager.Consumable.bomb, Count);

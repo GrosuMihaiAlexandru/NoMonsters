@@ -27,10 +27,16 @@ public class ObstacleScript : MonoBehaviour, IDestructable
             hit.transform.gameObject.tag = "FixedBlock";
         }
         // Change Sprite to destryed version
-        GetComponent<SpriteRenderer>().sprite = obstacleDestroyedSprites[index];
+        Invoke("ChangeSprite", 0.5f);
         // Update Player Movement after the block is destroyed
         astar.SendMessage("UpdateGrid");
         astar.SendMessage("BreadthFirstSearch");
+    }
+
+    private void ChangeSprite()
+    {
+        GetComponent<SpriteRenderer>().sprite = obstacleDestroyedSprites[index];
+
     }
 
     // Start is called before the first frame update
