@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
         Gfish += amount;
     }
 
-    public void RemoveGfish(int amount)
+    public void RemoveGFish(int amount)
     {
         if (Gfish >= amount)
             Gfish -= amount;

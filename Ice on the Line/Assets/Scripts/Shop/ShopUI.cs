@@ -10,12 +10,9 @@ using UnityEngine.Analytics;
 /// </summary>
 public class ShopUI : MonoBehaviour
 {
-    public Text extraBlockUses;
-    public Text bombUses;
-
-    public Text upgradesTabText;
-    public Text powerupsTabText;
-    public Text fishTabTex;
+    public List<Text> extraBlockUses = new List<Text>();
+    public List<Text> bombUses = new List<Text>();
+    public List<Text> teleportUses = new List<Text>();
 
     private Color32 blueColor = new Color32(11, 75, 113, 255);
 
@@ -33,22 +30,40 @@ public class ShopUI : MonoBehaviour
 
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    public const int extraBlockCost = 200;
-    public const int bombCost = 200;
-    
+    public const int extraBlockCost = 200; // fish
+    public const int extraBlockCost3Pack = 30; // GFish
+    public const int extraBlockCost8Pack = 60; // GFish
+    public const int extraBlockCost15Pack = 100; // GFish
+    public const int extraBlockCost24Pack = 150; // GFish
+    public const int extraBlockCost35Pack = 190; // GFish
+
+    public const int bombCost = 200; // fish
+    public const int bombCost3Pack = 80; // GFish
+    public const int bombCost6Pack = 130; // GFish
+    public const int bombCost12Pack = 240; // GFish
+    public const int bombCost18Pack = 330; // GFish
+    public const int bombCost24Pack = 400; // GFish
+
+    public const int teleportCost = 2100; // fish
+    public const int teleportCost3Pack = 180; // GFish
+    public const int teleportCost6Pack = 310; // GFish
+    public const int teleportCost9Pack = 420; // GFish
+    public const int teleportCost12Pack = 510; // GFish
+    public const int teleportCost15Pack = 580; // GFish
+
     // Start is called before the first frame update
     void Start()
     {
-
         UpdateShopUI();
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
 
-        extraBlockUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString();
-        bombUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString();
-
+        extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
+        bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
+        teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
     }
 
+    /*
     public void UpgradeScore()
     {
         if (upgrades[0].level < 10)
@@ -59,6 +74,7 @@ public class ShopUI : MonoBehaviour
             Analytics.CustomEvent("UpgradeScore level " + upgrades[0].level);
         }
     }
+    */
 
     public void UpgradeTemperature()
     {
@@ -115,7 +131,67 @@ public class ShopUI : MonoBehaviour
             GameManager.instance.RemoveFish(extraBlockCost);
             GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 1);
             fish.text = GameManager.instance.Fish.ToString();
-            extraBlockUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString();
+            extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyExtraBlock3()
+    {
+        if (GameManager.instance.GFish >= extraBlockCost3Pack)
+        {
+            GameManager.instance.RemoveGFish(extraBlockCost3Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 3);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyExtraBlock8()
+    {
+        if (GameManager.instance.GFish >= extraBlockCost8Pack)
+        {
+            GameManager.instance.RemoveGFish(extraBlockCost8Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 8);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyExtraBlock15()
+    {
+        if (GameManager.instance.GFish >= extraBlockCost15Pack)
+        {
+            GameManager.instance.RemoveGFish(extraBlockCost15Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 15);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyExtraBlock24()
+    {
+        if (GameManager.instance.GFish >= extraBlockCost24Pack)
+        {
+            GameManager.instance.RemoveGFish(extraBlockCost24Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 24);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyExtraBlock35()
+    {
+        if (GameManager.instance.GFish >= extraBlockCost35Pack)
+        {
+            GameManager.instance.RemoveGFish(extraBlockCost35Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.extrablock, 35);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
             GameManager.instance.SaveProgress();
         }
     }
@@ -127,11 +203,140 @@ public class ShopUI : MonoBehaviour
             GameManager.instance.RemoveFish(bombCost);
             GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 1);
             fish.text = GameManager.instance.Fish.ToString();
-            bombUses.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString();
+            bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
             GameManager.instance.SaveProgress();
         }
     }
 
+    public void BuyBomb3()
+    {
+        if (GameManager.instance.GFish >= bombCost3Pack)
+        {
+            GameManager.instance.RemoveGFish(bombCost3Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 3);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyBomb6()
+    {
+        if (GameManager.instance.GFish >= bombCost6Pack)
+        {
+            GameManager.instance.RemoveGFish(bombCost6Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 6);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyBomb12()
+    {
+        if (GameManager.instance.GFish >= bombCost12Pack)
+        {
+            GameManager.instance.RemoveGFish(bombCost12Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 12);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyBomb18()
+    {
+        if (GameManager.instance.GFish >= bombCost18Pack)
+        {
+            GameManager.instance.RemoveGFish(bombCost18Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 18);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyBomb24()
+    {
+        if (GameManager.instance.GFish >= bombCost24Pack)
+        {
+            GameManager.instance.RemoveGFish(bombCost24Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.bomb, 24);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyTeleport()
+    {
+        if (GameManager.instance.Fish >= teleportCost)
+        {
+            GameManager.instance.RemoveFish(teleportCost);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.teleport, 1);
+            fish.text = GameManager.instance.Fish.ToString();
+            teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyTeleport3()
+    {
+        if (GameManager.instance.GFish >= teleportCost3Pack)
+        {
+            GameManager.instance.RemoveGFish(teleportCost3Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.teleport, 3);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyTeleport6()
+    {
+        if (GameManager.instance.GFish >= teleportCost6Pack)
+        {
+            GameManager.instance.RemoveGFish(teleportCost6Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.teleport, 6);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+    public void BuyTeleport9()
+    {
+        if (GameManager.instance.GFish >= teleportCost9Pack)
+        {
+            GameManager.instance.RemoveGFish(teleportCost9Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.teleport, 9);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+
+    public void BuyTeleport12()
+    {
+        if (GameManager.instance.GFish >= teleportCost12Pack)
+        {
+            GameManager.instance.RemoveGFish(teleportCost12Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.teleport, 12);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
+    public void BuyTeleport15()
+    {
+        if (GameManager.instance.GFish >= teleportCost15Pack)
+        {
+            GameManager.instance.RemoveGFish(teleportCost15Pack);
+            GameManager.instance.AddPowerupUses(GameManager.Consumable.teleport, 15);
+            Gfish.text = GameManager.instance.GFish.ToString();
+            teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+            GameManager.instance.SaveProgress();
+        }
+    }
 
     public void BackButton()
     {
@@ -140,17 +345,16 @@ public class ShopUI : MonoBehaviour
 
     public void UpgradesTab()
     {
-        upgradesTabText.color = Color.white;
-        powerupsTabText.color = blueColor;
-        fishTabTex.color = blueColor;
         UIImage.sprite = upgradesTab;
     }
 
     public void PowerupsTab()
     {
-        upgradesTabText.color = blueColor;
-        powerupsTabText.color = Color.white;
-        fishTabTex.color = blueColor;
         UIImage.sprite = powerupsTab;
+    }
+
+    public void FishTab()
+    {
+        UIImage.sprite = fishTab;
     }
 }
