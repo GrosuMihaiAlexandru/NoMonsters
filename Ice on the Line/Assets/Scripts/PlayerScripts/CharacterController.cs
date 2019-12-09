@@ -14,7 +14,6 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public bool respawnedOnce = false;
 
-
     public GameObject pauseButton;
     public GameObject youDiedScreen;
     public Image timerCircle;
@@ -51,8 +50,15 @@ public class CharacterController : MonoBehaviour, IPlayer
     // properties from the interface
     public int Distance { get; set; }
 
+    public float speedDebuff = 1f;
+
+    public GameObject waterSplashPrefab;
+
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         animator.enabled = false;
         Advertising.RewardedAdCompleted += Advertising_RewardedAdCompleted;
@@ -75,6 +81,9 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     private void DoRespawn()
     {
+        //Re enable player sprite renderer
+        spriteRenderer.enabled = true;
+
         Analytics.CustomEvent("FinishedRewardedAd");
         waypoints.Clear();
         Time.timeScale = 1;
@@ -122,35 +131,6 @@ public class CharacterController : MonoBehaviour, IPlayer
         Analytics.CustomEvent("StartedRewardedAd");
     }
 
-    /*void FixedUpdate()
-    {
-        
-        // Arrow Keys Movement
-        
-        float velocityX;
-        float velocityY;
-
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-
-                //Debug.Log("Is touching");
-                velocityX = Input.GetAxisRaw("Horizontal") * moveSpeed;
-                velocityY = Input.GetAxisRaw("Vertical") * moveSpeed;
-                Vector2 velocity = new Vector2(velocityX, velocityY);
-
-                HorizontalGround(ref velocity);
-                VerticalGround(ref velocity);
-
-                rigidbody2D.velocity = velocity;
-        }
-        else
-        {
-            rigidbody2D.velocity = Vector2.zero;
-        }
-
-    }*/
-
-
     // Update is called once per frame
     void Update()
     {
@@ -166,7 +146,7 @@ public class CharacterController : MonoBehaviour, IPlayer
                 animator.enabled = true;
                 Vector2 direction = new Vector2(waypoints[0].x - transform.position.x, waypoints[0].y - transform.position.y);
                 transform.up = direction    ;
-                velocity = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * Time.deltaTime);
+                velocity = Vector2.MoveTowards(transform.position, waypoints[0], movementSpeed * speedDebuff * Time.deltaTime);
                 transform.position = velocity;
 
                 if (!SoundManager.instance.efxSource.isPlaying)
@@ -192,6 +172,8 @@ public class CharacterController : MonoBehaviour, IPlayer
         }
         else
         {
+            
+
             // For tutorial
             if (isTutorial)
             {
@@ -205,22 +187,16 @@ public class CharacterController : MonoBehaviour, IPlayer
 
                 if (!respawnedOnce)
                 {
+                    // Instantiate Falling in water animation prefab
+                    Instantiate(waterSplashPrefab, transform.position, Quaternion.identity);
+                    // Disable the sprite rendeder
+                    spriteRenderer.enabled = false;
+
+                    // Make Player Invincible while waiting to respawn
                     isPlayerInvincible = true;
-                    // DoRespawn();
                     respawnedOnce = true;
 
-                    if (!Advertising.IsRewardedAdReady())
-                        youDiedScreen.transform.Find("RespawnAd").GetComponent<Button>().interactable = false;
-
-                    if (GameManager.instance.GFish < gFishRespawn)
-                        youDiedScreen.transform.Find("RespawnGoldenFish").GetComponent<Button>().interactable = false;
-
-
-                    waypoints.Clear();
-                    pauseButton.SetActive(false);
-                    youDiedScreen.SetActive(true);
-                    StartCoroutine("TimerTick");
-                    respawnedOnce = true;
+                    Invoke("RespawnMethod", 0.8f);
                 }
                 else
                 {
@@ -232,6 +208,21 @@ public class CharacterController : MonoBehaviour, IPlayer
                 
             }
         }
+    }
+
+    private void RespawnMethod()
+    {
+        if (!Advertising.IsRewardedAdReady())
+            youDiedScreen.transform.Find("RespawnAd").GetComponent<Button>().interactable = false;
+
+        if (GameManager.instance.GFish < gFishRespawn)
+            youDiedScreen.transform.Find("RespawnGoldenFish").GetComponent<Button>().interactable = false;
+
+
+        waypoints.Clear();
+        pauseButton.SetActive(false);
+        youDiedScreen.SetActive(true);
+        StartCoroutine("TimerTick");
     }
 
     private void OnDestroy()
@@ -280,35 +271,57 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public void Die()
     {
+        // Instantiate Falling in water animation prefab
+        if (!respawnedOnce)
+            Instantiate(waterSplashPrefab, transform.position, Quaternion.identity);
+
         Analytics.CustomEvent("Died at level ", new Dictionary<string, object>
         {
             { "level", (int)(transform.position.y / levelHeight) + 1 }
         });
-
+        Distance = (int)gameObject.transform.position.y;
+        InGameEvents.GameOver(this);
+        GameObject.Find("UIManager").GetComponent<EndlessGameUIManager>().LoadLocalUserScore();
+        Invoke("EndGame", 0.8f);
         // Remove 1 life when the player dies
         /*
         GameManager.instance.RemoveLives(1);
         GameManager.instance.SaveProgress();
         */
 
+        
+    }
+
+    private void EndGame()
+    {
         Time.timeScale = 0;
         InGame.playerAlive = false;
         // Set the max travel distance on death
-        Distance = (int) gameObject.transform.position.y;
         
+
         // Set playerAlive to false
 
         youDiedScreen.SetActive(false);
         gameOverScreen.SetActive(true);
         pauseButton.SetActive(false);
+        
 
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();
 
-        InGameEvents.GameOver(this);
-
+        
         Destroy(gameObject);
     }
 
+    public void ApplySpeedDebuff(float value, float time)
+    {
+        speedDebuff = value;
+        Invoke("RemoveSpeedDebuff", time);
+    }
 
+    // Reset debuff to normal value
+    public void RemoveSpeedDebuff()
+    {
+        speedDebuff = 1;
+    }
 }

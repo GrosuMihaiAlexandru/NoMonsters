@@ -47,14 +47,25 @@ MonoBehaviour:
   defaultLayer:
     serializedVersion: 2
     m_Bits: 8960
+  rotationLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  specialLayer:
+    serializedVersion: 2
+    m_Bits: 0
   hologram: {fileID: 7735615788758842778, guid: 8511ca65b2fcdbe468eb39c266a078e6,
     type: 3}
   hologram2: {fileID: 7936135580943922644, guid: b9252a1067f4a04489dd5b57a9d4689a,
     type: 3}
   barrierUnderneath: 0
+  astar: {fileID: 0}
   allowRotation: 1
   limitRotation: 0
   isExtraBlock: 1
+  isBomb: 0
+  isTeleport: 0
+  blockPlacementPrefab: {fileID: 8475766778503882258, guid: 010cc414b53a13e4492c48b928c34d5b,
+    type: 3}
 --- !u!1001 &5193601424258986298
 PrefabInstance:
   m_ObjectHideFlags: 0

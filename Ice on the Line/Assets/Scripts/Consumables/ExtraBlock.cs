@@ -24,6 +24,8 @@ public class ExtraBlock : MonoBehaviour, IConsumable
 
     public Text countText;
 
+    public LayerMask layer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +74,6 @@ public class ExtraBlock : MonoBehaviour, IConsumable
     {
         if (Count > 0)
         {
-            Use();
             usedConsumable = true;
             //Debug.Log("ClickedButton");
         }
@@ -81,10 +82,38 @@ public class ExtraBlock : MonoBehaviour, IConsumable
     // Event triggerd on PowerupRelease
     public void OnRelease()
     {
+        usedConsumable = false;
+        Invoke("SnapBlock", 0.1f);
+    }
+
+    private void SnapBlock()
+    {
         if (extraBlock)
         {
-            usedConsumable = false;
+            Debug.Log(extraBlock.GetComponent<IceBlock>().HasSnapped());
+            Vector2 pos = new Vector2(Mathf.Round(extraBlock.transform.position.x), Mathf.Round(extraBlock.transform.position.y));
+            /*
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0, layer);
+            if (hit)
+            {
+                if (hit.transform.tag == "WalkableBlock" || hit.transform.tag == "Obstacle" || hit.transform.tag == "FixedBlock")
+                {
+                    Debug.Log(hit.transform.tag);
+                    usedConsumable = false;
+                    Destroy(extraBlock);
+                    return;
+                }
+            }
+            */
+            if (extraBlock.GetComponent<IceBlock>().HasSnapped() == false)
+            {
+                
+                Destroy(extraBlock);
+                return;
+            }
             extraBlock.GetComponentsInChildren<BoxCollider2D>().ToList().ForEach(x => x.enabled = true);
+
+            Use();
             //Debug.Log("ReleasedButton");
         }
     }

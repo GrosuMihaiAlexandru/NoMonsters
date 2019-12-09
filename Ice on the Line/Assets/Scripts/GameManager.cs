@@ -30,10 +30,10 @@ public class GameManager : MonoBehaviour
     public enum Consumable { extrablock, bomb, teleport}
     // Global Upgrade levels
     [SerializeField]
-    private int[] upgradeLevels = new int[5];
+    private int[] upgradeLevels = new int[6];
     // Consumable uses
     [SerializeField]
-    private int[] cosumableUses = new int[2];
+    private int[] cosumableUses = new int[3];
     // The unlock status of characters
     private bool[] characters = new bool[3];
 
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         Gfish = data.Gfish;
         Candy = data.specialCurrency;
         lives = data.lives;
-        Debug.Log(lives);
+        //Debug.Log(lives);
         // Assigning lives
         livesAssignedTime = data.lifeAssignedTime;
         //Debug.Log(livesAssignedTime);
@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
         {
             CheckAddingNewLives();
         }
+
             // reading Upgrade levels
         if (upgradeLevels.Length > data.upgradesLevels.Length)
         {
@@ -155,7 +156,7 @@ public class GameManager : MonoBehaviour
         float secondsLeft = (float)(msNewLifeTime - m) / 1000.0f;
 
         int livesToAdd = 0;
-        Debug.Log(secondsLeft);
+        //Debug.Log(secondsLeft);
         while (secondsLeft < 0)
         {
             livesToAdd++;
@@ -173,7 +174,7 @@ public class GameManager : MonoBehaviour
         if (lives >= maxLives)
             lives = maxLives;
         livesAssignedTime = (ulong)DateTime.Now.Ticks;
-        Debug.Log(livesAssignedTime);
+        //Debug.Log(livesAssignedTime);
         Invoke("SaveProgress", 1f);
     }
 
@@ -236,6 +237,7 @@ public class GameManager : MonoBehaviour
 
     public int GetUpgradeLevels(Upgrade upgrade)
     {
+        Debug.Log((int)upgrade);
         //Debug.Log((int)upgrade);
         return upgradeLevels[(int)upgrade];
     }
