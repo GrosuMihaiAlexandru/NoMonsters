@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public static class SaveSystem
 {
-    public static int campaignVersion = 2;
+    public static int campaignVersion = 4;
 
     public static void SaveData(int fish, int score, int lives, int[] upgrades, int[] uses, bool[] characters, QuestSaving[] quests, ulong questTime, ulong lifeTime, int specialCurrency = 0, bool tutorial = true)
     {
@@ -71,7 +71,7 @@ public static class SaveSystem
                 case 1:
                     List<Level> versionLevels2 = new List<Level>
                     {
-                        new Level(21, "Level21", false, 0, false),
+                        new Level(21, "Level21", false, 0, true),
                         new Level(22, "Level22", false, 0, true),
                         new Level(23, "Level23", false, 0, true),
                         new Level(24, "Level24", false, 0, true),
@@ -95,6 +95,56 @@ public static class SaveSystem
                     newLevels.AddRange(versionLevels2);
                     break;
                 case 2:
+                    List<Level> versionLevels3 = new List<Level>
+                    {
+                        new Level(41, "Level41", false, 0, true),
+                        new Level(42, "Level42", false, 0, true),
+                        new Level(43, "Level43", false, 0, true),
+                        new Level(44, "Level44", false, 0, true),
+                        new Level(45, "Level45", false, 0, true),
+                        new Level(46, "Level46", false, 0, true),
+                        new Level(47, "Level47", false, 0, true),
+                        new Level(48, "Level48", false, 0, true),
+                        new Level(49, "Level49", false, 0, true),
+                        new Level(50, "Level50", false, 0, true),
+                        new Level(51, "Level51", false, 0, true),
+                        new Level(52, "Level52", false, 0, true),
+                        new Level(53, "Level53", false, 0, true),
+                        new Level(54, "Level54", false, 0, true),
+                        new Level(55, "Level55", false, 0, true),
+                        new Level(56, "Level56", false, 0, true),
+                        new Level(57, "Level57", false, 0, true),
+                        new Level(58, "Level58", false, 0, true),
+                        new Level(59, "Level59", false, 0, true),
+                        new Level(60, "Level60", false, 0, true)
+                    };
+                    newLevels.AddRange(versionLevels3);
+                    break;
+                case 3:
+                    List<Level> versionLevels4 = new List<Level>
+                    {
+                        new Level(61, "Level61", false, 0, true),
+                        new Level(62, "Level62", false, 0, true),
+                        new Level(63, "Level63", false, 0, true),
+                        new Level(64, "Level64", false, 0, true),
+                        new Level(65, "Level65", false, 0, true),
+                        new Level(66, "Level66", false, 0, true),
+                        new Level(67, "Level67", false, 0, true),
+                        new Level(68, "Level68", false, 0, true),
+                        new Level(69, "Level69", false, 0, true),
+                        new Level(70, "Level70", false, 0, true),
+                        new Level(71, "Level71", false, 0, true),
+                        new Level(72, "Level72", false, 0, true),
+                        new Level(73, "Level73", false, 0, true),
+                        new Level(74, "Level74", false, 0, true),
+                        new Level(75, "Level75", false, 0, true),
+                        new Level(76, "Level76", false, 0, true),
+                        new Level(77, "Level77", false, 0, true),
+                        new Level(78, "Level78", false, 0, true),
+                        new Level(79, "Level79", false, 0, true),
+                        new Level(80, "Level80", false, 0, true)
+                    };
+                    newLevels.AddRange(versionLevels4);
                     break;
             }
             version++;
@@ -154,7 +204,7 @@ public static class SaveSystem
                 new Level(18, "Level18", false, 0, true),
                 new Level(19, "Level19", false, 0, true),
                 new Level(20, "Level20", false, 0, true),
-                new Level(21, "Level21", false, 0, false),
+                new Level(21, "Level21", false, 0, true),
                 new Level(22, "Level22", false, 0, true),
                 new Level(23, "Level23", false, 0, true),
                 new Level(24, "Level24", false, 0, true),
@@ -173,7 +223,47 @@ public static class SaveSystem
                 new Level(37, "Level37", false, 0, true),
                 new Level(38, "Level38", false, 0, true),
                 new Level(39, "Level39", false, 0, true),
-                new Level(40, "Level40", false, 0, true)
+                new Level(40, "Level40", false, 0, true),
+                new Level(41, "Level41", false, 0, true),
+                new Level(42, "Level42", false, 0, true),
+                new Level(43, "Level43", false, 0, true),
+                new Level(44, "Level44", false, 0, true),
+                new Level(45, "Level45", false, 0, true),
+                new Level(46, "Level46", false, 0, true),
+                new Level(47, "Level47", false, 0, true),
+                new Level(48, "Level48", false, 0, true),
+                new Level(49, "Level49", false, 0, true),
+                new Level(50, "Level50", false, 0, true),
+                new Level(51, "Level51", false, 0, true),
+                new Level(52, "Level52", false, 0, true),
+                new Level(53, "Level53", false, 0, true),
+                new Level(54, "Level54", false, 0, true),
+                new Level(55, "Level55", false, 0, true),
+                new Level(56, "Level56", false, 0, true),
+                new Level(57, "Level57", false, 0, true),
+                new Level(58, "Level58", false, 0, true),
+                new Level(59, "Level59", false, 0, true),
+                new Level(60, "Level60", false, 0, true),
+                new Level(61, "Level61", false, 0, true),
+                new Level(62, "Level62", false, 0, true),
+                new Level(63, "Level63", false, 0, true),
+                new Level(64, "Level64", false, 0, true),
+                new Level(65, "Level65", false, 0, true),
+                new Level(66, "Level66", false, 0, true),
+                new Level(67, "Level67", false, 0, true),
+                new Level(68, "Level68", false, 0, true),
+                new Level(69, "Level69", false, 0, true),
+                new Level(70, "Level70", false, 0, true),
+                new Level(71, "Level71", false, 0, true),
+                new Level(72, "Level72", false, 0, true),
+                new Level(73, "Level73", false, 0, true),
+                new Level(74, "Level74", false, 0, true),
+                new Level(75, "Level75", false, 0, true),
+                new Level(76, "Level76", false, 0, true),
+                new Level(77, "Level77", false, 0, true),
+                new Level(78, "Level78", false, 0, true),
+                new Level(79, "Level79", false, 0, true),
+                new Level(80, "Level80", false, 0, true)
             };
         return levels;
     }

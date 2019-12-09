@@ -62,7 +62,9 @@ public class CampaignLevelEnd : MonoBehaviour
             int awardsNumber = starsCollected - LevelController.instance.selectedLevel.AwardsGiven;
             LevelController.instance.selectedLevel.GiveRewards(awardsNumber);
 
-            int fishReward = awardsNumber * 50;
+            int fishReward = 0;
+            if (awardsNumber > 0)
+                fishReward = awardsNumber * 50;
 
             GameManager.instance.AddFish(fishReward);
 
