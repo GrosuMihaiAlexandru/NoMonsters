@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EasyMobile;
+using UnityEngine.UI;
 
 public class IAPHandler : MonoBehaviour
 {
+    public Text gFishText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,8 @@ public class IAPHandler : MonoBehaviour
             default:
                 break;
         }
+
+        gFishText.text = GameManager.instance.GFish.ToString();
     }
 
     public void PurchasePileOfFish()
