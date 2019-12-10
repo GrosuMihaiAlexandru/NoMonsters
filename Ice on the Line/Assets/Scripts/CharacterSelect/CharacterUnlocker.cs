@@ -182,7 +182,7 @@ public class CharacterUnlocker : MonoBehaviour
                 if (GameManager.instance.GFish >= characterCosts[selectedCharacter].GetCost())
                 {
                     GameManager.instance.UnlockCharacter(selectedCharacter);
-                    GameManager.instance.RemoveGfish(characterCosts[selectedCharacter].GetCost());
+                    GameManager.instance.RemoveGFish(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
 
                     screenManager.UpdateDisplay();
