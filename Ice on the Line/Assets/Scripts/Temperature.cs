@@ -44,6 +44,9 @@ public class Temperature : MonoBehaviour
 
     public static bool timeFreeze;
 
+    public int difficulty = 0;
+    public int lastDifficulty = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +54,7 @@ public class Temperature : MonoBehaviour
         lastUpdateTime = Time.time;
         ingame = GetComponent<InGame>();
         temperatureSpeedLevel = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed);
+        lastDifficulty = difficulty;
     }
 
 
@@ -75,6 +79,12 @@ public class Temperature : MonoBehaviour
                     }
                 }
             }
+
+            if (lastDifficulty < difficulty)
+            {
+                lastDifficulty = difficulty;
+                Fish.AddMultiplier();
+            }
         }
     }
 
@@ -82,13 +92,25 @@ public class Temperature : MonoBehaviour
     private int CalculateDifficulty(float distance)
     {
         if (distance < minX)
+        {
+            difficulty = 0;
             return 0;
+        }
         else if (distance < minX * 2)
+        {
+            difficulty = 1;
             return 1;
+        }
         else if (distance < minX * 3)
+        {
+            difficulty = 2;
             return 2;
+        }
         else
+        {
+            difficulty = 3;
             return 3;
+        }
     }
 
     // Return the base temperature update time based on the current difficulty

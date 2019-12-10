@@ -37,6 +37,8 @@ public class CharacterUnlocker : MonoBehaviour
     public Sprite playButtonSprite;
     public Sprite unlockButtonSprite;
 
+    public MainScreenManager screenManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,10 @@ public class CharacterUnlocker : MonoBehaviour
         characterCosts.Add(new Cost(Cost.Type.fish, 0));
         characterCosts.Add(new Cost(Cost.Type.fish, 1000));
         characterCosts.Add(new Cost(Cost.Type.specialCurrency, 300));
+        characterCosts.Add(new Cost(Cost.Type.fish, 5000));
+        characterCosts.Add(new Cost(Cost.Type.gFish, 100));
+        characterCosts.Add(new Cost(Cost.Type.fish, 10000));
+        characterCosts.Add(new Cost(Cost.Type.gFish, 250));
 
         foreach (Transform t in scrollPanel.transform)
         {
@@ -168,6 +174,8 @@ public class CharacterUnlocker : MonoBehaviour
                     GameManager.instance.UnlockCharacter(selectedCharacter);
                     GameManager.instance.RemoveFish(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
+
+                    screenManager.UpdateDisplay();
                 }
                 break;
             case Cost.Type.gFish:
@@ -176,6 +184,8 @@ public class CharacterUnlocker : MonoBehaviour
                     GameManager.instance.UnlockCharacter(selectedCharacter);
                     GameManager.instance.RemoveGfish(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
+
+                    screenManager.UpdateDisplay();
                 }
                 break;
             case Cost.Type.specialCurrency:
@@ -184,6 +194,8 @@ public class CharacterUnlocker : MonoBehaviour
                     GameManager.instance.UnlockCharacter(selectedCharacter);
                     GameManager.instance.RemoveCandy(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
+
+                    screenManager.UpdateDisplay();
                 }
                 break;
         }

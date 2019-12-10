@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int[] cosumableUses = new int[3];
     // The unlock status of characters
-    private bool[] characters = new bool[3];
+    private bool[] characters = new bool[7];
 
     // Lives System
     private float msNewLifeTime = 720000;
