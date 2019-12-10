@@ -11,7 +11,7 @@ public class EndlessGameUIManager : MonoBehaviour
     public Text distanceText;
     public Text bestDistanceText;
     public Text fishText;
-
+    public Text fishMutiplier;
 
     // ToggleVolume
     public Button soundToggleButton;
@@ -45,6 +45,11 @@ public class EndlessGameUIManager : MonoBehaviour
 
         InGameEvents.OnItemCollected += CollectFish;
         InGameEvents.OnGameOver += DisplayGameOver;
+    }
+
+    void Update()
+    {
+        fishMutiplier.text = Fish.fishMultiplier.ToString();
     }
 
     public void OnDestroy()

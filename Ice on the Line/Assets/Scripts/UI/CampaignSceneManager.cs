@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class CampaignSceneManager : MonoBehaviour
 {
@@ -112,5 +113,11 @@ public class CampaignSceneManager : MonoBehaviour
     public void ReturnToMainScreen()
     {
         SceneManager.LoadScene("MainScreen");
+    }
+
+    public void Shop()
+    {
+        Analytics.CustomEvent("Opened Shop");
+        SceneManager.LoadScene("Shop");
     }
 }

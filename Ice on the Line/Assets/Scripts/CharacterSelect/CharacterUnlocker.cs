@@ -22,6 +22,7 @@ public class CharacterUnlocker : MonoBehaviour
     public Button button;
 
     public Text costText;
+    public Text characterNameText;
 
     public Image currencyIcon;
 
@@ -37,6 +38,8 @@ public class CharacterUnlocker : MonoBehaviour
     public Sprite playButtonSprite;
     public Sprite unlockButtonSprite;
 
+    public MainScreenManager screenManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +48,10 @@ public class CharacterUnlocker : MonoBehaviour
         characterCosts.Add(new Cost(Cost.Type.fish, 0));
         characterCosts.Add(new Cost(Cost.Type.fish, 1000));
         characterCosts.Add(new Cost(Cost.Type.specialCurrency, 300));
+        characterCosts.Add(new Cost(Cost.Type.fish, 5000));
+        characterCosts.Add(new Cost(Cost.Type.gFish, 100));
+        characterCosts.Add(new Cost(Cost.Type.fish, 10000));
+        characterCosts.Add(new Cost(Cost.Type.gFish, 250));
 
         foreach (Transform t in scrollPanel.transform)
         {
@@ -94,13 +101,37 @@ public class CharacterUnlocker : MonoBehaviour
     private void UpdateCharacterSelectUI()
     {
         Debug.Log(selectedCharacter);
+        switch (selectedCharacter)
+        {
+            case 0:
+                characterNameText.text = "Pepper";
+                break;
+            case 1:
+                characterNameText.text = "Selkie";
+                break;
+            case 2:
+                characterNameText.text = "Count Pepper";
+                break;
+            case 3:
+                characterNameText.text = "Yee Haw";
+                break;
+            case 4:
+                characterNameText.text = "Ponce";
+                break;
+            case 5:
+                characterNameText.text = "Todd";
+                break;
+            case 6:
+                characterNameText.text = "Selkie Claus";
+                break;
+        }
         if (GameManager.instance.GetCharacterUnlockStatus(selectedCharacter))
         {
             button.image.sprite = playButtonSprite;
             costText.gameObject.SetActive(false);
 
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(MainScreenManager.PlayGame);
+            button.onClick.AddListener(screenManager.DisplayOptions);
             button.interactable = true;
         }
         else // character locked
@@ -168,6 +199,8 @@ public class CharacterUnlocker : MonoBehaviour
                     GameManager.instance.UnlockCharacter(selectedCharacter);
                     GameManager.instance.RemoveFish(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
+
+                    screenManager.UpdateDisplay();
                 }
                 break;
             case Cost.Type.gFish:
@@ -176,6 +209,8 @@ public class CharacterUnlocker : MonoBehaviour
                     GameManager.instance.UnlockCharacter(selectedCharacter);
                     GameManager.instance.RemoveGFish(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
+
+                    screenManager.UpdateDisplay();
                 }
                 break;
             case Cost.Type.specialCurrency:
@@ -184,6 +219,8 @@ public class CharacterUnlocker : MonoBehaviour
                     GameManager.instance.UnlockCharacter(selectedCharacter);
                     GameManager.instance.RemoveCandy(characterCosts[selectedCharacter].GetCost());
                     GameManager.instance.SaveProgress();
+
+                    screenManager.UpdateDisplay();
                 }
                 break;
         }
