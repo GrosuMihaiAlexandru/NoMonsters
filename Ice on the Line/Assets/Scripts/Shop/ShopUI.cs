@@ -109,6 +109,28 @@ public class ShopUI : MonoBehaviour
         }
     }
 
+    public void UpgradeFishDouble()
+    {
+        if (upgrades[4].level < 5)
+        {
+            upgrades[4].LevelUpgrade(GameManager.instance.Fish);
+            UpdateShopUI();
+
+            Analytics.CustomEvent("UpgradeFishDouble level " + upgrades[4].level);
+        }
+    }
+
+    public void UpgradeTimeFreeze()
+    {
+        if (upgrades[5].level < 5)
+        {
+            upgrades[5].LevelUpgrade(GameManager.instance.Fish);
+            UpdateShopUI();
+
+            Analytics.CustomEvent("UpgradeTimeFreeze level " + upgrades[5].level);
+        }
+    }
+
     // Updates the shop and save the upgrades
     private void UpdateShopUI()
     {

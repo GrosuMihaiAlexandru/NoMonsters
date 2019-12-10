@@ -24,9 +24,11 @@ public class Upgrade : MonoBehaviour
         PlayerData data = SaveSystem.LoadData();
         switch (upgradeNumber)
         {
+            /*
             case 0:
                 level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.scoreMultiplier);
                 break;
+                */
             case 1:
                 level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.temperatureSpeed);
                 break;
@@ -35,6 +37,12 @@ public class Upgrade : MonoBehaviour
                 break;
             case 3:
                 level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.fishMagnet);
+                break;
+            case 4:
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.fishDouble);
+                break;
+            case 5:
+                level = GameManager.instance.GetUpgradeLevels(GameManager.Upgrade.timeFreeze);
                 break;
             default:
                 break;
@@ -52,9 +60,11 @@ public class Upgrade : MonoBehaviour
             CalculateCost();
             switch (upgradeNumber)
             {
+                /*
                 case 0:
                     GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.scoreMultiplier, level);
                     break;
+                    */
                 case 1:
                     GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.temperatureSpeed, level);
                     break;
@@ -63,6 +73,12 @@ public class Upgrade : MonoBehaviour
                     break;
                 case 3:
                     GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.fishMagnet, level);
+                    break;
+                case 4:
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.fishDouble, level);
+                    break;
+                case 5:
+                    GameManager.instance.SetUpgradeLevels(GameManager.Upgrade.timeFreeze, level);
                     break;
                 default:
                     break;
@@ -75,6 +91,6 @@ public class Upgrade : MonoBehaviour
     private void CalculateCost()
     {
         Debug.Log(upgradeName + ": " + level);
-        cost = (int) (baseCost * Mathf.Pow(2, level));
+        cost = (int) (baseCost * Mathf.Pow(1.5f, level));
     }
 }
