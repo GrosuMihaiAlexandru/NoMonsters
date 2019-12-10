@@ -49,7 +49,7 @@ public class EndlessGameUIManager : MonoBehaviour
 
     void Update()
     {
-        fishMutiplier.text = "x" + Fish.fishMultiplier;
+        fishMutiplier.text = Fish.fishMultiplier.ToString();
     }
 
     public void OnDestroy()

@@ -29,6 +29,13 @@ public class MainScreenManager : MonoBehaviour
 
     public GameObject extraOptionsPanel;
 
+    public GameObject campaignButton;
+    public GameObject endlessButton;
+    public GameObject cancelStartPanel;
+
+    public Button buyPlayButton;
+
+
     void Awake()
     {
         // GDPR
@@ -38,6 +45,7 @@ public class MainScreenManager : MonoBehaviour
         {
             GDPRPanel.SetActive(true);
         }
+
     }
 
     // Start is called before the first frame update
@@ -118,9 +126,25 @@ public class MainScreenManager : MonoBehaviour
         Application.OpenURL("http://www.oulugamelab.net/policy");
     }
 
-    public static void PlayGame()
+    public void PlayEndless()
     {
         SceneManager.LoadScene("EndlessGame");
+    }
+
+    public void DisplayOptions()
+    {
+        campaignButton.SetActive(true);
+        endlessButton.SetActive(true);
+        cancelStartPanel.SetActive(true);
+        buyPlayButton.interactable = false;
+    }
+
+    public void CancelStartPanel()
+    {
+        campaignButton.SetActive(false);
+        endlessButton.SetActive(false);
+        cancelStartPanel.SetActive(false);
+        buyPlayButton.interactable = true;
     }
 
     public void ShowLeaderboardUI()

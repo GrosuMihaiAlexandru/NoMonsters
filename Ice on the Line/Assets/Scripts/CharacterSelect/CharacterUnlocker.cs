@@ -22,6 +22,7 @@ public class CharacterUnlocker : MonoBehaviour
     public Button button;
 
     public Text costText;
+    public Text characterNameText;
 
     public Image currencyIcon;
 
@@ -100,13 +101,37 @@ public class CharacterUnlocker : MonoBehaviour
     private void UpdateCharacterSelectUI()
     {
         Debug.Log(selectedCharacter);
+        switch (selectedCharacter)
+        {
+            case 0:
+                characterNameText.text = "Pepper";
+                break;
+            case 1:
+                characterNameText.text = "Selkie";
+                break;
+            case 2:
+                characterNameText.text = "Count Pepper";
+                break;
+            case 3:
+                characterNameText.text = "Yee Haw";
+                break;
+            case 4:
+                characterNameText.text = "Ponce";
+                break;
+            case 5:
+                characterNameText.text = "Todd";
+                break;
+            case 6:
+                characterNameText.text = "Selkie Claus";
+                break;
+        }
         if (GameManager.instance.GetCharacterUnlockStatus(selectedCharacter))
         {
             button.image.sprite = playButtonSprite;
             costText.gameObject.SetActive(false);
 
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(MainScreenManager.PlayGame);
+            button.onClick.AddListener(screenManager.DisplayOptions);
             button.interactable = true;
         }
         else // character locked
