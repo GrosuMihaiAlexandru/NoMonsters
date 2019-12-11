@@ -121,4 +121,25 @@ public class CampaignSceneManager : MonoBehaviour, IUpdateDisplayable
         Analytics.CustomEvent("Opened Shop");
         SceneManager.LoadScene("Shop");
     }
+
+    public void OpenShopOnIceBlockPowerup()
+    {
+        ShopPlaceLoader.openingTab = ShopPlaceLoader.TAB.powerupsTab;
+        ShopPlaceLoader.powerupsPlace = ShopPlaceLoader.PowerupsPlace.extraBlock;
+        SceneManager.LoadScene("Shop");
+    }
+
+    public void OpenShopOnBombPowerup()
+    {
+        ShopPlaceLoader.openingTab = ShopPlaceLoader.TAB.powerupsTab;
+        ShopPlaceLoader.powerupsPlace = ShopPlaceLoader.PowerupsPlace.bomb;
+        SceneManager.LoadScene("Shop");
+    }
+
+    public void OpenShopOnTeleportPowerup()
+    {
+        ShopPlaceLoader.openingTab = ShopPlaceLoader.TAB.powerupsTab;
+        ShopPlaceLoader.powerupsPlace = ShopPlaceLoader.PowerupsPlace.teleport;
+        SceneManager.LoadScene("Shop");
+    }
 }
