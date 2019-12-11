@@ -7,7 +7,6 @@ using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
 public class CharacterController : MonoBehaviour, IPlayer
 {
     public bool isTutorial;
@@ -95,6 +94,15 @@ public class CharacterController : MonoBehaviour, IPlayer
     private void Advertising_RewardedAdCompleted(RewardedAdNetwork arg1, AdPlacement arg2)
     {
         DoRespawn();
+    }
+
+    public void RespawnWithGoldenFish()
+    {
+        if (GameManager.instance.GFish >= 10)
+        {
+            GameManager.instance.RemoveGFish(10);
+            DoRespawn();
+        }
     }
 
     private void DoRespawn()

@@ -35,7 +35,6 @@ public class MainScreenManager : MonoBehaviour, IUpdateDisplayable
 
     public Button buyPlayButton;
 
-
     void Awake()
     {
         // GDPR
@@ -172,9 +171,16 @@ public class MainScreenManager : MonoBehaviour, IUpdateDisplayable
         SceneManager.LoadScene("Campaign");
     }
 
+    public void OpenShopOnGoldenFishTab()
+    {
+        ShopPlaceLoader.openingTab = ShopPlaceLoader.TAB.fishTab;
+        SceneManager.LoadScene("Shop");
+    }
+
     public void OpenShopOnFishTab()
     {
         ShopPlaceLoader.openingTab = ShopPlaceLoader.TAB.fishTab;
+        ShopPlaceLoader.fishPlace = ShopPlaceLoader.FishPlace.fish;
         SceneManager.LoadScene("Shop");
     }
 }

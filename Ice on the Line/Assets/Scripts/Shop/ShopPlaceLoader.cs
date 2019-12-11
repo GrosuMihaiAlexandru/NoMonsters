@@ -6,9 +6,11 @@ public class ShopPlaceLoader : MonoBehaviour
 {
     public static TAB openingTab = TAB.upgradesTab;
     public static PowerupsPlace powerupsPlace = PowerupsPlace.extraBlock;
+    public static FishPlace fishPlace = FishPlace.goldenFish;
 
     public int bombYValue;
     public int teleportYValue;
+    public int fishYValue;
 
     public ShopUI shopUI;
 
@@ -17,6 +19,7 @@ public class ShopPlaceLoader : MonoBehaviour
     public GameObject fishTab;
 
     public RectTransform powerupsGrid;
+    public RectTransform fishGrid;
 
     // Start is called before the first frame update
     void Start()
@@ -48,13 +51,21 @@ public class ShopPlaceLoader : MonoBehaviour
             upgradesTab.SetActive(false);
             powerupsTab.SetActive(false);
             fishTab.SetActive(true);
+
+            if (fishPlace == FishPlace.fish)
+            {
+                fishGrid.anchoredPosition = new Vector2(fishGrid.anchoredPosition.x, fishYValue);
+            }
         }
 
         openingTab = TAB.upgradesTab;
         powerupsPlace = PowerupsPlace.extraBlock;
+        fishPlace = FishPlace.goldenFish;
     }
 
     public enum TAB { upgradesTab, powerupsTab, fishTab }
 
     public enum PowerupsPlace { extraBlock, bomb, teleport }
+
+    public enum FishPlace { goldenFish, fish}
 }
