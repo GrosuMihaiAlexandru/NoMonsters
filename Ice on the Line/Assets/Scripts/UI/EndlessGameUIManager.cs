@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 using EasyMobile;
 using UnityEngine.SocialPlatforms;
 
-public class EndlessGameUIManager : MonoBehaviour
+public class EndlessGameUIManager : MonoBehaviour, IUpdateDisplayable
 {
+    // The currency display
+    public Text fishText;
+    public Text gFishText;
+
     public Text distanceText;
     public Text bestDistanceText;
-    public Text fishText;
+    public Text collectedFishText;
     public Text fishMutiplier;
 
     // ToggleVolume
@@ -141,7 +145,7 @@ public class EndlessGameUIManager : MonoBehaviour
         playerFinalDistance = player.Distance;
         Debug.Log("Distace:" + playerFinalDistance);
         distanceText.text = "DISTANCE: " + playerFinalDistance.ToString();
-        fishText.text = collectedFish.ToString();
+        collectedFishText.text = collectedFish.ToString();
     }
 
     public void SubmitScoreToLeaderboard()
@@ -171,6 +175,12 @@ public class EndlessGameUIManager : MonoBehaviour
             SubmitScoreToLeaderboard();
             Debug.Log("No score found");
         }
+    }
+
+    public void UpdateDisplay()
+    {
+        fishText.text = GameManager.instance.Fish.ToString();
+        gFishText.text = GameManager.instance.GFish.ToString();
     }
 
 }

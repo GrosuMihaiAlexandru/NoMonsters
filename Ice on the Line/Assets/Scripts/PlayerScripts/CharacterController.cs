@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour, IPlayer
 {
     public bool isTutorial;
+    public bool isEndless;
 
     public bool respawnedOnce = false;
 
@@ -18,6 +19,15 @@ public class CharacterController : MonoBehaviour, IPlayer
     public GameObject youDiedScreen;
     public Image timerCircle;
     public GameObject gameOverScreen;
+    public GameObject thermomether;
+    public GameObject multiplier;
+
+    private IUpdateDisplayable updateDisplay;
+
+    // the currencies
+    public GameObject fish;
+    public GameObject gFish;
+    public GameObject lives;
 
     public LayerMask layerMask;
 
@@ -58,6 +68,12 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     void Start()
     {
+        updateDisplay = GameObject.Find("UIManager").GetComponent<IUpdateDisplayable>();
+
+        // Reset the fish
+        Fish.ResetDoubleFish();
+        Fish.ResetMultiplier();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         animator.enabled = false;
@@ -202,6 +218,8 @@ public class CharacterController : MonoBehaviour, IPlayer
                 {
                     if (!isPlayerInvincible)
                     {
+                        isPlayerInvincible = true;
+                        Debug.Log("o zi ca oricare alta");
                         Die();
                     }
                 }
@@ -271,17 +289,23 @@ public class CharacterController : MonoBehaviour, IPlayer
 
     public void Die()
     {
+        // Debug.Log("dead");
         // Instantiate Falling in water animation prefab
-        if (!respawnedOnce)
+        if (!respawnedOnce || !isEndless)
+        {
+            spriteRenderer.enabled = false;
             Instantiate(waterSplashPrefab, transform.position, Quaternion.identity);
+        }
 
         Analytics.CustomEvent("Died at level ", new Dictionary<string, object>
         {
             { "level", (int)(transform.position.y / levelHeight) + 1 }
         });
+
         Distance = (int)gameObject.transform.position.y;
         InGameEvents.GameOver(this);
-        GameObject.Find("UIManager").GetComponent<EndlessGameUIManager>().LoadLocalUserScore();
+        if (isEndless)
+            GameObject.Find("UIManager").GetComponent<EndlessGameUIManager>().LoadLocalUserScore();
         Invoke("EndGame", 0.8f);
         // Remove 1 life when the player dies
         /*
@@ -297,18 +321,29 @@ public class CharacterController : MonoBehaviour, IPlayer
         Time.timeScale = 0;
         InGame.playerAlive = false;
         // Set the max travel distance on death
-        
+
 
         // Set playerAlive to false
 
+        // Update the display values of the currencies
+        updateDisplay.UpdateDisplay();
+
+        // Display the GameOver UI
         youDiedScreen.SetActive(false);
         gameOverScreen.SetActive(true);
         pauseButton.SetActive(false);
-        
+        thermomether.SetActive(false);
+
+        // Display the currencies
+        fish.SetActive(true);
+        gFish.SetActive(true);
+        if (!isEndless)
+            lives.SetActive(true);
+        else
+            multiplier.SetActive(false);
 
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();
-
         
         Destroy(gameObject);
     }

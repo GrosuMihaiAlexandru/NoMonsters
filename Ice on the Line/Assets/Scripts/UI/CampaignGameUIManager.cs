@@ -6,16 +6,34 @@ using UnityEngine.SceneManagement;
 using EasyMobile;
 using UnityEngine.SocialPlatforms;
 
-public class CampaignGameUIManager : MonoBehaviour
+public class CampaignGameUIManager : MonoBehaviour, IUpdateDisplayable
 {
+    public Button homeButtonGO;
+    public Button retryButtonGO;
+    public Button homeButtonP;
 
     public Text fishCollectedVictory;
     public Text fishCollectedGameOver;
+
+    // The currency display
+    public GameObject fish;
+    public GameObject gFish;
+    public GameObject lives;
+
+    public Text fishText;
+    public Text gFishText;
+    public Text livesText;
+
+    public Slider livesSlider;
 
     // ToggleVolume
     public Button soundToggleButton;
     public Sprite soundOn;
     public Sprite soundOff;
+
+    // UI Animations
+    public GameObject loseLifeAnimation;
+    public Transform parentObject;
 
     [SerializeField]
     private int collectedFish = 0;
@@ -77,10 +95,26 @@ public class CampaignGameUIManager : MonoBehaviour
         GameManager.instance.RemoveLives(1);
         GameManager.instance.SaveProgress();
 
-        SceneManager.LoadScene("Campaign");
         Time.timeScale = 1;
+        // Display lose life animation
+        Instantiate(loseLifeAnimation, parentObject);
+        UpdateDisplay();
+
+        // Deactivate buttons to prevent spamming
+        homeButtonGO.interactable = false;
+        retryButtonGO.interactable = false;
+        homeButtonP.interactable = false;
+
+        Invoke("ReturnToMenu", 0.5f);
+    }
+
+    private void ReturnToMenu()
+    {
+        SceneManager.LoadScene("Campaign");
+        
         ShowInterstitialAdWithChance(40);
     }
+
     public void CampaignMenu()
     {
       
@@ -91,13 +125,31 @@ public class CampaignGameUIManager : MonoBehaviour
 
     public void RetryLevel()
     {
-        GameManager.instance.RemoveLives(1);
-        GameManager.instance.SaveProgress();
+        if (GameManager.instance.Lives > 0)
+        {
+            GameManager.instance.RemoveLives(1);
+            GameManager.instance.SaveProgress();
 
+            Time.timeScale = 1;
+            // Display lose life animation
+            Instantiate(loseLifeAnimation, parentObject);
+            UpdateDisplay();
+
+            // Deactivate buttons to prevent spamming
+            homeButtonGO.interactable = false;
+            retryButtonGO.interactable = false;
+            homeButtonP.interactable = false;
+
+            Invoke("LoadLevel", 0.5f);
+        }
+
+    }
+
+    private void LoadLevel()
+    {
         SceneManager.LoadScene("CampaignLevel");
         InGame.playerAlive = true;
         InGame.gamePaused = false;
-        Time.timeScale = 1;
         ShowInterstitialAdWithChance(20);
     }
 
@@ -137,4 +189,16 @@ public class CampaignGameUIManager : MonoBehaviour
         }
     }
 
+    public void UpdateDisplay()
+    {
+        fishText.text = GameManager.instance.Fish.ToString();
+        gFishText.text = GameManager.instance.GFish.ToString();
+        livesText.text = GameManager.instance.Lives.ToString() + " / " + GameManager.instance.maxLives;
+        UpdateSlider();
+    }
+
+    public void UpdateSlider()
+    {
+        livesSlider.value = GameManager.instance.Lives;
+    }
 }

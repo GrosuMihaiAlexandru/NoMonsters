@@ -24,6 +24,7 @@ public class Fish : MonoBehaviour, ICollectible
     // Start is called before the first frame update
     void Start()
     {
+        doubleFish = false;
         ID = 0;
         rb = GetComponent<Rigidbody2D>();
     }

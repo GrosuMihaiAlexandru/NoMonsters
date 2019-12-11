@@ -40,7 +40,7 @@ public static class SaveSystem
             // Creating a default file if the file doesn't exist
             Debug.Log("Save file not found in " + path);
             Debug.Log("Creating default file...");
-            SaveData(0, 0, 0, new int[] { 0, 0, 0, 0, 0 }, new int[] { 3, 3, 0 }, new bool[] { true, false, false }, null, 0, 0, 0, false);
+            SaveData(0, 0, 0, new int[] { 0, 0, 0, 0, 0 }, new int[] { 3, 3, 3 }, new bool[] { true, false, false }, null, 0, 0, 0, false);
             return LoadData();
         }
     }

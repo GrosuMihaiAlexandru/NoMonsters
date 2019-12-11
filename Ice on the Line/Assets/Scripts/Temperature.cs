@@ -50,6 +50,8 @@ public class Temperature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timeFreeze = false;
+
         globalTemperature = initialTemperature;
         lastUpdateTime = Time.time;
         ingame = GetComponent<InGame>();

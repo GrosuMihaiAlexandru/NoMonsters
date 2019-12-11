@@ -6,7 +6,7 @@ using UnityEngine.UI;
 // Displays the active quests Ingame
 public class InGameQuestUI : MonoBehaviour
 {
-    public MainScreenManager mainScreen;
+    public IUpdateDisplayable updateDisplay;
 
     public List<GameObject> quests;
     
@@ -18,6 +18,7 @@ public class InGameQuestUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        updateDisplay = GameObject.Find("SceneManager").GetComponent<IUpdateDisplayable>();
         foreach (Transform x in transform)
         {
             quests.Add(x.gameObject);
