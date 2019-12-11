@@ -30,7 +30,7 @@ public class ScoreManager : MonoBehaviour
             //score = (int)((player.transform.position.y * 100) + (player.transform.position.y * 100 * 0.5 * scoreMultiplier));
             score = (int) player.transform.position.y;
             finalScore.text = score.ToString();
-            inGameScore.text = score.ToString();
+            inGameScore.text = score + "m";
         }
         //Debug.Log("Score " + game.Score);
     }

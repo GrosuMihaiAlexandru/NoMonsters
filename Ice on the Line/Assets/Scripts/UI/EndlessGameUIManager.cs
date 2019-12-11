@@ -17,6 +17,8 @@ public class EndlessGameUIManager : MonoBehaviour, IUpdateDisplayable
     public Text collectedFishText;
     public Text fishMutiplier;
 
+    public Text collectedFishInGame;
+
     // ToggleVolume
     public Button soundToggleButton;
     public Sprite soundOn;
@@ -54,6 +56,7 @@ public class EndlessGameUIManager : MonoBehaviour, IUpdateDisplayable
     void Update()
     {
         fishMutiplier.text = Fish.fishMultiplier.ToString();
+        collectedFishInGame.text = collectedFish.ToString();
     }
 
     public void OnDestroy()

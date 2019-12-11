@@ -8,7 +8,9 @@ public class WaterController : MonoBehaviour
 
     private List<Transform> water = new List<Transform>();
 
-    private int ySize = 13;
+    private float ySize = 13.359f;
+
+    private float currentDistance = 2;
 
     private int counter = 0;
 
@@ -30,9 +32,32 @@ public class WaterController : MonoBehaviour
     void Update()
     {
 
-        if (player.transform.position.y - transform.position.y + offset >= ySize)
+        if (player.transform.position.y - currentDistance + offset >= ySize)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + ySize, transform.position.z);
+            switch(counter)
+            {
+                case 0:
+                    water[0].position = new Vector3(water[0].position.x, water[0].position.y + 4 *ySize, water[0].position.z);
+                    currentDistance += ySize;
+                    counter++;
+                    break;
+                case 1:
+                    water[1].position = new Vector3(water[1].position.x, water[1].position.y + 4 * ySize, water[1].position.z);
+                    currentDistance += ySize;
+                    counter++;
+                    break;
+                case 2:
+                    water[2].position = new Vector3(water[2].position.x, water[2].position.y + 4 * ySize, water[2].position.z);
+                    currentDistance += ySize;
+                    counter++;
+                    break;
+                case 3:
+                    water[3].position = new Vector3(water[3].position.x, water[3].position.y + 4 * ySize, water[3].position.z);
+                    currentDistance += ySize;
+                    counter = 0;
+                    break;
+            }
+            //position = new Vector3(transform.position.x, transform.position.y + ySize, transform.position.z);
         }
     }
 }

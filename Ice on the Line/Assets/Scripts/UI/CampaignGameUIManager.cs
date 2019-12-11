@@ -36,17 +36,20 @@ public class CampaignGameUIManager : MonoBehaviour, IUpdateDisplayable
     public Transform parentObject;
 
     [SerializeField]
-    private int collectedFish = 0;
+    public static int collectedFish = 0;
     //private int distance = 0;
 
     private GameObject player;
 
     private int playerFinalDistance;
 
+    public Text collectedFishText;
+
     void Start()
     {
         player = GameObject.Find("Player");
         collectedFish = 0;
+        collectedFishText.text = collectedFish.ToString();
 
         // Sound Button
         if (PlayerPrefs.GetInt("Muted", 0) == 0)
@@ -63,7 +66,10 @@ public class CampaignGameUIManager : MonoBehaviour, IUpdateDisplayable
         InGameEvents.OnItemCollected += CollectFish;
     }
 
-
+    public void OnDestroy()
+    {
+        InGameEvents.OnItemCollected -= CollectFish;
+    }
 
     public void PauseVolume()
     {
@@ -168,7 +174,10 @@ public class CampaignGameUIManager : MonoBehaviour, IUpdateDisplayable
     public void CollectFish(ICollectible collectible)
     {
         if (collectible.ID == 0)
-            collectedFish++;
+        {
+            collectedFish += Fish.fishMultiplier;
+            collectedFishText.text = collectedFish.ToString();
+        }
     }
 
     public void LoadNextLevel()
