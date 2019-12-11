@@ -164,7 +164,6 @@ public class MainScreenManager : MonoBehaviour, IUpdateDisplayable
         {
             extraOptions = true;
             extraOptionsPanel.SetActive(true);
-
         }
     }
 
@@ -173,4 +172,9 @@ public class MainScreenManager : MonoBehaviour, IUpdateDisplayable
         SceneManager.LoadScene("Campaign");
     }
 
+    public void OpenShopOnFishTab()
+    {
+        ShopPlaceLoader.openingTab = ShopPlaceLoader.TAB.fishTab;
+        SceneManager.LoadScene("Shop");
+    }
 }

@@ -14,7 +14,7 @@ public class ShopUI : MonoBehaviour
     public List<Text> bombUses = new List<Text>();
     public List<Text> teleportUses = new List<Text>();
 
-    private Color32 blueColor = new Color32(11, 75, 113, 255);
+    // private Color32 blueColor = new Color32(11, 75, 113, 255);
 
     public Sprite upgradesTab;
     public Sprite powerupsTab;
@@ -61,6 +61,7 @@ public class ShopUI : MonoBehaviour
         extraBlockUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.extrablock).ToString());
         bombUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.bomb).ToString());
         teleportUses.ForEach(e => e.text = "x" + GameManager.instance.GetPowerupUses(GameManager.Consumable.teleport).ToString());
+
     }
 
     /*
