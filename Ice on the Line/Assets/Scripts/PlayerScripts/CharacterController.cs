@@ -21,6 +21,8 @@ public class CharacterController : MonoBehaviour, IPlayer
     public GameObject gameOverScreen;
     public GameObject thermomether;
     public GameObject multiplier;
+    public GameObject collectedFish;
+    public GameObject score;
 
     private IUpdateDisplayable updateDisplay;
 
@@ -338,9 +340,15 @@ public class CharacterController : MonoBehaviour, IPlayer
         fish.SetActive(true);
         gFish.SetActive(true);
         if (!isEndless)
+        {
             lives.SetActive(true);
+        }
         else
+        {
             multiplier.SetActive(false);
+            score.SetActive(false);
+        }
+        collectedFish.SetActive(false);
 
         GameManager.instance.SaveProgress();
         QuestManager.instance.UpdateQuests();

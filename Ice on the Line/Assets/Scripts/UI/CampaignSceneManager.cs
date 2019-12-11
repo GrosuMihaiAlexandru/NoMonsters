@@ -41,6 +41,7 @@ public class CampaignSceneManager : MonoBehaviour, IUpdateDisplayable
         }
     }
 
+
     public void ToggleExtraOptions()
     {
         if (extraOptions)

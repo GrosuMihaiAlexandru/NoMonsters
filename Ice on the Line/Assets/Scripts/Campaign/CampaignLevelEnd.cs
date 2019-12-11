@@ -20,7 +20,6 @@ public class CampaignLevelEnd : MonoBehaviour
 
     private Text fishText;
 
-
     void Awake()
     {
         victoryScreen = GameObject.Find("GameUI").transform.Find("Victory").gameObject;
@@ -68,6 +67,7 @@ public class CampaignLevelEnd : MonoBehaviour
 
             GameManager.instance.AddFish(fishReward);
 
+            fishReward += CampaignGameUIManager.collectedFish;
             fishText.text = fishReward.ToString();
 
             ResetStars();
