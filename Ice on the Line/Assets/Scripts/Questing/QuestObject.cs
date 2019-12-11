@@ -23,7 +23,7 @@ public class QuestObject : MonoBehaviour
     {
         QuestManager.instance.RemoveQuest(questName);
         questUI.UpdateQuestsDisplay();
-        questUI.mainScreen.UpdateDisplay();
+        questUI.updateDisplay.UpdateDisplay();
     }
 
     public void UpdateQuestProgressOnUI()

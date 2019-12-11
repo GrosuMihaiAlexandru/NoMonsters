@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 
-public class CampaignSceneManager : MonoBehaviour
+public class CampaignSceneManager : MonoBehaviour, IUpdateDisplayable
 {
     public GameObject extraOptionsPanel;
 
@@ -27,7 +27,6 @@ public class CampaignSceneManager : MonoBehaviour
     void Start()
     {
         UpdateDisplay();
-        UpdateSlider();
 
         // Sound Button
         if (PlayerPrefs.GetInt("Muted", 0) == 0)
@@ -97,6 +96,7 @@ public class CampaignSceneManager : MonoBehaviour
         fish.text = GameManager.instance.Fish.ToString();
         Gfish.text = GameManager.instance.GFish.ToString();
         lives.text = GameManager.instance.Lives.ToString() + " / " + GameManager.instance.maxLives;
+        UpdateSlider();
     }
 
     public void UpdateSlider()

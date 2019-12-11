@@ -6,7 +6,7 @@ using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainScreenManager : MonoBehaviour
+public class MainScreenManager : MonoBehaviour, IUpdateDisplayable
 {
     // Popup tabs
     public GameObject questPanel;
