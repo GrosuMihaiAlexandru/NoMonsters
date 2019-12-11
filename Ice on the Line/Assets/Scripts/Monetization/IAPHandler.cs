@@ -8,6 +8,7 @@ using UnityEngine.Purchasing;
 public class IAPHandler : MonoBehaviour
 {
     public Text gFishText;
+    public Text fishText;
 
     public Text pileOfFishPrice;
     public Text bucketOfFishPrice;
@@ -127,6 +128,44 @@ public class IAPHandler : MonoBehaviour
                 // NativeUI.ShowToast("Receipt: " + sampleProduct.receipt);
             }
             // NativeUI.ShowToast("Price: " + sampleProduct.metadata.localizedPrice);
+        }
+    }
+
+    public void RegularFishExchangePurchase()
+    {
+        var alert = NativeUI.ShowTwoButtonAlert("Are you sure?", "Are you sure you want to purchase 1200 Fish with the cost of 40 Golden Fish?", "YES", "Not yet");
+
+        alert.OnComplete += Alert_OnCompleteRegularExchange;
+    }
+
+    private void Alert_OnCompleteRegularExchange(int obj) // 0 for button0, 1 for button1, 2 for button2
+    {
+        if (obj == 0)
+        {
+            GameManager.instance.RemoveGFish(40);
+            GameManager.instance.AddFish(1200);
+
+            gFishText.text = GameManager.instance.GFish.ToString();
+            fishText.text = GameManager.instance.Fish.ToString();
+        }
+    }
+
+    public void MassiveFishExchangePurchase()
+    {
+        var alert = NativeUI.ShowTwoButtonAlert("Are you sure?", "Are you sure you want to purchase 9000 Fish with the cost of 250 Golden Fish?", "YES", "Not yet");
+
+        alert.OnComplete += Alert_OnCompleteMassiveExchange;
+    }
+
+    private void Alert_OnCompleteMassiveExchange(int obj) // 0 for button0, 1 for button1, 2 for button2
+    {
+        if (obj == 0)
+        {
+            GameManager.instance.RemoveGFish(250);
+            GameManager.instance.AddFish(9000);
+
+            gFishText.text = GameManager.instance.GFish.ToString();
+            fishText.text = GameManager.instance.Fish.ToString();
         }
     }
 
